@@ -1,0 +1,25 @@
+---
+layout: base.njk
+---
+
+<h1>Shopify Theme Performance</h1>
+
+{% for theme in themes %}
+  <h2>{{ theme.name }}</h2>
+  <div class="chart-grid">
+    <div>
+      <h3>Number of Origins</h3>
+      {{ theme.originsSvg | safe }}
+      <p class="visually-hidden">
+        {{ theme.passingCwvAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Origins passing all CWV</h3>
+      {{ theme.passingCwvSvg | safe }}
+      <p class="visually-hidden">
+        {{ theme.passingCwvAria }}
+      </p>
+    </div>
+  </div>
+{% endfor %}

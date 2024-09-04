@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopify Theme Performance</title>
+  <style>
+    :root {
+      /* CSS HEX */
+      --sea-green: #00916eff;
+      --linen: #feefe5ff;
+      --jonquil: #ffcf00ff;
+      --persimmon: #ee6123ff;
+      --red-munsell: #e01a4c;
+
+      /* CSS HSL */
+      --sea-green: hsla(166, 100%, 28%, 1);
+      --linen: hsla(24, 93%, 95%, 1);
+      --jonquil: hsla(49, 100%, 50%, 1);
+      --persimmon: hsla(18, 86%, 54%, 1);
+    }
+    body {
+      /* font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif; */
+      font-family: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;;
+    }
+    .visually-hidden {
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+    .chart-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    {{ content | safe }}
+  </main>
+</body>
+</html>
