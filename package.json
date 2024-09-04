@@ -7,6 +7,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "npx @11ty/eleventy",
     "start": "npx @11ty/eleventy --serve"
   },
   "keywords": [],
