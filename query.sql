@@ -18,7 +18,7 @@ WITH archive_pages AS (
       page AS url,
       JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.name') AS theme_name,
       JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.theme_store_id') AS theme_store_id,
-    FROM `httparchive.all.pages` TABLESAMPLE SYSTEM (0.05 PERCENT)
+    FROM `httparchive.all.pages` TABLESAMPLE SYSTEM (0.05 PERCENT) --remove sample for full query (it's expensive)
     WHERE
       date = '2024-07-01'AND
       is_root_page AND
