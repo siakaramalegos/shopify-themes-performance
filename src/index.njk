@@ -6,19 +6,28 @@ layout: base.njk
 
 {% for theme in themes %}
   <h2>{{ theme.name }}</h2>
+  <p>ID: {{ theme.id }}</p>
+  <p>
+    {% if theme.sunset %}
+      <em>VINTAGE</em>
+    {% else %}
+    <!-- TODO: slugify -->
+      <em><a href="https://themes.shopify.com/themes/{{ theme.slug }}">View in theme store</a></em>
+    {% endif %}
+  </p>
   <div class="chart-grid">
     <div>
       <h3>Number of Origins</h3>
-      {{ theme.originsSvg | safe }}
+      {{ theme.charts.mobile.originsSvg | safe }}
       <p class="visually-hidden">
-        {{ theme.passingCwvAria }}
+        {{ theme.charts.mobile.passingCwvAria }}
       </p>
     </div>
     <div>
       <h3>Origins passing all CWV</h3>
-      {{ theme.passingCwvSvg | safe }}
+      {{ theme.charts.mobile.passingCwvSvg | safe }}
       <p class="visually-hidden">
-        {{ theme.passingCwvAria }}
+        {{ theme.charts.mobile.passingCwvAria }}
       </p>
     </div>
   </div>

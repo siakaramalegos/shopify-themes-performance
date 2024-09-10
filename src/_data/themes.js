@@ -1,31 +1,102 @@
 // Server-side code
 const echarts = require('echarts');
+const fs = require('fs')
+const { readDataFile } = require('../../helpers');
 
-const CURRENT_MONTHS = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
-const THEMES = [
-  {
-    name: "Dawn",
-    origins: [32012,12324,12134,23242,27992,12328],
-    passingCWV: [83, 82, 83, 83, 85, 86],
-    lcp: [
-      [92, 92, 93, 95, 96, 96],
-      [1, 2, 2, 2, 1, 2, 2],
-      [7, 6, 5, 4, 2, 2]
-    ]
-  },
-  {
-    name: "Impact",
-    origins: [2012,2324,2134,3242,7992,2328],
-    passingCWV: [70, 73, 72, 70, 73, 72],
-    lcp: [
-      [92, 92, 93, 95, 96, 96],
-      [1, 2, 2, 2, 1, 2, 2],
-      [7, 6, 5, 4, 2, 2]
-    ]
+const INPUT_FOLDER = '_processed_data'
+
+const latestDataFile = fs.readdirSync(INPUT_FOLDER).sort().reverse()[0]
+const input = readDataFile(`${INPUT_FOLDER}/${latestDataFile}`)
+const themesObj = input.themes
+const currentMonths = input.dates.sort()
+const currentMonthsReadable = currentMonths.map(dateStr => {
+  const parts = dateStr.split('_')
+  return `${parts[1]}/${parts[0].slice(2)}`
+})
+console.log("**************************************************");
+
+console.log(`*** Creating charts for months: ${currentMonthsReadable.join(', ')}.`);
+
+
+const themes = Object.keys(themesObj).map(themeId => {
+  const inputData = themesObj[themeId]
+  const {id, name, monthlyData, sunset, slug} = inputData
+
+  // Array indexes are in date order
+  const data = {
+    'mobile': {
+      origins: Array(6).fill(),
+      passingCWV: Array(6).fill(),
+      passingLCP: Array(6).fill(),
+      needsImproveLCP: Array(6).fill(),
+      poorLCP: Array(6).fill(),
+      passingCLS: Array(6).fill(),
+      needsImproveCLS: Array(6).fill(),
+      poorCLS: Array(6).fill(),
+      passingINP: Array(6).fill(),
+      needsImproveINP: Array(6).fill(),
+      poorINP: Array(6).fill(),
+    },
+    'desktop': {
+      origins: Array(6).fill(),
+      passingCWV: Array(6).fill(),
+      passingLCP: Array(6).fill(),
+      needsImproveLCP: Array(6).fill(),
+      poorLCP: Array(6).fill(),
+      passingCLS: Array(6).fill(),
+      needsImproveCLS: Array(6).fill(),
+      poorCLS: Array(6).fill(),
+      passingINP: Array(6).fill(),
+      needsImproveINP: Array(6).fill(),
+      poorINP: Array(6).fill(),
+    },
   }
-]
 
-function getPassingCwvSvg(monthlyData) {
+  monthlyData.forEach(dataset => {
+    const {client, date, origins, pct_good_cwv, pct_good_lcp, pct_ni_lcp, pct_poor_lcp, pct_good_cls, pct_ni_cls, pct_poor_cls, pct_good_inp, pct_ni_inp, pct_poor_inp} = dataset
+    const index = currentMonths.indexOf(date)
+    if (index) {
+      data[client].origins[index] = origins
+      if (origins > 30) {
+        data[client].passingCWV[index] = pct_good_cwv
+        data[client].passingLCP[index] = pct_good_lcp
+        data[client].needsImproveLCP[index] = pct_ni_lcp
+        data[client].poorLCP[index] = pct_poor_lcp
+        data[client].passingCLS[index] = pct_good_cls
+        data[client].needsImproveCLS[index] = pct_ni_cls
+        data[client].poorCLS[index] = pct_poor_cls
+        data[client].passingINP[index] = pct_good_inp
+        data[client].needsImproveINP[index] = pct_ni_inp
+        data[client].poorINP[index] = pct_poor_inp
+      }
+    }
+
+  })
+
+  const charts = {}
+
+  Object.keys(data).forEach(client => {
+    const {origins, passingCWV, passingLCP, needsImproveLCP, poorLCP, passingCLS, needsImproveCLS, poorCLS, passingINP, needsImproveINP, poorINP} = data[client]
+
+
+    charts[client] = {
+      originsSvg: getLineSvg(origins, currentMonthsReadable),
+      passingCwvSvg: getPassingCwvSvg(passingCWV, currentMonthsReadable),
+      passingCwvAria: `Origins Passing All Core Web Vitals bar chart. The data is: ${passingCWV.join(', ')}% passing for the months ${currentMonthsReadable.join(', ')}.`,
+    }
+  })
+
+  return {
+    id,
+    name,
+    slug,
+    sunset,
+    data,
+    charts,
+  }
+})
+
+function getPassingCwvSvg(monthlyData, currentMonthsReadable) {
   // In SSR mode the first container parameter is not required
   let chart = echarts.init(null, null, {
     renderer: 'svg', // must use SVG rendering mode
@@ -36,7 +107,7 @@ function getPassingCwvSvg(monthlyData) {
 
   chart.setOption({
     xAxis: {
-      data: CURRENT_MONTHS
+      data: currentMonthsReadable
     },
     yAxis: {},
     series: [
@@ -74,7 +145,7 @@ function getPassingCwvSvg(monthlyData) {
   return svgStr
 }
 
-function getLineSvg(monthlyData) {
+function getLineSvg(monthlyData, currentMonthsReadable) {
   // In SSR mode the first container parameter is not required
   let chart = echarts.init(null, null, {
     renderer: 'svg', // must use SVG rendering mode
@@ -86,7 +157,7 @@ function getLineSvg(monthlyData) {
   chart.setOption({
     xAxis: {
       type: 'category',
-      data: CURRENT_MONTHS
+      data: currentMonthsReadable
     },
     yAxis: {
       type: 'value'
@@ -108,13 +179,7 @@ function getLineSvg(monthlyData) {
   return svgStr
 }
 
-const themesWithCharts = THEMES.map(theme => {
-  return {
-    ...theme,
-    originsSvg: getLineSvg(theme.origins),
-    passingCwvSvg: getPassingCwvSvg(theme.passingCWV),
-    passingCwvAria: `Origins Passing All Core Web Vitals bar chart. The data is: ${theme.passingCWV.join(', ')}% passing for the months ${CURRENT_MONTHS.join(', ')}.`,
-  }
-})
+console.log(`*** ${themes.length} themes built.`);
+console.log("**************************************************");
 
-module.exports = themesWithCharts
+module.exports = themes
