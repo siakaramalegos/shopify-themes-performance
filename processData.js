@@ -1,7 +1,6 @@
-const fs = require('fs')
 const { readDataFile, getDateFileString, mungeData, writeDataFile } = require('./helpers');
 const RAW_FOLDER = '_raw_data/';
-const PROCESSED_FOLDER = '_processed_data/'
+const CACHE_DIR = '_processed_data'
 
 const today = new Date()
 // TODO - change to -1
@@ -41,6 +40,5 @@ dateFileNames.forEach(date => {
 
 })
 
-console.log(output['887']);
-
-
+const outputFileName = getDateFileString(new Date())
+writeDataFile(output, CACHE_DIR, `${outputFileName}.json`, 'Theme data')

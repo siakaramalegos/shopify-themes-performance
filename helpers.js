@@ -34,17 +34,16 @@ function mungeData(origins, rawPercents, dateString, client) {
 }
 
 // save combined webmentions in cache file
-function writeDataFile(data, writeFilePath, descriptor) {
-  const dir = '_cache'
+function writeDataFile(data, cacheDir, writeFilePath, descriptor) {
   const fileContent = JSON.stringify(data, null, 2)
   // create cache folder if it doesnt exist already
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
+  if (!fs.existsSync(cacheDir)) {
+    fs.mkdirSync(cacheDir)
   }
   // write data to cache json file
-  fs.writeDataFile(writeFilePath, fileContent, err => {
+  fs.writeFile(`${cacheDir}/${writeFilePath}`, fileContent, err => {
     if (err) throw err
-    console.log(`>>> ${descriptor} cached to ${writeFilePath}`)
+    console.log(`>>> ${descriptor} cached to ${cacheDir}/${writeFilePath}`)
   })
 }
 
