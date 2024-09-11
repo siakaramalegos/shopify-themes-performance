@@ -12,7 +12,7 @@ module.exports = function(eleventyConfig) {
   //   eleventyConfig.addShortcode(shortcodeName, shortcodes[shortcodeName])
   // })
 
-  // eleventyConfig.setDataDeepMerge(true);
+  eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addPassthroughCopy("src/img");
   // eleventyConfig.addPassthroughCopy("src/fonts");
   // eleventyConfig.addPassthroughCopy("src/javascript");
