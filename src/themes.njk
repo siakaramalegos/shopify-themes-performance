@@ -1,58 +1,12 @@
 ---
 layout: base.njk
-pagination:
-  data: themes
-  size: 1
-  alias: theme
-permalink: "/themes/{{ theme.slug }}/"
 ---
 
-<h1>{{ theme.name }}</h1>
-<p>ID: {{ theme.id }}</p>
-<p>
-  {% if theme.sunset %}
-    <em>VINTAGE</em>
-  {% else %}
-    <em><a href="https://themes.shopify.com/themes/{{ theme.slug }}">View in theme store</a></em>
-  {% endif %}
-</p>
-<div class="chart-grid">
-  <div>
-    <h2>Number of Origins</h2>
-    {{ theme.charts.mobile.originsSvg | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
-    </p>
-  </div>
-  <div>
-    <h2>Origins passing all CWV</h2>
-    {{ theme.charts.mobile.passingCwvSvg | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
-    </p>
-  </div>
-  <div>
-    <h2>Largest Contentful Paint (LCP)</h2>
-    {{ theme.charts.mobile.lcp | safe }}
-    <!-- TODO add correct aria -->
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
-    </p>
-  </div>
-  <div>
-    <h2>Cumulative Layout Shift (CLS)</h2>
-    {{ theme.charts.mobile.cls | safe }}
-    <!-- TODO add correct aria -->
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
-    </p>
-  </div>
-  <div>
-    <h2>Interaction to Next Paint (INP)</h2>
-    {{ theme.charts.mobile.inp | safe }}
-    <!-- TODO add correct aria -->
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
-    </p>
-  </div>
-</div>
+<h1>All themes</h1>
+
+{% set sortedThemes = themes | sortThemes %}
+<ul>
+  {% for theme in sortedThemes %}
+    <li><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a></li>
+  {% endfor %}
+</ul>

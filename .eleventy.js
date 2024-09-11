@@ -1,10 +1,11 @@
 const fs = require("fs");
+const filters = require('./src/_11ty/filters');
 
 module.exports = function(eleventyConfig) {
-  // // Filters
-  // Object.keys(filters).forEach(filterName => {
-  //   eleventyConfig.addFilter(filterName, filters[filterName])
-  // })
+  // Filters
+  Object.keys(filters).forEach(filterName => {
+    eleventyConfig.addFilter(filterName, filters[filterName])
+  })
 
   // // Shortcodes
   // Object.keys(shortcodes).forEach(shortcodeName => {
