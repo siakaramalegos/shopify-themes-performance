@@ -32,13 +32,19 @@ CLIENTS.forEach(client => {
   currentMonths.forEach(monthStr => { totalOriginsCounts[client][monthStr] = 0 })
 })
 
+console.log("**************************************************");
+console.log("*** Beginning data parsing and chart building...");
+
 // For each monthly data file, dump each theme's monthly data into the theme object
 currentMonths.forEach(date => {
   const file = `${RAW_FOLDER}${date}.json`
   const fileData = readDataFile(file)
 
   // Early exit if no file data (file doesn't exist)
-  if (!fileData[0]) { return }
+  if (!fileData[0]) {
+    console.log(`*** Skipping ${date} file with no data!`);
+    return
+  }
 
   fileData.forEach(theme => {
     const {client, top_theme_name, origins, id, ...rawPercents} = theme
@@ -88,7 +94,6 @@ currentMonths.forEach(date => {
 })
 
 // Housekeeping about bad theme names or theme_store_ids and general themes data
-console.log("**************************************************");
 if (Object.keys(unconfirmedThemes).length > 1) {
   console.error("*** UNCONFIRMED THEMES:");
   console.log("*** ", {unconfirmedThemes});
@@ -107,7 +112,7 @@ console.log(`*** Creating charts for months: ${currentMonthsReadable.join(', ')}
 const themesWithCharts = Object.keys(themes).map(themeId => {
   const inputData = themes[themeId]
   const {id, name, monthlyData, sunset, slug} = inputData
-  const metrics = ['origins', 'passingCWV', 'passingLCP', 'needsImproveLCP', 'poorLCP', 'passingCLS', 'needsImproveCLS', 'poorCLS', 'passingINP', 'needsImproveINP', 'poorINP']
+  const metrics = ['origins', 'passingCWV', 'passingLCP', 'needsImproveLCP', 'poorLCP', 'passingCLS', 'needsImproveCLS', 'poorCLS', 'passingINP', 'needsImproveINP', 'poorINP', 'passingTTFB', 'needsImproveTTFB', 'poorTTFB', 'passingFCP', 'needsImproveFCP', 'poorFCP']
 
   // Initialize data object with null arrays. Array indexes are in date order.
   const data = { mobile: {}, desktop: {} }
@@ -116,11 +121,11 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
   })
 
   monthlyData.forEach(dataset => {
-    const {client, date, origins, pct_good_cwv, pct_good_lcp, pct_ni_lcp, pct_poor_lcp, pct_good_cls, pct_ni_cls, pct_poor_cls, pct_good_inp, pct_ni_inp, pct_poor_inp} = dataset
+    const {client, date, origins, pct_good_cwv, pct_good_lcp, pct_ni_lcp, pct_poor_lcp, pct_good_cls, pct_ni_cls, pct_poor_cls, pct_good_inp, pct_ni_inp, pct_poor_inp, pct_good_ttfb, pct_ni_ttfb, pct_poor_ttfb, pct_good_fcp, pct_ni_fcp, pct_poor_fcp} = dataset
     const index = currentMonths.indexOf(date)
     if (index) {
       data[client].origins[index] = origins
-      if (origins > 30) {
+      if (origins > MIN_ORIGINS) {
         data[client].passingCWV[index] = pct_good_cwv
         data[client].passingLCP[index] = pct_good_lcp
         data[client].needsImproveLCP[index] = pct_ni_lcp
@@ -131,6 +136,12 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
         data[client].passingINP[index] = pct_good_inp
         data[client].needsImproveINP[index] = pct_ni_inp
         data[client].poorINP[index] = pct_poor_inp
+        data[client].passingTTFB[index] = pct_good_ttfb
+        data[client].needsImproveTTFB[index] = pct_ni_ttfb
+        data[client].poorTTFB[index] = pct_poor_ttfb
+        data[client].passingFCP[index] = pct_good_fcp
+        data[client].needsImproveFCP[index] = pct_ni_fcp
+        data[client].poorFCP[index] = pct_poor_fcp
       }
     }
 
@@ -139,7 +150,7 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
   const charts = {}
 
   Object.keys(data).forEach(client => {
-    const {origins, passingCWV, passingLCP, needsImproveLCP, poorLCP, passingCLS, needsImproveCLS, poorCLS, passingINP, needsImproveINP, poorINP} = data[client]
+    const {origins, passingCWV, passingLCP, needsImproveLCP, poorLCP, passingCLS, needsImproveCLS, poorCLS, passingINP, needsImproveINP, poorINP, passingTTFB, needsImproveTTFB, poorTTFB, passingFCP, needsImproveFCP, poorFCP} = data[client]
 
     charts[client] = {
       originsSvg: getLineSvg(origins, currentMonthsReadable),
@@ -148,6 +159,8 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
       lcp: getStackedBarSvg(passingLCP, needsImproveLCP, poorLCP, currentMonthsReadable),
       cls: getStackedBarSvg(passingCLS, needsImproveCLS, poorCLS, currentMonthsReadable),
       inp: getStackedBarSvg(passingINP, needsImproveINP, poorINP, currentMonthsReadable),
+      ttfb: getStackedBarSvg(passingTTFB, needsImproveTTFB, poorTTFB, currentMonthsReadable),
+      fcp: getStackedBarSvg(passingFCP, needsImproveFCP, poorFCP, currentMonthsReadable),
     }
   })
 

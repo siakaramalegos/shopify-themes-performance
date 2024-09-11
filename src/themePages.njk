@@ -32,6 +32,22 @@ permalink: "/themes/{{ theme.slug }}/"
     </p>
   </div>
   <div>
+    <h2>Time to First Byte (TTFB)</h2>
+    {{ theme.charts.mobile.ttfb | safe }}
+    <!-- TODO add correct aria -->
+    <p class="visually-hidden">
+      {{ theme.charts.mobile.passingCwvAria }}
+    </p>
+  </div>
+  <div>
+    <h2>First Contentful Paint (FCP)</h2>
+    {{ theme.charts.mobile.fcp | safe }}
+    <!-- TODO add correct aria -->
+    <p class="visually-hidden">
+      {{ theme.charts.mobile.passingCwvAria }}
+    </p>
+  </div>
+  <div>
     <h2>Largest Contentful Paint (LCP)</h2>
     {{ theme.charts.mobile.lcp | safe }}
     <!-- TODO add correct aria -->
