@@ -4,60 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shopify Theme Performance</title>
+  {% set css %}
+    {% include "style.css" %}
+  {% endset %}
   <style>
-    :root {
-      /* CSS HEX */
-      --sea-green: #00916eff;
-      --light-sea-green: #dfece9;
-      --linen: #feefe5ff;
-      --jonquil: #ffcf00ff;
-      --persimmon: #ee6123ff;
-      --red-munsell: #e01a4c;
-      --charcoal: #194238;
-
-      /* CSS HSL */
-      --sea-green: hsla(166, 100%, 28%, 1);
-      --linen: hsla(24, 93%, 95%, 1);
-      --jonquil: hsla(49, 100%, 50%, 1);
-      --persimmon: hsla(18, 86%, 54%, 1);
-    }
-    body {
-      /* font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif; */
-      font-family: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;;
-    }
-    .visually-hidden {
-      clip-path: inset(50%);
-      height: 1px;
-      overflow: hidden;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
-    }
-    .chart-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    button.client-switch {
-      background-color: var(--light-sea-green);
-      border: 1px solid var(--sea-green);
-      border-radius: 0;
-      box-shadow: 0 3px 6px rgba(0,0,0,.15),0 2px 4px rgba(0,0,0,.12);
-      color: var(--charcoal);
-      cursor: pointer;
-      padding: 4px 8px;
-    }
-    button.client-switch[aria-checked="true"] {
-      background-color: var(--sea-green);
-      color: #fff;
-    }
+    {{ css | cssmin | safe }}
   </style>
 </head>
 <body>
-  <header>
-    <p><a href="/">Home</a>  <a href="/themes">All themes</a></p>
+  <header class="content">
+    <nav>
+      <ul role="list">
+        <li><a aria-current="{% if page.url == '/' %}page{% else %}false{% endif %}" href="/">Home</a></li>
+        <li><a aria-current="{% if page.url == '/themes/' %}page{% else %}false{% endif %}" href="/themes">All themes</a></li>
+      </ul>
+    </nav>
   </header>
-  <main>
+  <main class="flow">
     {{ content | safe }}
   </main>
 </body>

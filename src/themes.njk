@@ -2,11 +2,13 @@
 layout: base.njk
 ---
 
-<h1>All themes</h1>
+<div class="content flow">
+  <h1>All themes</h1>
 
-{% set sortedThemes = themes | sortThemes %}
-<ul>
-  {% for theme in sortedThemes %}
-    <li><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a></li>
-  {% endfor %}
-</ul>
+  {% set sortedThemes = themes | sortThemes %}
+  <ul>
+    {% for theme in sortedThemes %}
+      <li><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
