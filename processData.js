@@ -183,8 +183,9 @@ console.log("**************************************************");
 
 const output = {
   themes: themesWithCharts,
-  dates: currentMonths,
-  readableDates: currentMonthsReadable,
+  aggregations: {
+    lastMonth: currentMonthsReadable[currentMonthsReadable.length - 1]
+  }
 }
 
 const outputFileName = getDateFileString(new Date())

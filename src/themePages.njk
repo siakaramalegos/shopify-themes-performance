@@ -8,7 +8,6 @@ permalink: "/themes/{{ theme.slug }}/"
 ---
 
 <h1>{{ theme.name }}</h1>
-<p>ID: {{ theme.id }}</p>
 <p>
   {% if theme.sunset %}
     <em>VINTAGE</em>
@@ -16,54 +15,153 @@ permalink: "/themes/{{ theme.slug }}/"
     <em><a href="https://themes.shopify.com/themes/{{ theme.slug }}">View in theme store</a></em>
   {% endif %}
 </p>
-<div class="chart-grid">
-  <div>
-    <h2>Number of Origins</h2>
-    {{ theme.charts.mobile.originsSvg | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.originsAria }}
-    </p>
+
+<button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
+  Mobile
+</button>
+<button id="desktop-switch" class="client-switch" role="switch" aria-checked="false">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
+  Desktop
+</button>
+
+<div id="data-mobile">
+  <h2>Summary</h2>
+  <div class="chart-grid">
+    <div>
+      <h3>Number of Origins</h3>
+      {{ theme.charts.mobile.originsSvg | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.originsAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Origins passing all CWV</h3>
+      {{ theme.charts.mobile.passingCwvSvg | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.passingCwvAria }}
+      </p>
+    </div>
   </div>
-  <div>
-    <h2>Origins passing all CWV</h2>
-    {{ theme.charts.mobile.passingCwvSvg | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
-    </p>
+  <h2>Loading Speed Metrics</h2>
+  <div class="chart-grid">
+    <div>
+      <h3>Time to First Byte (TTFB)</h3>
+      {{ theme.charts.mobile.ttfb | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.ttfbAria }}
+      </p>
+    </div>
+    <div>
+      <h3>First Contentful Paint (FCP)</h3>
+      {{ theme.charts.mobile.fcp | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.fcpAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Largest Contentful Paint (LCP)</h3>
+      {{ theme.charts.mobile.lcp | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.lcpAria }}
+      </p>
+    </div>
   </div>
-  <div>
-    <h2>Time to First Byte (TTFB)</h2>
-    {{ theme.charts.mobile.ttfb | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.ttfbAria }}
-    </p>
-  </div>
-  <div>
-    <h2>First Contentful Paint (FCP)</h2>
-    {{ theme.charts.mobile.fcp | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.fcpAria }}
-    </p>
-  </div>
-  <div>
-    <h2>Largest Contentful Paint (LCP)</h2>
-    {{ theme.charts.mobile.lcp | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.lcpAria }}
-    </p>
-  </div>
-  <div>
-    <h2>Cumulative Layout Shift (CLS)</h2>
-    {{ theme.charts.mobile.cls | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.clsAria }}
-    </p>
-  </div>
-  <div>
-    <h2>Interaction to Next Paint (INP)</h2>
-    {{ theme.charts.mobile.inp | safe }}
-    <p class="visually-hidden">
-      {{ theme.charts.mobile.inpAria }}
-    </p>
+  <h2>Other Web Vitals Metrics</h2>
+  <div class="chart-grid">
+    <div>
+      <h3>Cumulative Layout Shift (CLS)</h3>
+      {{ theme.charts.mobile.cls | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.clsAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Interaction to Next Paint (INP)</h3>
+      {{ theme.charts.mobile.inp | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.inpAria }}
+      </p>
+    </div>
   </div>
 </div>
+<div id="data-desktop" hidden>
+  <h2>Summary</h2>
+  <div class="chart-grid">
+    <div>
+      <h3>Number of Origins</h3>
+      {{ theme.charts.desktop.originsSvg | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.desktop.originsAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Origins passing all CWV</h3>
+      {{ theme.charts.desktop.passingCwvSvg | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.desktop.passingCwvAria }}
+      </p>
+    </div>
+  </div>
+  <h2>Loading Speed Metrics</h2>
+  <div class="chart-grid">
+    <div>
+      <h3>Time to First Byte (TTFB)</h3>
+      {{ theme.charts.desktop.ttfb | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.desktop.ttfbAria }}
+      </p>
+    </div>
+    <div>
+      <h3>First Contentful Paint (FCP)</h3>
+      {{ theme.charts.desktop.fcp | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.desktop.fcpAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Largest Contentful Paint (LCP)</h3>
+      {{ theme.charts.desktop.lcp | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.desktop.lcpAria }}
+      </p>
+    </div>
+  </div>
+  <h2>Other Web Vitals Metrics</h2>
+  <div class="chart-grid">
+    <div>
+      <h3>Cumulative Layout Shift (CLS)</h3>
+      {{ theme.charts.desktop.cls | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.desktop.clsAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Interaction to Next Paint (INP)</h3>
+      {{ theme.charts.desktop.inp | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.desktop.inpAria }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const buttonMobile = document.querySelector("#mobile-switch")
+  const buttonDesktop = document.querySelector("#desktop-switch")
+  const sectionMobile = document.querySelector("#data-mobile")
+  const sectionDesktop = document.querySelector("#data-desktop")
+
+  buttonMobile.addEventListener("click", e => {
+    sectionMobile.hidden = false
+    sectionDesktop.hidden = true
+    buttonMobile.setAttribute("aria-checked", true)
+    buttonDesktop.setAttribute("aria-checked", false)
+  })
+  buttonDesktop.addEventListener("click", e => {
+    sectionMobile.hidden = true
+    sectionDesktop.hidden = false
+    buttonMobile.setAttribute("aria-checked", false)
+    buttonDesktop.setAttribute("aria-checked", true)
+  })
+</script>

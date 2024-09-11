@@ -8,10 +8,12 @@
     :root {
       /* CSS HEX */
       --sea-green: #00916eff;
+      --light-sea-green: #dfece9;
       --linen: #feefe5ff;
       --jonquil: #ffcf00ff;
       --persimmon: #ee6123ff;
       --red-munsell: #e01a4c;
+      --charcoal: #194238;
 
       /* CSS HSL */
       --sea-green: hsla(166, 100%, 28%, 1);
@@ -35,6 +37,19 @@
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
+    }
+    button.client-switch {
+      background-color: var(--light-sea-green);
+      border: 1px solid var(--sea-green);
+      border-radius: 0;
+      box-shadow: 0 3px 6px rgba(0,0,0,.15),0 2px 4px rgba(0,0,0,.12);
+      color: var(--charcoal);
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    button.client-switch[aria-checked="true"] {
+      background-color: var(--sea-green);
+      color: #fff;
     }
   </style>
 </head>
