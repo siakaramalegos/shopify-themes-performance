@@ -119,11 +119,10 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
   CLIENTS.forEach(client => {
     metrics.forEach(metric => { data[client][metric] = Array(6).fill() })
   })
-
   monthlyData.forEach(dataset => {
     const {client, date, origins, pct_good_cwv, pct_good_lcp, pct_ni_lcp, pct_poor_lcp, pct_good_cls, pct_ni_cls, pct_poor_cls, pct_good_inp, pct_ni_inp, pct_poor_inp, pct_good_ttfb, pct_ni_ttfb, pct_poor_ttfb, pct_good_fcp, pct_ni_fcp, pct_poor_fcp} = dataset
     const index = currentMonths.indexOf(date)
-    if (index) {
+    if (index >= 0) {
       data[client].origins[index] = origins
       if (origins > MIN_ORIGINS) {
         data[client].passingCWV[index] = pct_good_cwv
@@ -144,7 +143,6 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
         data[client].poorFCP[index] = pct_poor_fcp
       }
     }
-
   })
 
   const charts = {}
