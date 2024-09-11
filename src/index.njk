@@ -11,7 +11,6 @@ layout: base.njk
     {% if theme.sunset %}
       <em>VINTAGE</em>
     {% else %}
-    <!-- TODO: slugify -->
       <em><a href="https://themes.shopify.com/themes/{{ theme.slug }}">View in theme store</a></em>
     {% endif %}
   </p>
@@ -26,6 +25,30 @@ layout: base.njk
     <div>
       <h3>Origins passing all CWV</h3>
       {{ theme.charts.mobile.passingCwvSvg | safe }}
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.passingCwvAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Largest Contentful Paint (LCP)</h3>
+      {{ theme.charts.mobile.lcp | safe }}
+      <!-- TODO add correct aria -->
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.passingCwvAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Cumulative Layout Shift (CLS)</h3>
+      {{ theme.charts.mobile.cls | safe }}
+      <!-- TODO add correct aria -->
+      <p class="visually-hidden">
+        {{ theme.charts.mobile.passingCwvAria }}
+      </p>
+    </div>
+    <div>
+      <h3>Interaction to Next Paint (INP)</h3>
+      {{ theme.charts.mobile.inp | safe }}
+      <!-- TODO add correct aria -->
       <p class="visually-hidden">
         {{ theme.charts.mobile.passingCwvAria }}
       </p>
