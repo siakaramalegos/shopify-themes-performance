@@ -4,54 +4,8 @@ layout: base.njk
 
 <h1>Shopify Theme Performance</h1>
 
-{% for theme in themes %}
-  <h2>{{ theme.name }}</h2>
-  <p>ID: {{ theme.id }}</p>
-  <p>
-    {% if theme.sunset %}
-      <em>VINTAGE</em>
-    {% else %}
-      <em><a href="https://themes.shopify.com/themes/{{ theme.slug }}">View in theme store</a></em>
-    {% endif %}
-  </p>
-  <div class="chart-grid">
-    <div>
-      <h3>Number of Origins</h3>
-      {{ theme.charts.mobile.originsSvg | safe }}
-      <p class="visually-hidden">
-        {{ theme.charts.mobile.passingCwvAria }}
-      </p>
-    </div>
-    <div>
-      <h3>Origins passing all CWV</h3>
-      {{ theme.charts.mobile.passingCwvSvg | safe }}
-      <p class="visually-hidden">
-        {{ theme.charts.mobile.passingCwvAria }}
-      </p>
-    </div>
-    <div>
-      <h3>Largest Contentful Paint (LCP)</h3>
-      {{ theme.charts.mobile.lcp | safe }}
-      <!-- TODO add correct aria -->
-      <p class="visually-hidden">
-        {{ theme.charts.mobile.passingCwvAria }}
-      </p>
-    </div>
-    <div>
-      <h3>Cumulative Layout Shift (CLS)</h3>
-      {{ theme.charts.mobile.cls | safe }}
-      <!-- TODO add correct aria -->
-      <p class="visually-hidden">
-        {{ theme.charts.mobile.passingCwvAria }}
-      </p>
-    </div>
-    <div>
-      <h3>Interaction to Next Paint (INP)</h3>
-      {{ theme.charts.mobile.inp | safe }}
-      <!-- TODO add correct aria -->
-      <p class="visually-hidden">
-        {{ theme.charts.mobile.passingCwvAria }}
-      </p>
-    </div>
-  </div>
-{% endfor %}
+<ul>
+  {% for theme in themes %}
+    <li><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a></li>
+  {% endfor %}
+</ul>
