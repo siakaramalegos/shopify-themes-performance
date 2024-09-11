@@ -21,7 +21,7 @@ permalink: "/themes/{{ theme.slug }}/"
     <h2>Number of Origins</h2>
     {{ theme.charts.mobile.originsSvg | safe }}
     <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
+      {{ theme.charts.mobile.originsAria }}
     </p>
   </div>
   <div>
@@ -34,41 +34,36 @@ permalink: "/themes/{{ theme.slug }}/"
   <div>
     <h2>Time to First Byte (TTFB)</h2>
     {{ theme.charts.mobile.ttfb | safe }}
-    <!-- TODO add correct aria -->
     <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
+      {{ theme.charts.mobile.ttfbAria }}
     </p>
   </div>
   <div>
     <h2>First Contentful Paint (FCP)</h2>
     {{ theme.charts.mobile.fcp | safe }}
-    <!-- TODO add correct aria -->
     <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
+      {{ theme.charts.mobile.fcpAria }}
     </p>
   </div>
   <div>
     <h2>Largest Contentful Paint (LCP)</h2>
     {{ theme.charts.mobile.lcp | safe }}
-    <!-- TODO add correct aria -->
     <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
+      {{ theme.charts.mobile.lcpAria }}
     </p>
   </div>
   <div>
     <h2>Cumulative Layout Shift (CLS)</h2>
     {{ theme.charts.mobile.cls | safe }}
-    <!-- TODO add correct aria -->
     <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
+      {{ theme.charts.mobile.clsAria }}
     </p>
   </div>
   <div>
     <h2>Interaction to Next Paint (INP)</h2>
     {{ theme.charts.mobile.inp | safe }}
-    <!-- TODO add correct aria -->
     <p class="visually-hidden">
-      {{ theme.charts.mobile.passingCwvAria }}
+      {{ theme.charts.mobile.inpAria }}
     </p>
   </div>
 </div>

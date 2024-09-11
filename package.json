@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npx @11ty/eleventy",
-    "start": "npx @11ty/eleventy --serve"
+    "start": "npx @11ty/eleventy --serve",
+    "process": "node processData.js"
   },
   "keywords": [],
   "author": "",

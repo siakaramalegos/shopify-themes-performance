@@ -154,13 +154,19 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
 
     charts[client] = {
       originsSvg: getLineSvg(origins, currentMonthsReadable),
+      originsAria: `Origins by month line chart. The data is: ${origins.join(', ')} origins for the months ${currentMonthsReadable.join(', ')}.`,
       passingCwvSvg: getPassingCwvSvg(passingCWV, currentMonthsReadable),
       passingCwvAria: `Origins Passing All Core Web Vitals bar chart. The data is: ${passingCWV.join(', ')}% passing for the months ${currentMonthsReadable.join(', ')}.`,
       lcp: getStackedBarSvg(passingLCP, needsImproveLCP, poorLCP, currentMonthsReadable),
+      lcpAria: `LCP bar chart. The data is: ${passingLCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
       cls: getStackedBarSvg(passingCLS, needsImproveCLS, poorCLS, currentMonthsReadable),
+      clsAria: `CLS bar chart. The data is: ${passingCLS.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
       inp: getStackedBarSvg(passingINP, needsImproveINP, poorINP, currentMonthsReadable),
+      inpAria: `INP bar chart. The data is: ${passingINP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
       ttfb: getStackedBarSvg(passingTTFB, needsImproveTTFB, poorTTFB, currentMonthsReadable),
+      ttfbAria: `TTFB bar chart. The data is: ${passingTTFB.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
       fcp: getStackedBarSvg(passingFCP, needsImproveFCP, poorFCP, currentMonthsReadable),
+      fcpAria: `FCP bar chart. The data is: ${passingFCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
     }
   })
 
