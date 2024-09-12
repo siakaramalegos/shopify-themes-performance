@@ -5,10 +5,12 @@ layout: base.njk
 <div class="content flow">
   <h1>All themes</h1>
 
-  {% set sortedThemes = themes | sortThemes %}
-  <ul>
-    {% for theme in sortedThemes %}
-      <li><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a></li>
-    {% endfor %}
-  </ul>
+  <div class="columnlar">
+    {% set sortedThemes = themes | sortThemes %}
+    <ul>
+      {% for theme in sortedThemes %}
+        <li><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>

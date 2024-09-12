@@ -67,6 +67,7 @@ h3 {
   font-size: var(--size-600);
 }
 p {font-size: var(--size-400);}
+p.lead {font-size: var(--size-500);}
 small {font-size: var(--size-300);}
 .flow > * + * { margin-top: var(--flow-space, 1em);}
 
@@ -81,6 +82,9 @@ a.button {
   padding: 4px 8px;
   text-decoration: none;
 }
+a {
+  color: var(--sea-green);
+}
 .visually-hidden {
   clip-path: inset(50%);
   height: 1px;
@@ -92,11 +96,14 @@ a.button {
 .pill {
   background: var(--light-sea-green);
   color: var(--charcoal);
+  font-size: var(--size-300);
+  padding: 2px 4px;
   text-transform: uppercase;
 }
 .banner {
   background-color: var(--charcoal);
   color: var(--white);
+  padding: 32px 0;
 }
 .banner a {
   color: var(--light-sea-green);
@@ -111,11 +118,18 @@ nav ul {
 }
 nav a {
   border-block-end: 3px solid var(--border-color, transparent);
+  color: var(--sea-green);
   text-decoration: none;
 }
 nav a[aria-current="page"] {
   --border-color: var(--sea-green);
-  color: var(--sea-green);
+}
+.columnlar {
+  column-width: 200px;
+}
+.columnlar > * {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Theme pages */

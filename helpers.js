@@ -135,7 +135,7 @@ function getLineSvg(monthlyData, currentMonthsReadable) {
 }
 
 // Red-yellow-green stacked bar chart
-function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, currentMonthsReadable) {
+function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, currentMonthsReadable, animation = false) {
   let chart = echarts.init(null, null, {
     renderer: 'svg', // must use SVG rendering mode
     ssr: true, // enable SSR
@@ -144,6 +144,7 @@ function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, curr
   });
 
   chart.setOption({
+    animation,
     xAxis: {
       data: currentMonthsReadable
     },
