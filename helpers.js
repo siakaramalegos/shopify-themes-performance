@@ -168,7 +168,7 @@ function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, curr
         type: 'bar',
         stack: 'x',
         itemStyle: {
-          color: '#ffcf00ff',
+          color: '#ebb000',
           borderColor: '#fff',
         }
       },
@@ -193,6 +193,19 @@ function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, curr
   return svgStr
 }
 
+function getTrend(arr) {
+  const start = arr[arr.length - 1]
+  const end = arr[arr.length - 2]
+
+  if (end > start) {
+    return "up"
+  } else if (end < start) {
+    return "down"
+  } else {
+    return "none"
+  }
+}
+
 module.exports = {
   readDataFile,
   getDateFileString,
@@ -201,4 +214,5 @@ module.exports = {
   getLineSvg,
   getPassingCwvSvg,
   getStackedBarSvg,
+  getTrend,
 }

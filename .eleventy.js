@@ -1,5 +1,6 @@
 const fs = require("fs");
 const filters = require('./src/_11ty/filters');
+const shortcodes = require('./src/_11ty/shortcodes');
 
 module.exports = function(eleventyConfig) {
   // Filters
@@ -7,10 +8,10 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addFilter(filterName, filters[filterName])
   })
 
-  // // Shortcodes
-  // Object.keys(shortcodes).forEach(shortcodeName => {
-  //   eleventyConfig.addShortcode(shortcodeName, shortcodes[shortcodeName])
-  // })
+  // Shortcodes
+  Object.keys(shortcodes).forEach(shortcodeName => {
+    eleventyConfig.addShortcode(shortcodeName, shortcodes[shortcodeName])
+  })
 
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addPassthroughCopy("src/img");

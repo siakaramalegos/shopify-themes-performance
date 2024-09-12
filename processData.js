@@ -1,8 +1,9 @@
-const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg } = require('./helpers');
+const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg, getTrend } = require('./helpers');
 const RAW_FOLDER = '_raw_data/';
 const CACHE_DIR = '_processed_data'
 const MIN_ORIGINS = 100
 const CLIENTS = ['mobile', 'desktop']
+const CREATE_CHARTS = true // set to false when testing other parts
 
 const today = new Date()
 const lastMonth = new Date(today.setMonth(today.getMonth() - 1))
@@ -147,26 +148,28 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
 
   const charts = {}
 
-  Object.keys(data).forEach(client => {
-    const {origins, passingCWV, passingLCP, needsImproveLCP, poorLCP, passingCLS, needsImproveCLS, poorCLS, passingINP, needsImproveINP, poorINP, passingTTFB, needsImproveTTFB, poorTTFB, passingFCP, needsImproveFCP, poorFCP} = data[client]
+  if (CREATE_CHARTS) {
+    Object.keys(data).forEach(client => {
+      const {origins, passingCWV, passingLCP, needsImproveLCP, poorLCP, passingCLS, needsImproveCLS, poorCLS, passingINP, needsImproveINP, poorINP, passingTTFB, needsImproveTTFB, poorTTFB, passingFCP, needsImproveFCP, poorFCP} = data[client]
 
-    charts[client] = {
-      originsSvg: getLineSvg(origins, currentMonthsReadable),
-      originsAria: `Origins by month line chart. The data is: ${origins.join(', ')} origins for the months ${currentMonthsReadable.join(', ')}.`,
-      passingCwvSvg: getPassingCwvSvg(passingCWV, currentMonthsReadable),
-      passingCwvAria: `Origins Passing All Core Web Vitals bar chart. The data is: ${passingCWV.join(', ')}% passing for the months ${currentMonthsReadable.join(', ')}.`,
-      lcp: getStackedBarSvg(passingLCP, needsImproveLCP, poorLCP, currentMonthsReadable),
-      lcpAria: `LCP bar chart. The data is: ${passingLCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-      cls: getStackedBarSvg(passingCLS, needsImproveCLS, poorCLS, currentMonthsReadable),
-      clsAria: `CLS bar chart. The data is: ${passingCLS.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-      inp: getStackedBarSvg(passingINP, needsImproveINP, poorINP, currentMonthsReadable),
-      inpAria: `INP bar chart. The data is: ${passingINP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-      ttfb: getStackedBarSvg(passingTTFB, needsImproveTTFB, poorTTFB, currentMonthsReadable),
-      ttfbAria: `TTFB bar chart. The data is: ${passingTTFB.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-      fcp: getStackedBarSvg(passingFCP, needsImproveFCP, poorFCP, currentMonthsReadable),
-      fcpAria: `FCP bar chart. The data is: ${passingFCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-    }
-  })
+      charts[client] = {
+        originsSvg: getLineSvg(origins, currentMonthsReadable),
+        originsAria: `Origins by month line chart. The data is: ${origins.join(', ')} origins for the months ${currentMonthsReadable.join(', ')}.`,
+        passingCwvSvg: getPassingCwvSvg(passingCWV, currentMonthsReadable),
+        passingCwvAria: `Origins Passing All Core Web Vitals bar chart. The data is: ${passingCWV.join(', ')}% passing for the months ${currentMonthsReadable.join(', ')}.`,
+        lcp: getStackedBarSvg(passingLCP, needsImproveLCP, poorLCP, currentMonthsReadable),
+        lcpAria: `LCP bar chart. The data is: ${passingLCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+        cls: getStackedBarSvg(passingCLS, needsImproveCLS, poorCLS, currentMonthsReadable),
+        clsAria: `CLS bar chart. The data is: ${passingCLS.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+        inp: getStackedBarSvg(passingINP, needsImproveINP, poorINP, currentMonthsReadable),
+        inpAria: `INP bar chart. The data is: ${passingINP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+        ttfb: getStackedBarSvg(passingTTFB, needsImproveTTFB, poorTTFB, currentMonthsReadable),
+        ttfbAria: `TTFB bar chart. The data is: ${passingTTFB.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+        fcp: getStackedBarSvg(passingFCP, needsImproveFCP, poorFCP, currentMonthsReadable),
+        fcpAria: `FCP bar chart. The data is: ${passingFCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+      }
+    })
+  }
 
   return {
     id,
@@ -181,10 +184,49 @@ const themesWithCharts = Object.keys(themes).map(themeId => {
 console.log(`*** ${themesWithCharts.length} themes generated.`);
 console.log("**************************************************");
 
+const latestTotalOrigins = {
+  mobile: totalOriginsCounts.mobile[Object.keys(totalOriginsCounts.mobile).sort().reverse()[0]],
+  desktop: totalOriginsCounts.desktop[Object.keys(totalOriginsCounts.desktop).sort().reverse()[0]]
+}
+
+const aggregations = themesWithCharts.map((theme, i) => {
+  const {id, name, slug, sunset, data} = theme
+  const aggregData = { mobile: {}, desktop: {} }
+
+  Object.keys(aggregData).forEach(client => {
+    const {origins, passingCWV, passingLCP, passingCLS, passingINP} = data[client]
+    const lastOrigin = origins[origins.length - 1]
+    const marketSharePct = Math.round(lastOrigin / latestTotalOrigins[client] * 10000) / 100
+
+    aggregData[client] = {
+      origins: lastOrigin,
+      marketSharePct,
+      passingCWV: passingCWV[passingCWV.length - 1],
+      passingLCP: passingLCP[passingLCP.length - 1],
+      passingCLS: passingCLS[passingCLS.length - 1],
+      passingINP: passingINP[passingINP.length - 1],
+      cwvTrend: getTrend(passingCWV),
+      lcpTrend: getTrend(passingLCP),
+      clsTrend: getTrend(passingCLS),
+      inpTrend: getTrend(passingINP),
+    }
+  })
+
+
+  return {
+    id,
+    name,
+    slug,
+    sunset,
+    data: aggregData,
+  }
+})
+
 const output = {
   themes: themesWithCharts,
   aggregations: {
-    lastMonth: currentMonthsReadable[currentMonthsReadable.length - 1]
+    lastMonth: currentMonthsReadable[currentMonthsReadable.length - 1],
+    data: aggregations,
   }
 }
 

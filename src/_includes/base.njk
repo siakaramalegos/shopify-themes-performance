@@ -18,11 +18,17 @@
         <li><a aria-current="{% if page.url == '/' %}page{% else %}false{% endif %}" href="/">Home</a></li>
         <li><a aria-current="{% if page.url == '/themes/' %}page{% else %}false{% endif %}" href="/themes">All themes</a></li>
         <li><a aria-current="{% if page.url == '/about/' %}page{% else %}false{% endif %}" href="/about">About</a></li>
+        <li><a aria-current="{% if page.url == '/faq/' %}page{% else %}false{% endif %}" href="/faq">FAQ</a></li>
       </ul>
     </nav>
   </header>
   <main class="flow">
     {{ content | safe }}
   </main>
+  <footer class="banner">
+    <div class="content">
+      <p class="footer-copy">&copy; {% copyright %} Sia Karamalegos. Not affiliated with Shopify.</p>
+    </div>
+  </footer>
 </body>
 </html>

@@ -4,10 +4,51 @@ layout: base.njk
 
 <div class="banner">
   <div class="content flow">
-    <h1>Shopify Vitals</h1>
+    <h1>Shopify Theme Vitals</h1>
     <p class="lead">Explore real-user web performance data for popular Shopify themes</p>
   </div>
 </div>
 <div class="content flow">
-    <p>WIP! Start with <a href="/themes">all themes</a> page.</p>
+  <p>WIP! Start with <a href="/themes">all themes</a> page.</p>
+
+    <!-- "id": "57",
+    "name": "Sunrise",
+    "slug": "sunrise",
+    "sunset": false,
+    "data": {
+      "mobile": {
+        "origins": 811,
+        "marketSharePct": 0.16,
+        "passingCWV": 91.4,
+        "passingLCP": 98,
+        "passingCLS": 93.6,
+        "passingINP": 97.4,
+        "cwvTrend": "down",
+        "lcpTrend": "up",
+        "clsTrend": "up",
+        "inpTrend": "-" -->
+  <table>
+    <thead>
+      <tr>
+        <th>Theme</th>
+        <th>Est. Market Share</th>
+        <th>Passing all CWV</th>
+        <th class="hide-mobile">Good LCP</th>
+        <th class="hide-mobile">Good CLS</th>
+        <th class="hide-mobile">Good INP</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for theme in aggregations.data %}
+        <tr>
+          <td><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</td>
+          <td>{{ theme.data.mobile.marketSharePct }}%</td>
+          <td><div>{{ theme.data.mobile.passingCWV }}% <span class="pill {{ theme.data.mobile.cwvTrend }}"></span></div></td>
+          <td class="hide-mobile"><div>{{ theme.data.mobile.passingLCP }}% <span class="pill {{ theme.data.mobile.lcpTrend }}"></span></div></td>
+          <td class="hide-mobile"><div>{{ theme.data.mobile.passingCLS }}% <span class="pill {{ theme.data.mobile.clsTrend }}"></span></div></td>
+          <td class="hide-mobile"><div>{{ theme.data.mobile.passingINP }}% <span class="pill {{ theme.data.mobile.inpTrend }}"></span></div></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
