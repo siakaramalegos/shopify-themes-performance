@@ -21,8 +21,8 @@ const currentMonthsReadable = currentMonths.map(dateStr => {
 const confirmedThemes = readDataFile('currentThemes.json')
 
 // Initialize counters
-let themes = {}
-let ignoredEntries = 0
+let themesObj = {}
+let ignoredThemes = 0
 let unconfirmedThemes = {}
 let allOtherOriginsCounts = { mobile: {}, desktop: {} }
 CLIENTS.forEach(client => {
@@ -55,22 +55,14 @@ currentMonths.forEach(date => {
     // Set id to null string if null
     const theme_store_id = id || 'null'
 
-    if (!themes[theme_store_id]) {
-      // early exit
-      if (monthlyData.origins < MIN_ORIGINS) {
-        ignoredEntries++
-
-        allOtherOriginsCounts[client][monthlyData.date] = allOtherOriginsCounts[client][monthlyData.date] + monthlyData.origins
-        return
-      }
-
+    if (!themesObj[theme_store_id]) {
       // check if confirmed theme, if so add it
       if (confirmedThemes[theme_store_id]) {
         const confirmedName = confirmedThemes[theme_store_id].name
         if (confirmedName !== top_theme_name){
           console.warn(`THEME NAME MISMATCH FOR ${theme_store_id}: Top theme name is ${top_theme_name} but confirmed theme name is ${confirmedName}. Using confirmed name.`);
         }
-        themes[theme_store_id] = {
+        themesObj[theme_store_id] = {
           id: theme_store_id,
           name: confirmedName,
           sunset: confirmedThemes[theme_store_id].sunset,
@@ -81,26 +73,39 @@ currentMonths.forEach(date => {
         // If not confirmed, add to other origins count
         allOtherOriginsCounts[client][monthlyData.date] = allOtherOriginsCounts[client][monthlyData.date] + monthlyData.origins
 
-        // Add to unconfirmed themes list if not already there
-        if (!unconfirmedThemes[theme_store_id]) {
+        // Add to unconfirmed themes list if not already there and have enough origins to matter
+        if (!unconfirmedThemes[theme_store_id] && monthlyData.origins < MIN_ORIGINS) {
           unconfirmedThemes[theme_store_id] = top_theme_name
         }
       }
     } else {
       // Confirmed themes already in object, pass new month's data to it
-      themes[id].monthlyData.push(monthlyData)
+      themesObj[id].monthlyData.push(monthlyData)
     }
   })
 
 })
 
+// Filter out low origins count for last month
+const themes = Object.keys(themesObj).map(themeName => themesObj[themeName]).filter(theme => {
+  const ignore = theme.monthlyData[theme.monthlyData.length - 1].origins < MIN_ORIGINS
+  if (ignore) {
+    ignoredThemes++
+
+    theme.monthlyData.forEach(data => {
+      allOtherOriginsCounts[data.client][data.date] = allOtherOriginsCounts[data.client][data.date] + data.origins
+    });
+  }
+  return !ignore
+})
+
 // Housekeeping about bad theme names or theme_store_ids and general themes data
 if (Object.keys(unconfirmedThemes).length > 1) {
-  console.error("*** UNCONFIRMED THEMES:");
+  console.error(`*** UNCONFIRMED THEMES (with greater than ${MIN_ORIGINS}):`);
   console.log("*** ", {unconfirmedThemes});
 }
-if (ignoredEntries > 0) {
-  console.log(`*** Ignored ${ignoredEntries} entries of unconfirmed themes with less than ${MIN_ORIGINS} origins`);
+if (ignoredThemes > 0) {
+  console.log(`*** Ignored ${ignoredThemes} themes with less than ${MIN_ORIGINS} origins`);
 }
 console.log(`*** All other origins count is:`);
 console.log({allOtherOriginsCounts});
@@ -110,9 +115,8 @@ console.log({totalOriginsCounts});
 // Create the themes data object and SVG charts for use in page building
 console.log(`*** Creating charts for months: ${currentMonthsReadable.join(', ')}.`);
 
-const themesWithCharts = Object.keys(themes).map(themeId => {
-  const inputData = themes[themeId]
-  const {id, name, monthlyData, sunset, slug} = inputData
+const themesWithCharts = themes.map(theme => {
+  const {id, name, monthlyData, sunset, slug} = theme
   const metrics = ['origins', 'passingCWV', 'passingLCP', 'needsImproveLCP', 'poorLCP', 'passingCLS', 'needsImproveCLS', 'poorCLS', 'passingINP', 'needsImproveINP', 'poorINP', 'passingTTFB', 'needsImproveTTFB', 'poorTTFB', 'passingFCP', 'needsImproveFCP', 'poorFCP']
 
   // Initialize data object with null arrays. Array indexes are in date order.
@@ -189,8 +193,8 @@ const latestTotalOrigins = {
   desktop: totalOriginsCounts.desktop[Object.keys(totalOriginsCounts.desktop).sort().reverse()[0]]
 }
 
-const aggregations = themesWithCharts.map((theme, i) => {
-  const {id, name, slug, sunset, data} = theme
+const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
+  const {data, ...rest} = theme
   const aggregData = { mobile: {}, desktop: {} }
 
   Object.keys(aggregData).forEach(client => {
@@ -200,11 +204,11 @@ const aggregations = themesWithCharts.map((theme, i) => {
 
     aggregData[client] = {
       origins: lastOrigin,
-      marketSharePct,
-      passingCWV: passingCWV[passingCWV.length - 1],
-      passingLCP: passingLCP[passingLCP.length - 1],
-      passingCLS: passingCLS[passingCLS.length - 1],
-      passingINP: passingINP[passingINP.length - 1],
+      marketSharePct: marketSharePct.toFixed(2),
+      passingCWV: passingCWV[passingCWV.length - 1].toFixed(1),
+      passingLCP: passingLCP[passingLCP.length - 1].toFixed(1),
+      passingCLS: passingCLS[passingCLS.length - 1].toFixed(1),
+      passingINP: passingINP[passingINP.length - 1].toFixed(1),
       cwvTrend: getTrend(passingCWV),
       lcpTrend: getTrend(passingLCP),
       clsTrend: getTrend(passingCLS),
@@ -214,20 +218,13 @@ const aggregations = themesWithCharts.map((theme, i) => {
 
 
   return {
-    id,
-    name,
-    slug,
-    sunset,
-    data: aggregData,
+    summary: aggregData,
+    ...rest,
   }
 })
 
 const output = {
-  themes: themesWithCharts,
-  aggregations: {
-    lastMonth: currentMonthsReadable[currentMonthsReadable.length - 1],
-    data: aggregations,
-  }
+  themes: themesWithChartsAndAggr,
 }
 
 const outputFileName = getDateFileString(new Date())

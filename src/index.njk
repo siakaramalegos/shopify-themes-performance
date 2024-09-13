@@ -39,14 +39,15 @@ layout: base.njk
       </tr>
     </thead>
     <tbody>
-      {% for theme in aggregations.data %}
+      {% set sortedThemes = themes | sortThemes %}
+      {% for theme in sortedThemes %}
         <tr>
           <td><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</td>
-          <td>{{ theme.data.mobile.marketSharePct }}%</td>
-          <td><div>{{ theme.data.mobile.passingCWV }}% <span class="pill {{ theme.data.mobile.cwvTrend }}"></span></div></td>
-          <td class="hide-mobile"><div>{{ theme.data.mobile.passingLCP }}% <span class="pill {{ theme.data.mobile.lcpTrend }}"></span></div></td>
-          <td class="hide-mobile"><div>{{ theme.data.mobile.passingCLS }}% <span class="pill {{ theme.data.mobile.clsTrend }}"></span></div></td>
-          <td class="hide-mobile"><div>{{ theme.data.mobile.passingINP }}% <span class="pill {{ theme.data.mobile.inpTrend }}"></span></div></td>
+          <td>{{ theme.summary.mobile.marketSharePct }}%</td>
+          <td><div>{{ theme.summary.mobile.passingCWV }}% <span class="pill {{ theme.summary.mobile.cwvTrend }}"></span></div></td>
+          <td class="hide-mobile"><div>{{ theme.summary.mobile.passingLCP }}% <span class="pill {{ theme.summary.mobile.lcpTrend }}"></span></div></td>
+          <td class="hide-mobile"><div>{{ theme.summary.mobile.passingCLS }}% <span class="pill {{ theme.summary.mobile.clsTrend }}"></span></div></td>
+          <td class="hide-mobile"><div>{{ theme.summary.mobile.passingINP }}% <span class="pill {{ theme.summary.mobile.inpTrend }}"></span></div></td>
         </tr>
       {% endfor %}
     </tbody>

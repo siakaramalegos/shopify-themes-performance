@@ -180,11 +180,13 @@ thead:first-of-type tr {
 td, th {
   padding: 1em;
   border: .1rem solid rgba(var(--charcoal-rgb-text), .2);
+  font-variant-numeric: tabular-nums;
 }
 td div {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  gap: 4px;
+  justify-content: flex-end;
 }
 td .pill {
   width: 14.5px;
