@@ -205,6 +205,7 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
     aggregData[client] = {
       origins: lastOrigin,
       marketSharePct: marketSharePct.toFixed(2),
+      passingCWVnum: passingCWV[passingCWV.length - 1],
       passingCWV: passingCWV[passingCWV.length - 1].toFixed(1),
       passingLCP: passingLCP[passingLCP.length - 1].toFixed(1),
       passingCLS: passingCLS[passingCLS.length - 1].toFixed(1),
@@ -221,6 +222,45 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
     summary: aggregData,
     ...rest,
   }
+})
+
+// Create rank fields.....
+// Warning: sort mutates
+CLIENTS.forEach(client => {
+  themesWithChartsAndAggr.sort((a, b) => {
+    // Sorting by largest first (reverse)
+    if (a.summary[client].origins > b.summary[client].origins) {
+      return -1;
+    }
+    if (a.summary[client].origins < b.summary[client].origins) {
+      return 1;
+    }
+    // a must be equal to b
+    return 0;
+  }).map((theme, index) => {
+    theme.summary[client].marketRank = index + 1
+    return theme
+  })
+})
+
+CLIENTS.forEach(client => {
+  themesWithChartsAndAggr.sort((a, b) => {
+    const aNum = parseFloat(a.summary[client].passingCWV)
+    const bNum = parseFloat(b.summary[client].passingCWV)
+
+    // Sorting by largest first (reverse)
+    if (aNum > bNum) {
+      return -1;
+    }
+    if (aNum < bNum) {
+      return 1;
+    }
+    // a must be equal to b
+    return 0;
+  }).map((theme, index) => {
+    theme.summary[client].cwvRank = index + 1
+    return theme
+  })
 })
 
 const output = {

@@ -192,6 +192,16 @@ td .pill {
   width: 14.5px;
   text-align: center;
 }
+th button.client-switch {
+  height: 32px;
+  margin-bottom: 0;
+}
+th div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
 .down {
   background-color: var(--light-red-munsell);
   color: var(--red-munsell);
@@ -247,6 +257,9 @@ button.client-switch[aria-checked="true"] {
 
 @media screen and (max-width: 630px) {
   .hide-mobile {
+    display: none;
+  }
+  th button.client-switch {
     display: none;
   }
 }
