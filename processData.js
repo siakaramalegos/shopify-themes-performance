@@ -1,4 +1,4 @@
-const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg, getTrend } = require('./helpers');
+const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg, getTrend, getSparkColumnSvg } = require('./helpers');
 const RAW_FOLDER = '_raw_data/';
 const CACHE_DIR = '_processed_data'
 const MIN_ORIGINS = 100
@@ -201,12 +201,14 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
     const {origins, passingCWV, passingLCP, passingCLS, passingINP} = data[client]
     const lastOrigin = origins[origins.length - 1]
     const marketSharePct = Math.round(lastOrigin / latestTotalOrigins[client] * 10000) / 100
+    const passingCWVnum = passingCWV[passingCWV.length - 1]
 
     aggregData[client] = {
       origins: lastOrigin,
       marketSharePct: marketSharePct.toFixed(2),
-      passingCWVnum: passingCWV[passingCWV.length - 1],
-      passingCWV: passingCWV[passingCWV.length - 1].toFixed(1),
+      passingCWVnum,
+      passingCWV: passingCWVnum.toFixed(1),
+      passingCWVchart: getSparkColumnSvg(passingCWVnum, lastMonth),
       passingLCP: passingLCP[passingLCP.length - 1].toFixed(1),
       passingCLS: passingCLS[passingCLS.length - 1].toFixed(1),
       passingINP: passingINP[passingINP.length - 1].toFixed(1),

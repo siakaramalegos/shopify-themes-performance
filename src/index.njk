@@ -55,7 +55,13 @@ layout: base.njk
           data-alpha-rank="{{ loop.index }}">
           <td><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</td>
           <td>{{ theme.summary.mobile.marketRank }} ({{ theme.summary.mobile.marketSharePct }}%)</td>
-          <td><div>{{ theme.summary.mobile.passingCWV }}% <span class="pill {{ theme.summary.mobile.cwvTrend }}"></span></div></td>
+          <td>
+            <div>
+              {{ theme.summary.mobile.passingCWVchart | safe }}
+              {{ theme.summary.mobile.passingCWV }}%
+              <span class="pill {{ theme.summary.mobile.cwvTrend }}"></span>
+            </div>
+          </td>
           <td class="hide-mobile"><div>{{ theme.summary.mobile.passingLCP }}% <span class="pill {{ theme.summary.mobile.lcpTrend }}"></span></div></td>
           <td class="hide-mobile"><div>{{ theme.summary.mobile.passingCLS }}% <span class="pill {{ theme.summary.mobile.clsTrend }}"></span></div></td>
           <td class="hide-mobile"><div>{{ theme.summary.mobile.passingINP }}% <span class="pill {{ theme.summary.mobile.inpTrend }}"></span></div></td>
@@ -70,7 +76,13 @@ layout: base.njk
           data-alpha-rank="{{ loop.index }}">
           <td><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</td>
           <td>{{ theme.summary.desktop.marketRank }} ({{ theme.summary.desktop.marketSharePct }}%)</td>
-          <td><div>{{ theme.summary.desktop.passingCWV }}% <span class="pill {{ theme.summary.desktop.cwvTrend }}"></span></div></td>
+          <td>
+            <div>
+              {{ theme.summary.desktop.passingCWVchart | safe }}
+              {{ theme.summary.desktop.passingCWV }}%
+              <span class="pill {{ theme.summary.desktop.cwvTrend }}"></span>
+            </div>
+          </td>
           <td class="hide-mobile"><div>{{ theme.summary.desktop.passingLCP }}% <span class="pill {{ theme.summary.desktop.lcpTrend }}"></span></div></td>
           <td class="hide-mobile"><div>{{ theme.summary.desktop.passingCLS }}% <span class="pill {{ theme.summary.desktop.clsTrend }}"></span></div></td>
           <td class="hide-mobile"><div>{{ theme.summary.desktop.passingINP }}% <span class="pill {{ theme.summary.desktop.inpTrend }}"></span></div></td>

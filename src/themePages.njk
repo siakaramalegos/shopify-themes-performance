@@ -32,7 +32,7 @@ permalink: "/themes/{{ theme.slug }}/"
 
   <section class="flow" id="data-mobile">
     <h2>Summary</h2>
-    <div class="chart-grid">
+    <div class="chart-flex">
       <div>
         <h3>Number of Origins</h3>
         {{ theme.charts.mobile.originsSvg | safe }}
@@ -92,7 +92,7 @@ permalink: "/themes/{{ theme.slug }}/"
   </section>
   <section class="flow" id="data-desktop" hidden>
     <h2>Summary</h2>
-    <div class="chart-grid">
+    <div class="chart-flex">
       <div>
         <h3>Number of Origins</h3>
         {{ theme.charts.desktop.originsSvg | safe }}

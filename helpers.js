@@ -99,6 +99,55 @@ function getPassingCwvSvg(monthlyData, currentMonthsReadable) {
   return svgStr
 }
 
+// Green-red mini column chart
+function getSparkColumnSvg(passingCWV, lastMonth) {
+  // In SSR mode the first container parameter is not required
+  let chart = echarts.init(null, null, {
+    renderer: 'svg', // must use SVG rendering mode
+    ssr: true, // enable SSR
+    width: 100, // need to specify height and width
+    height: 24,
+  });
+
+  chart.setOption({
+    xAxis: {
+      show: false,
+    },
+    yAxis: {
+      show: false,
+      data: [lastMonth],
+    },
+    series: [
+      {
+        data: [passingCWV],
+        type: 'bar',
+        stack: 'y',
+        itemStyle: {
+          color: '#00916eff',
+          borderColor: '#fff',
+        }
+      },
+      {
+        data: [100 - passingCWV],
+        type: 'bar',
+        stack: 'y',
+        itemStyle: {
+          color: '#e01a4c',
+          borderColor: '#fff',
+        }
+      }
+    ]
+  });
+
+  const svgStr = chart.renderToSVGString();
+
+  // Disposing chart to release memory.
+  chart.dispose();
+  chart = null;
+
+  return svgStr
+}
+
 // Line chart (for origins by month)
 function getLineSvg(monthlyData, currentMonthsReadable) {
   // In SSR mode the first container parameter is not required
@@ -213,6 +262,7 @@ module.exports = {
   writeDataFile,
   getLineSvg,
   getPassingCwvSvg,
+  getSparkColumnSvg,
   getStackedBarSvg,
   getTrend,
 }
