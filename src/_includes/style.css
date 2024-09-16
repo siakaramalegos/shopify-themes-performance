@@ -13,7 +13,7 @@
   --light-red-munsell: #f7dbe2;
   --charcoal: #194238;
   --charcoal-rgb-text: 25, 66, 56;
-  --light-grey: #eceeee;
+  --light-grey: #e8eced;
   --white: #fff;
   --blue: #076881;
   --light-blue: #e9f7fb;
@@ -118,9 +118,20 @@ a {
   padding: 2px 4px;
   text-transform: uppercase;
 }
-.banner {
-  background-color: var(--light-sea-green);
+.banner-light {
+  background-color: var(--light-grey);
   padding: 32px 0;
+}
+.banner {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 32px 0;
+}
+.banner h1 {
+  color: var(--white);
+}
+.banner a {
+  color: var(--light-sea-green);
 }
 .icon-text {
   display: flex;
@@ -274,6 +285,26 @@ button.client-switch[aria-checked="true"] {
   width: 100%;
   height: auto;
 }
+.popularity {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.popularity > div {
+  background-color: var(--light-grey);
+  border: 1px solid var(--white);
+  padding: 8px 16px;
+}
+.popularity p {
+  font-size: var(--size-300);
+  font-style: italic;
+  text-align: center;
+}
+.popularity .big-num {
+  font-family: var(--font-display);
+  font-size: var(--size-900);
+  font-style: normal;
+}
 
 @media screen and (min-width: 500px) {
   :root {
@@ -295,11 +326,7 @@ button.client-switch[aria-checked="true"] {
   }
 }
 
-@media screen and (max-width: 430px) {
-  td div svg {
-    display: none;
-  }
-}
+
 
 @media screen and (max-width: 700px) {
   .hide-mobile {
@@ -312,5 +339,16 @@ button.client-switch[aria-checked="true"] {
 @media screen and (max-width: 800px) {
   table {
     font-size: var(--size-300);
+  }
+  .popularity p {
+    font-size: var(--size-200);
+  }
+  .popularity .big-num {
+    font-size: var(--size-700);
+  }
+}
+@media screen and (max-width: 430px) {
+  td div svg {
+    display: none;
   }
 }

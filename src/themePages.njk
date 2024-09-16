@@ -21,17 +21,37 @@ permalink: "/themes/{{ theme.slug }}/"
 </div>
 
 <div class="content">
-  <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
-    Mobile
-  </button>
-  <button id="desktop-switch" class="client-switch" role="switch" aria-checked="false">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
-    Desktop
-  </button>
+  <p class="text-right">
+    <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
+      Mobile
+    </button>
+    <button id="desktop-switch" class="client-switch" role="switch" aria-checked="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
+      Desktop
+    </button>
+  </p>
+
 
   <section class="flow" id="data-mobile">
-    <h2>Summary</h2>
+    <div class="popularity">
+      <div>
+        <p class="big-num">{{ theme.summary.mobile.marketRank }}</p>
+        <p>Est. Market Rank</p>
+      </div>
+      <div>
+        <p class="big-num">{{ theme.summary.mobile.marketSharePct }}%</p>
+        <p>Est. Market Share</p>
+      </div>
+      <div>
+        <p class="big-num">{{ theme.summary.mobile.cwvRank }}</p>
+        <p>Core Web Vitals Rank</p>
+      </div>
+      <div>
+        <p class="big-num">{{ theme.summary.mobile.passingCWV }}%</p>
+        <p>Origins Passing all CWVs</p>
+      </div>
+    </div>
     <div class="chart-flex">
       <div>
         <h3>Number of Origins</h3>
@@ -91,7 +111,24 @@ permalink: "/themes/{{ theme.slug }}/"
     </div>
   </section>
   <section class="flow" id="data-desktop" hidden>
-    <h2>Summary</h2>
+    <div class="popularity">
+      <div>
+        <p class="big-num">{{ theme.summary.desktop.marketRank }}</p>
+        <p>Est. Market Rank</p>
+      </div>
+      <div>
+        <p class="big-num">{{ theme.summary.desktop.marketSharePct }}%</p>
+        <p>Est. Market Share</p>
+      </div>
+      <div>
+        <p class="big-num">{{ theme.summary.desktop.cwvRank }}</p>
+        <p>Core Web Vitals Rank</p>
+      </div>
+      <div>
+        <p class="big-num">{{ theme.summary.desktop.passingCWV }}%</p>
+        <p>Origins Passing all CWVs</p>
+      </div>
+    </div>
     <div class="chart-flex">
       <div>
         <h3>Number of Origins</h3>
