@@ -2,6 +2,7 @@
   /* CSS HEX */
   --sea-green: #00916eff;
   --light-sea-green: #dfece9;
+  --sea-green-text-a11y: #00513e;
   --linen: #feefe5ff;
   --jonquil: #ffcf00ff;
   --chart-yellow: #ebb000;
@@ -93,7 +94,9 @@ a.button {
   text-decoration: none;
 }
 a {
-  color: var(--sea-green);
+  border-block-end: 2px solid var(--sea-green);
+  color: var(--sea-green-text-a11y);
+  text-decoration: none;
 }
 .visually-hidden {
   clip-path: inset(50%);
@@ -128,7 +131,7 @@ nav ul {
 }
 nav a {
   border-block-end: 3px solid var(--border-color, transparent);
-  color: var(--sea-green);
+  color: var(--sea-green-text-a11y);
   text-decoration: none;
 }
 nav a[aria-current="page"] {
@@ -143,6 +146,9 @@ footer {
 .columnlar > * {
   margin-top: 0;
   margin-bottom: 0;
+}
+.columnlar li {
+  padding: 8px 0;
 }
 .faq-container {
   max-width: 85ch;
