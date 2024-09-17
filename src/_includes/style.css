@@ -13,6 +13,7 @@
   --light-red-munsell: #f7dbe2;
   --charcoal: #194238;
   --charcoal-rgb-text: 25, 66, 56;
+  --med-grey: #687d78;
   --light-grey: #e8eced;
   --white: #fff;
   --blue: #076881;
@@ -25,7 +26,7 @@
   --jonquil: hsla(49, 100%, 50%, 1);
   --persimmon: hsla(18, 86%, 54%, 1);
 
-  --font-display: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+  --font-display: 'Titillium Web', 'Adjusted Arial Fallback', Arial, Helvetica, sans-serif;
   --font-body: Arial, Helvetica, sans-serif;
 
   --size-100: 0.5rem;
@@ -38,6 +39,32 @@
   --size-800: 2.074rem;
   --size-900: 2.488rem;
   --size-1000: 2.986rem;
+}
+
+/* titillium-web-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/titillium-web-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* titillium-web-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/titillium-web-v17-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+@font-face {
+  font-family: 'Adjusted Arial Fallback';
+  src: local(Arial);
+  size-adjust: 95%;
+  ascent-override: normal;
+  descent-override: normal;
+  line-gap-override: 55%;
 }
 
 /* Reset */
@@ -68,7 +95,6 @@ body {
   margin: 0 auto;
   padding: 16px;
 }
-
 h1, h2, h3, h4, h5, h6 {
   color: var(--blue);
   font-family: var(--font-display);
@@ -76,7 +102,10 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.3;
 }
 h1 {font-size: clamp(var(--size-900), 5vw, 4rem)}
-h2 {font-size: var(--size-700);}
+h2 {
+  font-size: var(--size-700);
+  text-transform: uppercase;
+}
 h3 {
   color: var(--charcoal);
   font-size: var(--size-600);
@@ -86,6 +115,9 @@ p.lead {font-size: var(--size-500);}
 small {font-size: var(--size-300);}
 .flow > * + * { margin-top: var(--flow-space, 1em);}
 .text-right {text-align: right;}
+.text-center {text-align: center;}
+.max-ch {max-width: 67ch;}
+.content-center {margin: 0 auto;}
 
 a.button {
   background-color: var(--blue);
@@ -93,13 +125,17 @@ a.button {
   box-shadow: 0 3px 6px rgba(0,0,0,.15),0 2px 4px rgba(0,0,0,.12);
   color: var(--white);
   cursor: pointer;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--size-400);
+  font-weight: 700;
+  font-style: normal;
   margin-bottom: var(--size-600);
   padding: 8px 16px;
   text-decoration: none;
 }
 a {
   border-block-end: 2px solid var(--med-sea-green);
-  /* border-block-end: 2px solid var(--med-lt-blue); */
   color: var(--blue);
   text-decoration: none;
 }
@@ -118,6 +154,28 @@ a {
   padding: 2px 4px;
   text-transform: uppercase;
 }
+section {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+main > section:first-of-type {
+  margin-top: 0;
+}
+.image-with-text {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 32px;
+}
+.image-with-text.align-top {
+  align-items: flex-start;
+}
+.image-with-text img {
+  width: 300px;
+  height: auto;
+}
 .banner-light {
   background-color: var(--light-grey);
   padding: 32px 0;
@@ -127,11 +185,31 @@ a {
   color: var(--white);
   padding: 32px 0;
 }
-.banner h1 {
+.banner h1, .banner h2, .banner h3 {
   color: var(--white);
 }
 .banner a {
   color: var(--light-sea-green);
+}
+.banner-inset {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 32px;
+}
+.cta {
+  border: 1px solid var(--med-lt-blue);
+  border-left: none;
+  border-right: none;
+  margin: 0 auto;
+  padding: 32px 0;
+  text-align: center;
+}
+.cta p {
+  font-size: var(--size-700);
+  font-style: italic;
+}
+.cta .button {
+  margin-bottom: 0;
 }
 .icon-text {
   display: flex;
@@ -193,11 +271,21 @@ details div > * + * { margin-top: var(--flow-space, 1em);}
   display: flex;
   flex-direction: column;
 }
+
+.how-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  margin: 32px 0;
+}
+
+/* Themes table */
 table {
   table-layout: fixed;
   border-collapse: collapse;
   border-style: hidden;
   box-shadow: 0 0 0 .1rem rgba(var(--charcoal-rgb-text), .2);
+  margin-top: 32px;
 }
 thead:first-of-type tr {
   position: sticky;
@@ -273,7 +361,8 @@ button.client-switch {
   box-shadow: 0 3px 6px rgba(0,0,0,.15),0 2px 4px rgba(0,0,0,.12);
   color: var(--charcoal);
   cursor: pointer;
-  margin-bottom: var(--size-600);
+  font-family: var(--font-display);
+  font-weight: 700;
   padding: 4px 8px;
 }
 button.client-switch[aria-checked="true"] {

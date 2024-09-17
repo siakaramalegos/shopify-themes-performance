@@ -5,9 +5,12 @@ pagination:
   size: 1
   alias: theme
 permalink: "/themes/{{ theme.slug }}/"
+eleventyComputed:
+  title: "{{ theme.name }} Performance Data | Theme Vitals"
+  description: "Explore real-user web performance for the Shopify theme {{ theme.name }} including the Core Web Vitals and other metrics."
 ---
 
-<div class="banner">
+<section class="banner">
   <div class="content">
     <h1>{{ theme.name }}</h1>
     <p>
@@ -18,7 +21,7 @@ permalink: "/themes/{{ theme.slug }}/"
       {% endif %}
     </p>
   </div>
-</div>
+</section>
 
 <div class="content">
   <p class="text-right">
@@ -208,3 +211,5 @@ permalink: "/themes/{{ theme.slug }}/"
     buttonDesktop.setAttribute("aria-checked", true)
   })
 </script>
+
+{% include 'cta.njk' %}

@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopify Theme Vitals</title>
-  <meta name="description" content="Explore real-world Core Web Vitals performance data for popular Shopify themes.">
+  {% set renderTitle = title or "Shopify Theme Vitals" %}
+  {% set renderDescription = description or "Explore real-world Core Web Vitals performance data for popular Shopify themes." %}
+  <title>{{ renderTitle }}</title>
+  <meta name="description" content="{{ renderDescription }}">
   {% set css %}
     {% include "style.css" %}
   {% endset %}
@@ -27,6 +29,7 @@
 
     gtag('config', 'G-2B1ZGCEKGL');
   </script>
+  <link rel="preload" href="/fonts/titillium-web-v17-latin-700.woff2" as="font" type="font/woff2" crossorigin importance="high">
 </head>
 <body>
   <header class="content">
@@ -36,10 +39,11 @@
         <li><a aria-current="{% if page.url == '/themes/' %}page{% else %}false{% endif %}" href="/themes">All themes</a></li>
         <li><a aria-current="{% if page.url == '/about/' %}page{% else %}false{% endif %}" href="/about">About</a></li>
         <li><a aria-current="{% if page.url == '/faq/' %}page{% else %}false{% endif %}" href="/faq">FAQ</a></li>
+        <li><a aria-current="{% if page.url == '/support/' %}page{% else %}false{% endif %}" href="/support">Support</a></li>
       </ul>
     </nav>
   </header>
-  <main class="flow">
+  <main>
     {{ content | safe }}
   </main>
   <footer class="banner">

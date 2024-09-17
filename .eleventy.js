@@ -15,7 +15,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addPassthroughCopy("src/img");
-  // eleventyConfig.addPassthroughCopy("src/fonts");
+  eleventyConfig.addPassthroughCopy("src/fonts");
   // eleventyConfig.addPassthroughCopy("src/javascript");
   // eleventyConfig.addPassthroughCopy("src/robots.txt");
   // eleventyConfig.addPassthroughCopy("_redirects");
