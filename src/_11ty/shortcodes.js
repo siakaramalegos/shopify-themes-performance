@@ -5,18 +5,18 @@ const FALLBACK_WIDTHS = [ 600, 928, 1856 ];
 const FALLBACK_WIDTH = 680;
 
 // Social share image configuration
-const SHARE_IMAGE_FILE = "twitter_tmpl.jpg"
+const SHARE_IMAGE_FILE = "share_image_tmpl_llund3.jpg"
 // If font not in the root of your Cloudinary media library, need to prepend with `foldername:`
-const TITLE_FONT = "RecursiveSansExtraBold.woff2"
+const TITLE_FONT = "titillium.woff2"
 const TITLE_FONT_SIZE = "60"
-const TITLE_BOTTOM_OFFSET = 306
-const TAGLINE_FONT = "RecursiveSansRegular.woff2"
+const TITLE_BOTTOM_OFFSET = 406
+const TAGLINE_FONT = "Arial"
 const TAGLINE_FONT_SIZE = "36"
-const TAGLINE_TOP_OFFSET = 356
+const TAGLINE_TOP_OFFSET = 306
 const TAGLINE_LINE_HEIGHT = "10"
-const TEXT_AREA_WIDTH = "705"
-const TEXT_LEFT_OFFSET = 455
-const TEXT_COLOR = "221f2c"
+const TEXT_AREA_WIDTH = "710"
+const TEXT_LEFT_OFFSET = 505
+const TEXT_COLOR = "194238"
 
 function getSrcset(file, widths) {
   const widthSet = widths ? widths : FALLBACK_WIDTHS
@@ -27,10 +27,6 @@ function getSrcset(file, widths) {
 
 function getSrc(file, width) {
   return `${BASE_URL}q_auto,f_auto,w_${width ? width : FALLBACK_WIDTH}/${FOLDER}${file}`
-}
-
-function fullSizeCrop(file, aspectRatio) {
-  return `${BASE_URL}q_auto,ar_${aspectRatio},c_crop/${FOLDER}${file}`
 }
 
 // https://support.cloudinary.com/hc/en-us/articles/202521512-How-to-add-a-slash-character-or-any-other-special-characters-in-text-overlays-
@@ -85,6 +81,6 @@ module.exports = {
   },
   srcset: (file, widths) => getSrcset(file, widths),
   src: (file, width) => getSrc(file, width),
-  // socialImage: (title, description) => socialImageUrl(title, description),
+  socialImage: (title, description) => socialImageUrl(title, description),
   defaultSizes: () => "(min-width: 980px) 928px, calc(95.15vw + 15px)",
 }
