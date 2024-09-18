@@ -358,6 +358,13 @@ th div {
   font-size: var(--size-500);
   text-align: center;
 }
+.table-actions {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 16px 32px;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
 button.client-switch {
   background-color: var(--light-blue);
   border: none;
@@ -372,6 +379,25 @@ button.client-switch {
 button.client-switch[aria-checked="true"] {
   background-color: var(--blue);
   color: #fff;
+}
+.sorting button.sort {
+  background-color: transparent;
+  border: none;
+  color: var(--blue);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 700;
+  padding: 0;
+  margin: 0 4px;
+}
+button.sort[aria-checked="true"] {
+  border-block-end: 3px solid var(--med-sea-green);
+}
+button.sort:hover {
+  color: var(--blue);
+}
+span.sorting {
+  color: var(--med-grey);
 }
 .chart-grid svg, .chart-flex svg {
   transform: scale(1);

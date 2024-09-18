@@ -7,44 +7,38 @@ description: Compare all popular Shopify themes in terms of Core Web Vitals perf
 <div class="banner">
   <div class="content flow">
     <h1>All themes</h1>
-    <p class="lead">Select a theme name to see more data.</p>
+    <p class="lead">Showing data for {{ dataDate }}.</p>
+    <p>Select a theme name to see more data.</p>
   </div>
 </div>
 
 <div class="content flow">
   <div class="flex-container">
-    <p class="text-right">
-      <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
-        Mobile
-      </button>
-      <button id="desktop-switch" class="client-switch" role="switch" aria-checked="false">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
-        Desktop
-      </button>
-    </p>
+    <div class="table-actions">
+      <span class="sorting">
+        Sort by:
+        <button id="sort-alpha" class="sort" role="switch" aria-checked="true">Name</button>|
+        <button id="sort-rank" class="sort" role="switch">Rank</button>|
+        <button id="sort-cwv" class="sort" role="switch">Passing CWV</button>
+      </span>
+      <div>
+        <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
+          Mobile
+        </button>
+        <button id="desktop-switch" class="client-switch" role="switch" aria-checked="false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
+          Desktop
+        </button>
+      </div>
+    </div>
 
     <table>
       <thead>
         <tr>
-          <th>
-            <div>
-              Theme
-              <button id="sortAlpha" class="client-switch" role="switch" aria-checked="true" aria-label="Sort ascending"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M183.6 469.6C177.5 476.2 169 480 160 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L128 365.7 128 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 301.7 32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 320c0-17.7 14.3-32 32-32l128 0c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9L429.3 416l50.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-128 0c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9L402.7 352 352 352c-17.7 0-32-14.3-32-32zM416 32c12.1 0 23.2 6.8 28.6 17.7l64 128 16 32c7.9 15.8 1.5 35-14.3 42.9s-35 1.5-42.9-14.3L460.2 224l-88.4 0-7.2 14.3c-7.9 15.8-27.1 22.2-42.9 14.3s-22.2-27.1-14.3-42.9l16-32 64-128C392.8 38.8 403.9 32 416 32zM395.8 176l40.4 0L416 135.6 395.8 176z"/></svg></button>
-            </div>
-          </th>
-          <th>
-            <div>
-              Est. Market <br>Rank (share)
-              <button id="sortMarket" class="client-switch" role="switch" aria-checked="false" aria-label="Sort ascending"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7 96 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 301.7 32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 32l32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128l160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-160 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128l224 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-224 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button>
-            </div>
-          </th>
-          <th>
-            <div>
-              Origins passing<br> all CWV
-              <button id="sortCWV" class="client-switch" role="switch" aria-checked="false" aria-label="Sort descending"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7 96 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 301.7 32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32l32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32l160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-160 0zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32l224 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L320 96z"/></svg></button>
-            </div>
-          </th>
+          <th>Theme</th>
+          <th>Est. Market <br>Rank (share)</th>
+          <th>Origins passing<br> all CWV</th>
           <th class="hide-mobile">Good LCP</th>
           <th class="hide-mobile">Good CLS</th>
           <th class="hide-mobile">Good INP</th>
@@ -119,9 +113,9 @@ description: Compare all popular Shopify themes in terms of Core Web Vitals perf
 
   // Sorting
   const CLIENTS = ['mobile', 'desktop']
-  const buttonSortAlpha = document.querySelector("#sortAlpha")
-  const buttonSortMarket = document.querySelector("#sortMarket")
-  const buttonSortCWV = document.querySelector("#sortCWV")
+  const buttonSortAlpha = document.querySelector("#sort-alpha")
+  const buttonSortMarket = document.querySelector("#sort-rank")
+  const buttonSortCWV = document.querySelector("#sort-cwv")
 
   // By market rank
   buttonSortMarket.addEventListener("click", e => {

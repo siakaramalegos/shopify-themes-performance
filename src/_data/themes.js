@@ -1,4 +1,3 @@
-// Server-side code
 const fs = require('fs')
 const { readDataFile } = require('../../helpers');
 

@@ -267,6 +267,7 @@ CLIENTS.forEach(client => {
 
 const output = {
   themes: themesWithChartsAndAggr,
+  date: currentMonthsReadable[currentMonthsReadable.length - 1]
 }
 
 const outputFileName = getDateFileString(new Date())
