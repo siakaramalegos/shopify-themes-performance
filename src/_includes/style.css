@@ -134,6 +134,10 @@ a.button {
   padding: 8px 16px;
   text-decoration: none;
 }
+.banner a.button {
+  background-color: var(--white);
+  color: var(--blue);
+}
 a {
   border-block-end: 2px solid var(--med-sea-green);
   color: var(--blue);
