@@ -316,12 +316,8 @@ th button.client-switch {
   height: 32px;
   margin-bottom: 0;
 }
-th div {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-  text-align: left;
+th small {
+  font-weight: 400;
 }
 .down {
   background-color: var(--light-red-munsell);
@@ -340,6 +336,68 @@ th div {
 .none::before {
   content: "-";
 }
+.table-actions {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 16px 32px;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+th {
+  position: relative;
+}
+button[data-toggletip-content] {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  display: inline-block;
+  text-decoration-style: dashed;
+  text-decoration-line: underline;
+  text-decoration-color: var(--med-sea-green);
+  /* text-decoration-color: var(--blue); */
+  text-underline-offset: 2px;
+  overflow: visible;
+  color: var(--charcoal);
+  padding: 0 10px;
+}
+button[data-toggletip-content]::after {
+  /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='12' title='question-circle'%3E%3Cpath fill='%23076881' d='M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z' /%3E%3C/svg%3E"); */
+  background-color: var(--blue);
+  border-radius: 14px;
+  color: var(--white);
+  content: "i";
+  display: inline-block;
+  font-size: 10px;
+  height: 14px;
+  margin-left: 4px;
+  width: 14px;
+  position: absolute;
+}
+.toggletip-bubble {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background: var(--charcoal);
+  color: var(--white);
+  display: inline-block;
+  font-size: var(--size-300);
+  font-weight: 400;
+  padding: 0.5rem;
+  text-align: left;
+  width: 200px;
+}
+.toggletip-bubble::before {
+  content: "";
+	width: 0px;
+	height: 0px;
+	border: 0.8em solid transparent;
+	position: absolute;
+  right: 25%;
+	bottom: -20px;
+	border-top: 10px solid var(--charcoal);
+}
 
 /* Theme pages */
 .chart-flex {
@@ -357,13 +415,6 @@ th div {
 .chart-grid h3, .chart-flex h3 {
   font-size: var(--size-500);
   text-align: center;
-}
-.table-actions {
-  display: flex;
-  flex-wrap: wrap-reverse;
-  gap: 16px 32px;
-  justify-content: flex-end;
-  align-items: flex-end;
 }
 button.client-switch {
   background-color: var(--light-blue);
@@ -458,6 +509,9 @@ span.sorting {
 @media screen and (max-width: 800px) {
   table {
     font-size: var(--size-300);
+  }
+  th small {
+    font-size: var(--size-200);
   }
   .popularity p {
     font-size: var(--size-200);

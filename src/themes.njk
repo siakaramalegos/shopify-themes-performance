@@ -37,11 +37,29 @@ description: Compare all popular Shopify themes in terms of Core Web Vitals perf
       <thead>
         <tr>
           <th>Theme</th>
-          <th>Est. Market <br>Rank (share)</th>
-          <th>Origins passing<br> all CWV</th>
-          <th class="hide-mobile">Good LCP</th>
-          <th class="hide-mobile">Good CLS</th>
-          <th class="hide-mobile">Good INP</th>
+          <th>
+            <button type="button" aria-label="more info" data-toggletip-content="The rank in market share only for the websites included in the Chrome User Experience Report. See FAQ.">Est. Market Rank</button>
+            <span role="status"></span>
+            <br><small>(share)</small></th>
+          <th>
+            <button type="button" aria-label="more info" data-toggletip-content="The Core Web Vitals (CWV) are LCP, CLS, and INP.">Origins passing all CWV</button>
+            <span role="status"></span>
+            <br><small>(trend)</small></th>
+          <th class="hide-mobile">
+            <button type="button" aria-label="more info" data-toggletip-content="Largest Contentful Paint (LCP) measures loading speed of the largest element in the viewport.">Origins with good LCP</button>
+            <span role="status"></span>
+            <br><small>(trend)</small>
+          </th>
+          <th class="hide-mobile">
+            <button type="button" aria-label="more info" data-toggletip-content="Cumulative Layout Shift (CLS) measures how much the page or layout moved unexpectedly.">Origins with good CLS</button>
+            <span role="status"></span>
+            <br><small>(trend)</small>
+          </th>
+          <th class="hide-mobile">
+            <button type="button" aria-label="more info" data-toggletip-content="Interaction to Next Paint (INP) measures how quickly the page responds to user input.">Origins with good INP</button>
+            <span role="status"></span>
+            <br><small>(trend)</small>
+          </th>
         </tr>
       </thead>
       <tbody id="tbody-mobile">
@@ -52,7 +70,7 @@ description: Compare all popular Shopify themes in terms of Core Web Vitals perf
             data-cwv-rank="{{ theme.summary.mobile.cwvRank }}"
             data-alpha-rank="{{ loop.index }}">
             <td><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</td>
-            <td>{{ theme.summary.mobile.marketRank }} ({{ theme.summary.mobile.marketSharePct }}%)</td>
+            <td>{{ theme.summary.mobile.marketRank }} <small>({{ theme.summary.mobile.marketSharePct }}%)</small></td>
             <td>
               <div>
                 {{ theme.summary.mobile.passingCWVchart | safe }}
@@ -175,5 +193,44 @@ description: Compare all popular Shopify themes in terms of Core Web Vitals perf
 
       document.querySelector(`#tbody-${client}`).appendChild(fragment);
     })
+  })
+
+  // Toggle tips (tooltips)
+  // Get all the toggletip buttons
+  const toggleTips = document.querySelectorAll('[data-toggletip-content]');
+
+  // Iterate over them
+  toggleTips.forEach(tip => {
+    const message = tip.dataset.toggletipContent
+    const liveRegion = tip.nextElementSibling;
+
+    tip.addEventListener('click', () => {
+      console.log({message, liveRegion});
+
+      liveRegion.innerHTML = '';
+      window.setTimeout(() => {
+        liveRegion.innerHTML = `<span class="toggletip-bubble">${message}</span>`;
+      }, 100);
+    })
+
+    // Close on click outsite tip
+    document.addEventListener('click', (e) => {
+      if (tip !== e.target) {
+        liveRegion.innerHTML = '';
+      }
+    });
+
+    // Close on Esc
+    tip.addEventListener('keydown', (e) => {
+      if ((e.keyCode || e.which) === 27) {
+        liveRegion.innerHTML = '';
+      }
+    });
+
+    // Close on blur
+    tip.addEventListener('blur', (e) => {
+      liveRegion.innerHTML = '';
+    });
+
   })
 </script>
