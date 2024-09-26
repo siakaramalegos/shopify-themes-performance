@@ -589,6 +589,11 @@
     "sunset": false,
     "slug": "taste"
   },
+  "1448": {
+    "name": "Bazaar",
+    "sunset": false,
+    "slug": "bazaar"
+  },
   "1457": {
     "name": "Tailor",
     "sunset": false,
@@ -949,6 +954,11 @@
     "sunset": false,
     "slug": "brava"
   },
+  "2158": {
+    "name": "Huge",
+    "sunset": false,
+    "slug": "huge"
+  },
   "2160": {
     "name": "Honey",
     "sunset": false,
@@ -1024,6 +1034,11 @@
     "sunset": false,
     "slug": "kidu"
   },
+  "2275": {
+    "name": "Pesto",
+    "sunset": true,
+    "slug": "pesto"
+  },
   "2277": {
     "name": "Artist",
     "sunset": true,
@@ -1084,6 +1099,16 @@
     "sunset": false,
     "slug": "select"
   },
+  "2378": {
+    "name": "Aisle",
+    "sunset": false,
+    "slug": "aisle"
+  },
+  "2405": {
+    "name": "Urban",
+    "sunset": false,
+    "slug": "Urban"
+  },
   "2412": {
     "name": "Concept",
     "sunset": false,
@@ -1119,6 +1144,16 @@
     "sunset": false,
     "slug": "borders"
   },
+  "2505": {
+    "name": "Zora",
+    "sunset": false,
+    "slug": "zora"
+  },
+  "2512": {
+    "name": "Murmel",
+    "sunset": false,
+    "slug": "murmel"
+  },
   "2514": {
     "name": "Aesthetic",
     "sunset": false,
@@ -1133,6 +1168,11 @@
     "name": "Digital",
     "sunset": false,
     "slug": "digital"
+  },
+  "2546": {
+    "name": "Noblesse",
+    "sunset": false,
+    "slug": "noblesse"
   },
   "2564": {
     "name": "Copenhagen",
@@ -1149,6 +1189,11 @@
     "sunset": false,
     "slug": "shine"
   },
+  "2578": {
+    "name": "Elysian",
+    "sunset": false,
+    "slug": "elysian"
+  },
   "2599": {
     "name": "Sitar",
     "sunset": false,
@@ -1164,6 +1209,16 @@
     "sunset": false,
     "slug": "tokyo"
   },
+  "2630": {
+    "name": "Retro",
+    "sunset": false,
+    "slug": "retro"
+  },
+  "2659": {
+    "name": "Space",
+    "sunset": false,
+    "slug": "space"
+  },
   "2698": {
     "name": "Release",
     "sunset": false,
@@ -1174,19 +1229,54 @@
     "sunset": false,
     "slug": "trade"
   },
+  "2702": {
+    "name": "Paris",
+    "sunset": false,
+    "slug": "paris"
+  },
+  "2717": {
+    "name": "Energy",
+    "sunset": false,
+    "slug": "energy"
+  },
+  "2737": {
+    "name": "Swipe",
+    "sunset": false,
+    "slug": "swipe"
+  },
   "2738": {
     "name": "Rise",
     "sunset": false,
     "slug": "rise"
+  },
+  "2779": {
+    "name": "Luxe",
+    "sunset": false,
+    "slug": "luxe"
   },
   "2801": {
     "name": "Nordic",
     "sunset": false,
     "slug": "nordic"
   },
+  "2812": {
+    "name": "Piano",
+    "sunset": false,
+    "slug": "piano"
+  },
   "2821": {
     "name": "Sleek",
     "sunset": false,
     "slug": "sleek"
+  },
+  "2847": {
+    "name": "Flawless",
+    "sunset": false,
+    "slug": "flawless"
+  },
+  "2852": {
+    "name": "Pinnacle",
+    "sunset": false,
+    "slug": "pinnacle"
   }
 }

@@ -1,7 +1,7 @@
 const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg, getTrend, getSparkColumnSvg } = require('./helpers');
 const RAW_FOLDER = '_raw_data/';
 const CACHE_DIR = '_processed_data'
-const MIN_ORIGINS = 100
+const MIN_ORIGINS = 50
 const CLIENTS = ['mobile', 'desktop']
 const CREATE_CHARTS = true // set to false when testing other parts
 
@@ -201,7 +201,7 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
     const {origins, passingCWV, passingLCP, passingCLS, passingINP} = data[client]
     const lastOrigin = origins[origins.length - 1]
     const marketSharePct = Math.round(lastOrigin / latestTotalOrigins[client] * 10000) / 100
-    const passingCWVnum = passingCWV[passingCWV.length - 1]
+    const passingCWVnum = passingCWV[passingCWV.length - 1] || 0
 
     aggregData[client] = {
       origins: lastOrigin,
@@ -209,9 +209,9 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
       passingCWVnum,
       passingCWV: passingCWVnum.toFixed(1),
       passingCWVchart: getSparkColumnSvg(passingCWVnum, lastMonth),
-      passingLCP: passingLCP[passingLCP.length - 1].toFixed(1),
-      passingCLS: passingCLS[passingCLS.length - 1].toFixed(1),
-      passingINP: passingINP[passingINP.length - 1].toFixed(1),
+      passingLCP: (passingLCP[passingLCP.length - 1] || 0).toFixed(1),
+      passingCLS: (passingCLS[passingCLS.length - 1] || 0).toFixed(1),
+      passingINP: (passingINP[passingINP.length - 1] || 0).toFixed(1),
       cwvTrend: getTrend(passingCWV),
       lcpTrend: getTrend(passingLCP),
       clsTrend: getTrend(passingCLS),
@@ -267,7 +267,8 @@ CLIENTS.forEach(client => {
 
 const output = {
   themes: themesWithChartsAndAggr,
-  date: currentMonthsReadable[currentMonthsReadable.length - 1]
+  date: currentMonthsReadable[currentMonthsReadable.length - 1],
+  minOrigins: MIN_ORIGINS,
 }
 
 const outputFileName = getDateFileString(new Date())
