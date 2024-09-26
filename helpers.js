@@ -258,8 +258,8 @@ function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, curr
 }
 
 function getTrend(arr) {
-  const start = arr[arr.length - 1]
-  const end = arr[arr.length - 2]
+  const end = arr[arr.length - 1]
+  const start = arr[arr.length - 2]
 
   if (end > start) {
     return "up"
