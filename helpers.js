@@ -55,15 +55,21 @@ function getPassingCwvSvg(monthlyData, currentMonthsReadable) {
   let chart = echarts.init(null, null, {
     renderer: 'svg', // must use SVG rendering mode
     ssr: true, // enable SSR
-    width: 300, // need to specify height and width
-    height: 300
+    width: 350, // need to specify height and width
+    height: 350
   });
 
   chart.setOption({
     xAxis: {
-      data: currentMonthsReadable
+      data: currentMonthsReadable,
+      name: 'Month/Year',
+      nameLocation: 'center',
+      nameTextStyle: { padding: [8, 0, 0, 0] },
     },
-    yAxis: {},
+    yAxis: {
+      name: '% of origins',
+      max: 100,
+    },
     series: [
       {
         data: monthlyData,
@@ -155,13 +161,16 @@ function getLineSvg(monthlyData, currentMonthsReadable) {
     renderer: 'svg', // must use SVG rendering mode
     ssr: true, // enable SSR
     width: 460, // need to specify height and width
-    height: 300
+    height: 350
   });
 
   chart.setOption({
     xAxis: {
       type: 'category',
-      data: currentMonthsReadable
+      data: currentMonthsReadable,
+      name: 'Month/Year',
+      nameLocation: 'center',
+      nameTextStyle: { padding: [8, 0, 0, 0] },
     },
     yAxis: {
       type: 'value'
@@ -188,16 +197,22 @@ function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, curr
   let chart = echarts.init(null, null, {
     renderer: 'svg', // must use SVG rendering mode
     ssr: true, // enable SSR
-    width: 300, // need to specify height and width
-    height: 300
+    width: 350, // need to specify height and width
+    height: 350
   });
 
   chart.setOption({
     animation,
     xAxis: {
-      data: currentMonthsReadable
+      data: currentMonthsReadable,
+      name: 'Month/Year',
+      nameLocation: 'center',
+      nameTextStyle: { padding: [8, 0, 0, 0] },
     },
-    yAxis: { max: 100 },
+    yAxis: {
+      name: '% of origins',
+      max: 100,
+    },
     series: [
       {
         data: passingMonthly,
