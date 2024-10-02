@@ -69,7 +69,7 @@ description: Compare all popular Shopify themes in terms of Core Web Vitals perf
             data-market-rank="{{ theme.summary.mobile.marketRank }}"
             data-cwv-rank="{{ theme.summary.mobile.cwvRank }}"
             data-alpha-rank="{{ loop.index }}">
-            <td><a href="/themes/{{ theme.slug }}">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</td>
+            <td><a href="/themes/{{ theme.slug }}/">{{ theme.name }}</a> {% if theme.sunset %}<span class="pill">vintage</span>{% endif %}</td>
             <td>{{ theme.summary.mobile.marketRank }} <small>({{ theme.summary.mobile.marketSharePct }}%)</small></td>
             <td>
               <div>
