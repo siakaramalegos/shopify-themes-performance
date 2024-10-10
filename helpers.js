@@ -270,6 +270,26 @@ function getTrend(arr) {
   }
 }
 
+function getAggregations(array) {
+  const sortedArray = array.sort((a, b) => a - b)
+  const middleIndex = sortedArray.length / 2
+
+  let median
+  if (middleIndex % 1 === 0) {
+    // Even array, return average of 2 middle values
+    median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2
+  } else {
+    // Odd array, return middle
+    median = sortedArray[middleIndex]
+  }
+
+  return {
+    min: sortedArray[0].toFixed(1),
+    median: median.toFixed(1),
+    max: sortedArray[sortedArray.length - 1].toFixed(1),
+  }
+}
+
 module.exports = {
   readDataFile,
   getDateFileString,
@@ -280,4 +300,5 @@ module.exports = {
   getSparkColumnSvg,
   getStackedBarSvg,
   getTrend,
+  getAggregations,
 }

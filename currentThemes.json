@@ -1259,6 +1259,11 @@
     "sunset": false,
     "slug": "luxe"
   },
+  "2782": {
+    "name": "Refine",
+    "sunset": false,
+    "slug": "refine"
+  },
   "2801": {
     "name": "Nordic",
     "sunset": false,
@@ -1283,5 +1288,15 @@
     "name": "Pinnacle",
     "sunset": false,
     "slug": "pinnacle"
+  },
+  "2883": {
+    "name": "Machina",
+    "sunset": false,
+    "slug": "machina"
+  },
+  "2948": {
+    "name": "King",
+    "sunset": false,
+    "slug": "king"
   }
 }

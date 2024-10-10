@@ -1,4 +1,4 @@
-const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg, getTrend, getSparkColumnSvg } = require('./helpers');
+const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg, getTrend, getSparkColumnSvg, getAggregations } = require('./helpers');
 const RAW_FOLDER = '_raw_data/';
 const CACHE_DIR = '_processed_data'
 const MIN_ORIGINS = 50
@@ -265,10 +265,43 @@ CLIENTS.forEach(client => {
   })
 })
 
+// Aggregations
+const METRICS = [
+  'passingCWV',
+  'passingLCP',
+  'passingCLS',
+  'passingINP',
+]
+const READABLE_METRIC = {
+  passingCWV: 'All Core Web Vitals (CWV)',
+  passingLCP: 'Largest Contentful Paint (LCP)',
+  passingCLS: 'Cumulative Layout Shift (CLS)',
+  passingINP: 'Interaction to Next Paint (INP)',
+}
+const aggregations = {
+  mobile: [],
+  desktop: [],
+}
+CLIENTS.forEach(client => {
+  METRICS.forEach(metric => {
+    const metricValues = themesWithChartsAndAggr.map(theme => parseFloat(theme.summary[client][metric]))
+    aggregations[client].push({
+      name: READABLE_METRIC[metric],
+      ...getAggregations(metricValues),
+    })
+  })
+})
+
+console.log("*** AGGREGATIONS (mobile) ***");
+console.log(aggregations.mobile);
+console.log("*** AGGREGATIONS (desktop) ***");
+console.log(aggregations.desktop);
+
 const output = {
   themes: themesWithChartsAndAggr,
   date: currentMonthsReadable[currentMonthsReadable.length - 1],
   minOrigins: MIN_ORIGINS,
+  aggregations,
 }
 
 const outputFileName = getDateFileString(new Date())

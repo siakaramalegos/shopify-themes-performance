@@ -116,7 +116,7 @@ small {font-size: var(--size-300);}
 .flow > * + * { margin-top: var(--flow-space, 1em);}
 .text-right {text-align: right;}
 .text-center {text-align: center;}
-.max-ch {max-width: 67ch;}
+.max-ch {max-width: 77ch;}
 .content-center {margin: 0 auto;}
 
 a.button {
@@ -168,8 +168,8 @@ main > section:first-of-type {
   margin-top: 0;
 }
 .image-with-text {
-  display: grid;
-  grid-template-columns: auto-fit(auto 1fr);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 32px;
 }
@@ -179,6 +179,10 @@ main > section:first-of-type {
 .image-with-text img {
   width: 300px;
   height: auto;
+}
+.image-with-text div {
+  width: 100%;
+  max-width: 65ch;
 }
 .banner-light {
   background-color: var(--light-grey);
@@ -291,6 +295,10 @@ table {
   box-shadow: 0 0 0 .1rem rgba(var(--charcoal-rgb-text), .2);
   margin-top: 32px;
 }
+table caption {
+  padding: 12px 0;
+  font-weight: 700;
+}
 thead:first-of-type tr {
   position: sticky;
   top: 0;
@@ -301,6 +309,9 @@ td, th {
   padding: 1em;
   border: .1rem solid rgba(var(--charcoal-rgb-text), .2);
   font-variant-numeric: tabular-nums;
+}
+.td-nums td:not(:first-child) {
+  text-align: right;
 }
 td div {
   position: relative;
@@ -491,13 +502,15 @@ span.sorting {
 }
 
 @media screen and (max-width: 320px) {
-  tr td:nth-child(2), tr th:nth-child(2) {
+  table#all-themes tr td:nth-child(2), tr th:nth-child(2) {
     display: none;
   }
 }
-
-
-
+@media screen and (max-width: 380px) {
+  table#aggregations tr td:nth-child(2), tr th:nth-child(2), tr td:nth-child(4), tr th:nth-child(4) {
+    display: none;
+  }
+}
 @media screen and (max-width: 700px) {
   .hide-mobile {
     display: none;
