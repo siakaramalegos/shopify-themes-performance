@@ -29,7 +29,10 @@ const summarizedThemes = themesCurrent.map(theme => {
   }
 
   const originsImprovementMobile = previousData[0].summary.mobile.origins ? theme.summary.mobile.origins - previousData[0].summary.mobile.origins : null
+  const originsPctImproveMobile = originsImprovementMobile ? originsImprovementMobile / previousData[0].summary.mobile.origins : null
   const originsImprovementDesktop = previousData[0].summary.desktop.origins ? theme.summary.desktop.origins - previousData[0].summary.desktop.origins : null
+  const originsPctImproveDesktop = originsImprovementDesktop ? originsImprovementDesktop / previousData[0].summary.desktop.origins : null
+
   const cwvImproveMobile = previousData[0].summary.mobile.passingCWVnum ? theme.summary.mobile.passingCWVnum - previousData[0].summary.mobile.passingCWVnum : null
   const cwvImproveDesktop = previousData[0].summary.desktop.passingCWVnum ? theme.summary.desktop.passingCWVnum - previousData[0].summary.desktop.passingCWVnum : null
 
@@ -39,6 +42,8 @@ const summarizedThemes = themesCurrent.map(theme => {
     originsDesktop: theme.summary.desktop.origins,
     originsImprovementMobile,
     originsImprovementDesktop,
+    originsPctImproveMobile,
+    originsPctImproveDesktop,
     cwvImproveMobile,
     cwvImproveDesktop,
   }
@@ -71,6 +76,8 @@ prettyPrint(mostImprovedDesktop, 'cwvImproveDesktop', 'originsDesktop')
 // Highest market (origins) growth
 const mostOriginGrowthMobile =  sortByField(summarizedThemes, 'originsImprovementMobile')
 const mostOriginGrowthDesktop =  sortByField(summarizedThemes, 'originsImprovementDesktop')
+const mostOriginPctGrowthMobile =  sortByField(summarizedThemes, 'originsPctImproveMobile')
+const mostOriginPctGrowthDesktop =  sortByField(summarizedThemes, 'originsPctImproveDesktop')
 
 console.log("**************************************************");
 console.log("*** MOST ORIGIN GROWTH (mobile) ***");
@@ -78,4 +85,10 @@ prettyPrint(mostOriginGrowthMobile, 'originsImprovementMobile')
 console.log("**************************************************");
 console.log("*** MOST ORIGIN GROWTH (desktop) ***");
 prettyPrint(mostOriginGrowthDesktop, 'originsImprovementDesktop')
+console.log("**************************************************");
+console.log("*** MOST % ORIGIN GROWTH (mobile) ***");
+prettyPrint(mostOriginPctGrowthMobile, 'originsPctImproveMobile')
+console.log("**************************************************");
+console.log("*** MOST % ORIGIN GROWTH (desktop) ***");
+prettyPrint(mostOriginPctGrowthDesktop, 'originsPctImproveDesktop')
 console.log("**************************************************");
