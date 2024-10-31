@@ -14,9 +14,10 @@
     {{ css | cssmin | safe }}
   </style>
 
-  <meta property="og:description" content="{{ renderDescription }}" />
-  <meta property="og:url" content="https://themevitals.com/" />
-  <meta property="og:title" content="{{ renderTitle }}" />
+  <meta property="og:description" content="{{ renderDescription }}">
+  <meta property="og:url" content="https://themevitals.com{{ page.url }}">
+  <meta property="og:title" content="{{ renderTitle }}">
+  <meta property="og:site_name" content="Theme Vitals">
   <meta property="og:image" content="{% socialImage renderTitle, shortDescription or renderDescription %}">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1280">
