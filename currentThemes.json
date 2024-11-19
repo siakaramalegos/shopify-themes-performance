@@ -904,6 +904,11 @@
     "sunset": false,
     "slug": "vision"
   },
+  "2061": {
+    "name": "Infinity",
+    "sunset": false,
+    "slug": "infinity"
+  },
   "2063": {
     "name": "Charge",
     "sunset": false,
@@ -1169,6 +1174,11 @@
     "sunset": false,
     "slug": "monk"
   },
+  "2534": {
+    "name": "Takeout",
+    "sunset": false,
+    "slug": "takeout"
+  },
   "2539": {
     "name": "Digital",
     "sunset": false,
@@ -1279,6 +1289,11 @@
     "sunset": false,
     "slug": "sleek"
   },
+  "2825": {
+    "name": "Soul",
+    "sunset": false,
+    "slug": "soul"
+  },
   "2847": {
     "name": "Flawless",
     "sunset": false,
@@ -1288,6 +1303,11 @@
     "name": "Pinnacle",
     "sunset": false,
     "slug": "pinnacle"
+  },
+  "2870": {
+    "name": "Madrid",
+    "sunset": false,
+    "slug": "madrid"
   },
   "2883": {
     "name": "Machina",

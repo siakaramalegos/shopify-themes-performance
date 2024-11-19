@@ -87,7 +87,7 @@ currentMonths.forEach(date => {
 })
 
 // Filter out low origins count for last month
-const themes = Object.keys(themesObj).map(themeName => themesObj[themeName]).filter(theme => {
+const themes = Object.keys(themesObj).map(themeId => themesObj[themeId]).filter(theme => {
   const ignore = theme.monthlyData[theme.monthlyData.length - 1].origins < MIN_ORIGINS
   if (ignore) {
     ignoredThemes++
@@ -129,7 +129,7 @@ const themesWithCharts = themes.map(theme => {
     const index = currentMonths.indexOf(date)
     if (index >= 0) {
       data[client].origins[index] = origins
-      if (origins > MIN_ORIGINS) {
+      if (origins >= MIN_ORIGINS) {
         data[client].passingCWV[index] = pct_good_cwv
         data[client].passingLCP[index] = pct_good_lcp
         data[client].needsImproveLCP[index] = pct_ni_lcp
