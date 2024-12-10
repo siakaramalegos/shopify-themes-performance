@@ -156,7 +156,7 @@ JOIN (
 -- Include null theme store ids so that we can get full market share within CrUX
 ON IFNULL(theme_names.theme_store_id, 'N/A') = IFNULL(archive_pages.theme_store_id, 'N/A')
 WHERE
-  date = '2024-07-01' AND
+  date = '2024-11-01' AND
   theme_names.rank = 1
 GROUP BY
   client,
