@@ -16,7 +16,6 @@ WITH archive_pages AS (
     SELECT
       client,
       page AS url,
-      custom_metrics.ecommerce.Shopify.theme.name AS theme_name,
       custom_metrics.ecommerce.Shopify.theme.schema_name AS theme_schema_name,
       custom_metrics.ecommerce.Shopify.theme.theme_store_id AS theme_store_id,
     FROM `httparchive.crawl.pages` TABLESAMPLE SYSTEM (0.05 PERCENT) --remove sample for full query (it's expensive)
@@ -29,7 +28,7 @@ WITH archive_pages AS (
 SELECT
   client,
   archive_pages.theme_store_id AS id,
-  theme_names.theme_name AS top_theme_name,
+  theme_names.theme_schema_name AS top_theme_name,
   COUNT(DISTINCT origin) AS origins,
   -- Origins with good LCP divided by origins with any LCP.
   SAFE_DIVIDE(
@@ -146,12 +145,12 @@ JOIN (
   SELECT
     COUNT(DISTINCT url) as pages_count,
     theme_store_id,
-    theme_name,
+    theme_schema_name,
     row_number() over (partition by theme_store_id order by COUNT(DISTINCT url) desc) as rank
   FROM archive_pages
   GROUP BY
     theme_store_id,
-    theme_name
+    theme_schema_name
   ORDER BY COUNT(DISTINCT url) DESC
 ) theme_names
 -- Include null theme store ids so that we can get full market share within CrUX
