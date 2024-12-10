@@ -16,19 +16,19 @@ WITH archive_pages AS (
     SELECT
       client,
       page AS url,
-      JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.name') AS theme_name,
-      JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.theme_store_id') AS theme_store_id,
-    FROM `httparchive.all.pages` TABLESAMPLE SYSTEM (0.05 PERCENT) --remove sample for full query (it's expensive)
+      TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.schema_name) AS theme_schema_name, --when querying prior to Nov 2024, use theme.name instead
+      TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.theme_store_id) AS theme_store_id,
+    FROM `httparchive.crawl.pages` TABLESAMPLE SYSTEM (0.05 PERCENT) --remove sample for full query (it's expensive)
     WHERE
-      date = '2024-07-01'AND
+      date = '2024-11-01'AND
       is_root_page AND
-      JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.name') IS NOT NULL --first grab all shops for market share
+      custom_metrics.ecommerce.Shopify.theme.name IS NOT NULL --This is just a check for it being a theme. Maybe we should check that Shopify is not null instead? Or Shopify.theme. (first grab all shops for market share)
 )
 
 SELECT
   client,
   archive_pages.theme_store_id AS id,
-  theme_names.theme_name AS top_theme_name,
+  theme_names.theme_schema_name AS top_theme_name,
   COUNT(DISTINCT origin) AS origins,
   -- Origins with good LCP divided by origins with any LCP.
   SAFE_DIVIDE(
@@ -145,18 +145,18 @@ JOIN (
   SELECT
     COUNT(DISTINCT url) as pages_count,
     theme_store_id,
-    theme_name,
+    theme_schema_name,
     row_number() over (partition by theme_store_id order by COUNT(DISTINCT url) desc) as rank
   FROM archive_pages
   GROUP BY
     theme_store_id,
-    theme_name
+    theme_schema_name
   ORDER BY COUNT(DISTINCT url) DESC
 ) theme_names
 -- Include null theme store ids so that we can get full market share within CrUX
 ON IFNULL(theme_names.theme_store_id, 'N/A') = IFNULL(archive_pages.theme_store_id, 'N/A')
 WHERE
-  date = '2024-07-01' AND
+  date = '2024-11-01' AND
   theme_names.rank = 1
 GROUP BY
   client,
