@@ -16,13 +16,14 @@ WITH archive_pages AS (
     SELECT
       client,
       page AS url,
-      JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.name') AS theme_name,
-      JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.theme_store_id') AS theme_store_id,
-    FROM `httparchive.all.pages` TABLESAMPLE SYSTEM (0.05 PERCENT) --remove sample for full query (it's expensive)
+      custom_metrics.ecommerce.Shopify.theme.name AS theme_name,
+      custom_metrics.ecommerce.Shopify.theme.schema_name AS theme_schema_name,
+      custom_metrics.ecommerce.Shopify.theme.theme_store_id AS theme_store_id,
+    FROM `httparchive.crawl.pages` TABLESAMPLE SYSTEM (0.05 PERCENT) --remove sample for full query (it's expensive)
     WHERE
-      date = '2024-07-01'AND
+      date = '2024-11-01'AND
       is_root_page AND
-      JSON_VALUE(custom_metrics, '$.ecommerce.Shopify.theme.name') IS NOT NULL --first grab all shops for market share
+      custom_metrics.ecommerce.Shopify.theme.name IS NOT NULL --This is just a check for it being a theme. Maybe we should check that Shopify is not null instead? Or Shopify.theme. (first grab all shops for market share)
 )
 
 SELECT
