@@ -23,80 +23,14 @@ layout: base.njk
       </svg>
       <div class="max-ch">
         <h1>Shopify Theme Vitals</h1>
-        <p class="lead">Your resource for exploring how popular Shopify themes perform on real merchant websites.</p>
+        <p class="lead">How fast is your theme? Your resource for exploring Core Web Vitals performance for popular Shopify themes.</p>
         <p  style="margin-top: 16px;"><a href="/themes/" class="button">Explore the data</a></p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="content flow max-ch">
-  <h2>How Shopify Themes Perform as a Group</h2>
-  <p>The highest, lowest, and median (middle) percent of websites passing for a theme from the latest data set on {{ metaData.date }}. <a href="/themes/">Explore the data for each theme</a>.</p>
-
-  <p>
-    <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
-      Mobile
-    </button>
-    <button id="desktop-switch" class="client-switch" role="switch" aria-checked="false">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
-      Desktop
-    </button>
-  </p>
-  <table class="td-nums" id="aggregations">
-    <caption>Percent of websites passing each metric for each theme</caption>
-    <thead>
-      <tr>
-        <th>Metric</th>
-        <th>Minimum</th>
-        <th>Median</th>
-        <th>Maximum</th>
-      </tr>
-    </thead>
-    <tbody id="data-mobile">
-      {% for metric in metaData.aggregations.mobile %}
-        <tr>
-          <td>{{ metric.name }}</td>
-          <td>{{ metric.min }}%</td>
-          <td>{{ metric.median }}%</td>
-          <td>{{ metric.max }}%</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-    <tbody id="data-desktop" hidden>
-      {% for metric in metaData.aggregations.desktop %}
-        <tr>
-          <td>{{ metric.name }}</td>
-          <td>{{ metric.min }}%</td>
-          <td>{{ metric.median }}%</td>
-          <td>{{ metric.max }}%</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</section>
-
-<section class="banner">
-  <div class="content flow max-ch">
-    <h2>Why Performance Matters</h2>
-    <p>Web performance is important because it impacts user experience. When websites are slow to load, don't respond promptly to user input, or items on the page move about unexpectedly, users get frustrated and leave.</p>
-    <p><a href="https://performance.shopify.com/blogs/blog/why-web-performance-still-matters">Great web performance leads to higher conversions.</a> It can also improve your SEO rankings.</p>
-  </div>
-</section>
-
-<section class="content image-with-text">
-  <img src="{% src 'httparchive_s0d1dg.jpg', 600 %}"
-  alt="The HTTP Archive Tracks How the Web is Built. We periodically crawl the top sites on the web and record detailed information about fetched resources, used web platform APIs and features, and execution traces of each page. We then crunch and analyze this data to identify trends."
-  loading="lazy"
-  width="1494" height="701">
-  <div class="flow">
-    <h2>About the Data</h2>
-    <p>All of the data reported here is publicly available through <a href="https://httparchive.org/">HTTPArchive</a> and the <a href="https://developer.chrome.com/docs/crux">Chrome User Experience Report</a> (CrUX) via <a href="https://cloud.google.com/bigquery">BigQuery</a>. Information about whether a website is on Shopify and which theme it uses comes from HTTPArchive. That data is then joined with CrUX to obtain real-user performance metrics from sessions in Chrome browsers. You can find and review the query in this site's <a href="https://github.com/siakaramalegos/shopify-themes-performance/blob/main/query.sql">source code</a>.</p>
-  </div>
-</section>
-
-<section class="content banner-inset banner-light">
+<section class="content">
   <div class="max-ch flow content-center">
     <h2 class="text-center">How to Use this Site</h2>
     <div class="how-grid">
@@ -115,24 +49,12 @@ layout: base.njk
   </div>
 </section>
 
+<section class="banner">
+  <div class="content flow max-ch">
+    <h2>Why Performance Matters</h2>
+    <p>Web performance is important because it impacts user experience. When websites are slow to load, don't respond promptly to user input, or items on the page move about unexpectedly, users get frustrated and leave.</p>
+    <p><a href="https://performance.shopify.com/blogs/blog/why-web-performance-still-matters">Great web performance leads to higher conversions.</a> It can also improve your SEO rankings.</p>
+  </div>
+</section>
+
 {% include 'cta.njk' %}
-
-<script>
-  const buttonMobile = document.querySelector("#mobile-switch")
-  const buttonDesktop = document.querySelector("#desktop-switch")
-  const sectionMobile = document.querySelector("#data-mobile")
-  const sectionDesktop = document.querySelector("#data-desktop")
-
-  buttonMobile.addEventListener("click", e => {
-    sectionMobile.hidden = false
-    sectionDesktop.hidden = true
-    buttonMobile.setAttribute("aria-checked", true)
-    buttonDesktop.setAttribute("aria-checked", false)
-  })
-  buttonDesktop.addEventListener("click", e => {
-    sectionMobile.hidden = true
-    sectionDesktop.hidden = false
-    buttonMobile.setAttribute("aria-checked", false)
-    buttonDesktop.setAttribute("aria-checked", true)
-  })
-</script>

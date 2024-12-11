@@ -11,8 +11,9 @@ eleventyComputed:
 ---
 
 <section class="banner">
-  <div class="content">
+  <div class="content flow">
     <h1>{{ theme.name }}</h1>
+    <p class="lead">Core Web Vitals and other performance metrics for real-world websites using the {{ theme.name }} theme</p>
     <p>
       {% if theme.sunset %}
         <span class="pill">vintage</span>
@@ -23,7 +24,7 @@ eleventyComputed:
   </div>
 </section>
 
-<div class="content">
+<div class="content" data-client="mobile">
   <p class="text-right">
     <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
@@ -41,176 +42,233 @@ eleventyComputed:
 
     <div class="popularity">
       <div>
-        <p class="big-num">{{ theme.summary.mobile.marketRank }}</p>
-        <p>Est. Market Rank</p>
+        <p class="big-num mobile-data">{{ theme.summary.mobile.marketRank }}</p>
+        <p class="big-num desktop-data">{{ theme.summary.desktop.marketRank }}</p>
+        <p class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="The rank in market share only for the websites included in the Chrome User Experience Report. See FAQ.">Est. Market Rank</button>
+          <span role="status"></span>
+        </p>
       </div>
       <div>
-        <p class="big-num">{{ theme.summary.mobile.marketSharePct }}%</p>
-        <p>Est. Market Share</p>
+        <p class="big-num mobile-data">{{ theme.summary.mobile.marketSharePct }}%</p>
+        <p class="big-num desktop-data">{{ theme.summary.desktop.marketSharePct }}%</p>
+        <p class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="The percent of Shopify websites with this theme, only for the websites included in the Chrome User Experience Report. See FAQ.">Est. Market Share</button>
+          <span role="status"></span>
+        </p>
       </div>
       <div>
-        <p class="big-num">{{ theme.summary.mobile.cwvRank }}</p>
-        <p>Core Web Vitals Rank</p>
+        <p class="big-num mobile-data">{{ theme.summary.mobile.cwvRank }}</p>
+        <p class="big-num desktop-data">{{ theme.summary.desktop.cwvRank }}</p>
+        <p class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="The rank of this theme compared to all Shopify themes in terms of percent of websites passing all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Core Web Vitals Rank</button>
+          <span role="status"></span>
+        </p>
       </div>
       <div>
-        <p class="big-num">{{ theme.summary.mobile.passingCWV }}%</p>
-        <p>Origins Passing all CWVs</p>
+        <p class="big-num mobile-data">{{ theme.summary.mobile.passingCWV }}%</p>
+        <p class="big-num desktop-data">{{ theme.summary.desktop.passingCWV }}%</p>
+        <p class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="The percent of websites with this theme which pass all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Websites passing all CWV</button>
+          <span role="status"></span>
+        </p>
       </div>
     </div>
     <div class="chart-flex">
       <div>
-        <h3>Number of Origins</h3>
-        {{ theme.charts.mobile.originsSvg | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.mobile.originsAria }}
-        </p>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="The number of real-world websites included in the mobile or desktop data shown on this page.">Number of Websites</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.charts.mobile.originsSvg | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.mobile.originsAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.charts.desktop.originsSvg | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.desktop.originsAria }}
+          </p>
+        </div>
+
       </div>
       <div>
-        <h3>Origins passing all CWV</h3>
-        {{ theme.charts.mobile.passingCwvSvg | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.mobile.passingCwvAria }}
-        </p>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="How many real-world websites using this theme pass all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Websites passing all CWV</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.charts.mobile.passingCwvSvg | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.mobile.passingCwvAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.charts.desktop.passingCwvSvg | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.desktop.passingCwvAria }}
+          </p>
+        </div>
       </div>
     </div>
     <h2>Loading Speed Metrics</h2>
     <div class="chart-grid">
       <div>
-        <h3>Time to First Byte (TTFB)</h3>
-        {{ theme.charts.mobile.ttfb | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.mobile.ttfbAria }}
-        </p>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="TTFB measures the amount of time between when the request started and when the first byte of data returned from the server.">Time to First Byte (TTFB)</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.charts.mobile.ttfb | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.mobile.ttfbAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.charts.desktop.ttfb | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.desktop.ttfbAria }}
+          </p>
+        </div>
       </div>
       <div>
-        <h3>First Contentful Paint (FCP)</h3>
-        {{ theme.charts.mobile.fcp | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.mobile.fcpAria }}
-        </p>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="FCP measures the amount of time between when the request started and when the first content is rendered.">First Contentful Paint (FCP)</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.charts.mobile.fcp | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.mobile.fcpAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.charts.desktop.fcp | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.desktop.fcpAria }}
+          </p>
+        </div>
       </div>
       <div>
-        <h3>Largest Contentful Paint (LCP)</h3>
-        {{ theme.charts.mobile.lcp | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.mobile.lcpAria }}
-        </p>
-      </div>
-    </div>
-    <h2>Other Web Vitals Metrics</h2>
-    <div class="chart-grid">
-      <div>
-        <h3>Cumulative Layout Shift (CLS)</h3>
-        {{ theme.charts.mobile.cls | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.mobile.clsAria }}
-        </p>
-      </div>
-      <div>
-        <h3>Interaction to Next Paint (INP)</h3>
-        {{ theme.charts.mobile.inp | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.mobile.inpAria }}
-        </p>
-      </div>
-    </div>
-  </section>
-  <section class="flow" id="data-desktop" hidden>
-    <div class="popularity">
-      <div>
-        <p class="big-num">{{ theme.summary.desktop.marketRank }}</p>
-        <p>Est. Market Rank</p>
-      </div>
-      <div>
-        <p class="big-num">{{ theme.summary.desktop.marketSharePct }}%</p>
-        <p>Est. Market Share</p>
-      </div>
-      <div>
-        <p class="big-num">{{ theme.summary.desktop.cwvRank }}</p>
-        <p>Core Web Vitals Rank</p>
-      </div>
-      <div>
-        <p class="big-num">{{ theme.summary.desktop.passingCWV }}%</p>
-        <p>Origins Passing all CWVs</p>
-      </div>
-    </div>
-    <div class="chart-flex">
-      <div>
-        <h3>Number of Origins</h3>
-        {{ theme.charts.desktop.originsSvg | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.desktop.originsAria }}
-        </p>
-      </div>
-      <div>
-        <h3>Origins passing all CWV</h3>
-        {{ theme.charts.desktop.passingCwvSvg | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.desktop.passingCwvAria }}
-        </p>
-      </div>
-    </div>
-    <h2>Loading Speed Metrics</h2>
-    <div class="chart-grid">
-      <div>
-        <h3>Time to First Byte (TTFB)</h3>
-        {{ theme.charts.desktop.ttfb | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.desktop.ttfbAria }}
-        </p>
-      </div>
-      <div>
-        <h3>First Contentful Paint (FCP)</h3>
-        {{ theme.charts.desktop.fcp | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.desktop.fcpAria }}
-        </p>
-      </div>
-      <div>
-        <h3>Largest Contentful Paint (LCP)</h3>
-        {{ theme.charts.desktop.lcp | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.desktop.lcpAria }}
-        </p>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="LCP measures the amount of time between when the request started and when the largest element in the viewport is rendered.">Largest Contentful Paint (FCP)</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.charts.mobile.lcp | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.mobile.lcpAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.charts.desktop.lcp | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.desktop.lcpAria }}
+          </p>
+        </div>
       </div>
     </div>
     <h2>Other Web Vitals Metrics</h2>
     <div class="chart-grid">
       <div>
-        <h3>Cumulative Layout Shift (CLS)</h3>
-        {{ theme.charts.desktop.cls | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.desktop.clsAria }}
-        </p>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="Cumulative Layout Shift (CLS) measures the total of how much the page or layout moved unexpectedly during a session.">Cumulative Layout Shift (CLS)</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.charts.mobile.cls | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.mobile.clsAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.charts.desktop.cls | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.desktop.clsAria }}
+          </p>
+        </div>
       </div>
       <div>
-        <h3>Interaction to Next Paint (INP)</h3>
-        {{ theme.charts.desktop.inp | safe }}
-        <p class="visually-hidden">
-          {{ theme.charts.desktop.inpAria }}
-        </p>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="Interaction to Next Paint (INP) measures how quickly the page responds to user input and reports the worst interactions in a session.">Interaction to Next Paint (INP)</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.charts.mobile.inp | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.mobile.inpAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.charts.desktop.inp | safe }}
+          <p class="visually-hidden">
+            {{ theme.charts.desktop.inpAria }}
+          </p>
+        </div>
       </div>
     </div>
   </section>
 </div>
 
 <script>
+  // Switch mobile/desktop data
   const buttonMobile = document.querySelector("#mobile-switch")
   const buttonDesktop = document.querySelector("#desktop-switch")
-  const sectionMobile = document.querySelector("#data-mobile")
-  const sectionDesktop = document.querySelector("#data-desktop")
+  const container = document.querySelector("[data-client]")
 
   buttonMobile.addEventListener("click", e => {
-    sectionMobile.hidden = false
-    sectionDesktop.hidden = true
+    container.setAttribute('data-client', 'mobile')
     buttonMobile.setAttribute("aria-checked", true)
     buttonDesktop.setAttribute("aria-checked", false)
   })
   buttonDesktop.addEventListener("click", e => {
-    sectionMobile.hidden = true
-    sectionDesktop.hidden = false
+    container.setAttribute('data-client', 'desktop')
     buttonMobile.setAttribute("aria-checked", false)
     buttonDesktop.setAttribute("aria-checked", true)
+  })
+
+  // Toggle tips (tooltips)
+  // Get all the toggletip buttons
+  const toggleTips = document.querySelectorAll('[data-toggletip-content]');
+
+  // Iterate over them
+  toggleTips.forEach(tip => {
+    const message = tip.dataset.toggletipContent
+    const liveRegion = tip.nextElementSibling;
+    console.log(liveRegion.role);
+
+
+
+    tip.addEventListener('click', () => {
+      console.log({message, liveRegion});
+
+      liveRegion.innerHTML = '';
+      window.setTimeout(() => {
+        liveRegion.innerHTML = `<span class="toggletip-bubble">${message}</span>`;
+      }, 100);
+    })
+
+    // Close on click outsite tip
+    document.addEventListener('click', (e) => {
+      if (tip !== e.target) {
+        liveRegion.innerHTML = '';
+      }
+    });
+
+    // Close on Esc
+    tip.addEventListener('keydown', (e) => {
+      if ((e.keyCode || e.which) === 27) {
+        liveRegion.innerHTML = '';
+      }
+    });
+
+    // Close on blur
+    tip.addEventListener('blur', (e) => {
+      liveRegion.innerHTML = '';
+    });
+
   })
 </script>
 

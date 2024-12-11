@@ -1,0 +1,79 @@
+---
+layout: base.njk
+title: Aggregations | Theme Vitals
+description: Learn about the mission of Theme Vitals, the data that powers it, and the developer who created it.
+---
+
+<section class="banner">
+  <div class="content flow">
+    <h1>Aggregations</h1>
+    <p class="lead">How all Shopify themes perform as a group</p>
+  </div>
+</section>
+
+<section class="content flow max-ch">
+  <h2>Median and ranges for Core Web Vitals scores</h2>
+  <p>The highest, lowest, and median (middle) percent of websites passing for a theme from the latest data set on {{ metaData.date }}. <a href="/themes/">Explore the data for each theme</a>.</p>
+
+  <p>
+    <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" height="12"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64L80 64l0 320 224 0 0-320z"/></svg>
+      Mobile
+    </button>
+    <button id="desktop-switch" class="client-switch" role="switch" aria-checked="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="12" height="12"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
+      Desktop
+    </button>
+  </p>
+  <table class="td-nums" id="aggregations">
+    <caption>Percent of websites passing each metric for each theme</caption>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Minimum</th>
+        <th>Median</th>
+        <th>Maximum</th>
+      </tr>
+    </thead>
+    <tbody id="data-mobile">
+      {% for metric in metaData.aggregations.mobile %}
+        <tr>
+          <td>{{ metric.name }}</td>
+          <td>{{ metric.min }}%</td>
+          <td>{{ metric.median }}%</td>
+          <td>{{ metric.max }}%</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    <tbody id="data-desktop" hidden>
+      {% for metric in metaData.aggregations.desktop %}
+        <tr>
+          <td>{{ metric.name }}</td>
+          <td>{{ metric.min }}%</td>
+          <td>{{ metric.median }}%</td>
+          <td>{{ metric.max }}%</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<script>
+  const buttonMobile = document.querySelector("#mobile-switch")
+  const buttonDesktop = document.querySelector("#desktop-switch")
+  const sectionMobile = document.querySelector("#data-mobile")
+  const sectionDesktop = document.querySelector("#data-desktop")
+
+  buttonMobile.addEventListener("click", e => {
+    sectionMobile.hidden = false
+    sectionDesktop.hidden = true
+    buttonMobile.setAttribute("aria-checked", true)
+    buttonDesktop.setAttribute("aria-checked", false)
+  })
+  buttonDesktop.addEventListener("click", e => {
+    sectionMobile.hidden = true
+    sectionDesktop.hidden = false
+    buttonMobile.setAttribute("aria-checked", false)
+    buttonDesktop.setAttribute("aria-checked", true)
+  })
+</script>

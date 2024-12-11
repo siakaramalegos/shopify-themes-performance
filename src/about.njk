@@ -12,27 +12,49 @@ description: Learn about the mission of Theme Vitals, the data that powers it, a
 </section>
 
 <section class="content flow">
-  <h2>Mission</h2>
-  <p>This site was built to better inform Shopify merchants and theme developers about theme performance. The goals are:</p>
-  <ul>
-    <li>Provide <strong>theme developers</strong> with aggregated shop data so that they can understand how their theme is currently performing and which metrics need the most work.</li>
-    <li>Provide <strong>merchants</strong> with aggregated theme data so that they can balance the tradeoffs between the features and performance of themes with their budget for custom theme development.</li>
-  </ul>
+  <div class="max-ch">
+    <h2>Mission</h2>
+    <p>This site was built to better inform Shopify merchants and theme developers about theme performance. The goals are:</p>
+    <ul>
+      <li>Provide <strong>theme developers</strong> with aggregated shop data so that they can understand how their theme is currently performing and which metrics need the most work.</li>
+      <li>Provide <strong>merchants</strong> with aggregated theme data so that they can balance the tradeoffs between the features and performance of themes with their budget for custom theme development.</li>
+    </ul>
+  </div>
+</section>
 
-  <h2>About the data</h2>
-  <p>All of the data reported here is publicly available through <a href="https://httparchive.org/">HTTPArchive</a> and the <a href="https://developer.chrome.com/docs/crux">Chrome User Experience Report</a> (CrUX) via <a href="https://cloud.google.com/bigquery">BigQuery</a>. Information about whether a website is on Shopify and which theme it uses comes from HTTPArchive. That data is then joined with CrUX to obtain real-user performance metrics from sessions in Chrome browsers. You can find and review the query in this site's <a href="https://github.com/siakaramalegos/shopify-themes-performance/blob/main/query.sql">source code</a>.</p>
+<section class="banner">
+  <div class="content">
+    <h2>About the Data</h2>
+    <div class="image-with-text">
+      <img src="{% src 'httparchive_s0d1dg.jpg', 600 %}"
+      alt="The HTTP Archive Tracks How the Web is Built. We periodically crawl the top sites on the web and record detailed information about fetched resources, used web platform APIs and features, and execution traces of each page. We then crunch and analyze this data to identify trends."
+      loading="lazy"
+      width="1494" height="701">
+      <div class="flow">
+        <p>All of the data reported here is publicly available through <a href="https://httparchive.org/">HTTPArchive</a> and the <a href="https://developer.chrome.com/docs/crux">Chrome User Experience Report</a> (CrUX) via <a href="https://cloud.google.com/bigquery">BigQuery</a>. Information about whether a website is on Shopify and which theme it uses comes from HTTPArchive. That data is then joined with CrUX to obtain real-user performance metrics from sessions in Chrome browsers. You can find and review the query in this site's <a href="https://github.com/siakaramalegos/shopify-themes-performance/blob/main/query.sql">source code</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>About the creator</h2>
-  <p>This site was built and is maintained by <a href="https://sia.codes/">Sia Karamalegos</a>, a freelance Web Performance Engineer and Consultant. She is also a Google Developer Expert in Web Technologies, an international conference speaker, and an active tech community organizer.</p>
-  <p>She worked at Shopify for two years, helping to build their web performance consulting services, building the <a href="https://performance.shopify.com/">Shopify performance site</a>, and implementing performance improvements to the platform such as adding <code>section.index</code> and default lazy-loading to the Liquid API to improve LCP performance.</p>
-  <p>If you're struggling with performance, Sia is available to help. <a href="https://sia.codes/contact/">Contact Sia today</a> to get started.</p>
-  <p>
-    <a href="https://sia.codes/services/" class="button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12" height="12"><path fill="currentColor" d="M216 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l16 0 0 33.3C119.6 157.2 32 252.4 32 368l448 0c0-115.6-87.6-210.8-200-222.7l0-33.3 16 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-40 0-40 0zM24 400c-13.3 0-24 10.7-24 24s10.7 24 24 24l464 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L24 400z"/></svg>
-      Explore Services
-    </a>
-  </p>
+<section class="content banner-inset banner-light">
+  <div class="max-ch flow content-center">
+    <h2>About the creator</h2>
+    <p>This site was built and is maintained by <a href="https://sia.codes/">Sia Karamalegos</a>, a freelance Web Performance Engineer and Consultant. She is also a Google Developer Expert in Web Technologies, an international conference speaker, and an active tech community organizer.</p>
+    <p>She worked at Shopify for two years, helping to build their web performance consulting services, building the <a href="https://performance.shopify.com/">Shopify performance site</a>, and implementing performance improvements to the platform such as adding <code>section.index</code> and default lazy-loading to the Liquid API to improve LCP performance.</p>
+    <p>If you're struggling with performance, Sia is available to help. <a href="https://sia.codes/contact/">Contact Sia today</a> to get started.</p>
+    <p>
+      <a href="https://sia.codes/services/" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12" height="12"><path fill="currentColor" d="M216 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l16 0 0 33.3C119.6 157.2 32 252.4 32 368l448 0c0-115.6-87.6-210.8-200-222.7l0-33.3 16 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-40 0-40 0zM24 400c-13.3 0-24 10.7-24 24s10.7 24 24 24l464 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L24 400z"/></svg>
+        Explore Services
+      </a>
+    </p>
+  </div>
+</section>
 
-  <h2>Privacy</h2>
-  <p>This site uses Google Analytics, which uses cookies and similar technologies to collect and analyze information about the use of the website (e.g., page views) and report on activities and trends. This service may also collect information regarding the use of other websites, apps, and online services. You can learn about Google's practices by going to <a href="https://policies.google.com/privacy/google-partners">policies.google.com/privacy/google-partners</a>, and opt out of them by downloading the Google Analytics opt-out browser add-on, available at <a href="https://tools.google.com/dlpage/gaoptout">tools.google.com/dlpage/gaoptout</a>. For any questions or issues, please contact Sia Karamalegos on her <a href="https://sia.codes/contact/">contact page</a>.</p>
+<section class="content flow">
+  <div class="max-ch">
+    <h2>Privacy</h2>
+    <p>This site uses Google Analytics, which uses cookies and similar technologies to collect and analyze information about the use of the website (e.g., page views) and report on activities and trends. This service may also collect information regarding the use of other websites, apps, and online services. You can learn about Google's practices by going to <a href="https://policies.google.com/privacy/google-partners">policies.google.com/privacy/google-partners</a>, and opt out of them by downloading the Google Analytics opt-out browser add-on, available at <a href="https://tools.google.com/dlpage/gaoptout">tools.google.com/dlpage/gaoptout</a>. For any questions or issues, please contact Sia Karamalegos on her <a href="https://sia.codes/contact/">contact page</a>.</p>
+    </div>
 </section>
