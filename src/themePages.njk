@@ -7,13 +7,13 @@ pagination:
 permalink: "/themes/{{ theme.slug }}/"
 eleventyComputed:
   title: "{{ theme.name }} Performance Data | Theme Vitals"
-  description: "Explore real-user web performance for the Shopify theme {{ theme.name }} including the Core Web Vitals and other metrics."
+  description: "Explore real-user web performance for the Shopify theme {{ theme.name }} including the Core Web Vitals and other metrics, split by desktop and mobile sessions."
 ---
 
 <section class="banner">
   <div class="content flow">
     <h1>{{ theme.name }}</h1>
-    <p class="lead">Core Web Vitals and other performance metrics for real-world websites using the {{ theme.name }} theme</p>
+    <p class="lead max-ch">Core Web Vitals and other performance metrics for real-world websites using the {{ theme.name }} theme. The data includes all pages and is split between mobile and desktop experiences.</p>
     <p>
       {% if theme.sunset %}
         <span class="pill">vintage</span>
@@ -39,6 +39,7 @@ eleventyComputed:
 
   <section class="flow" id="data-mobile">
     <h2>Summary</h2>
+    <p class="max-ch">This section shows how {{ theme.name }} compares to other themes in terms of market rank and overall Core Web Vitals performance. It also shows how many websites using this theme are included in the analysis. See the <a href="/faq/">FAQ</a> for details on how themes and websites were selected.</p>
 
     <div class="popularity">
       <div>
@@ -114,6 +115,7 @@ eleventyComputed:
       </div>
     </div>
     <h2>Loading Speed Metrics</h2>
+    <p class="max-ch">These three metrics break down the major steps in rendering a webpage. TTFB roughly correlates to server issues or complex Liquid code. FCP often correlates with render-blocking resources and using JavaScript to render the page. Slow LCP can be caused by many issues. For guidance on improving loading speed, read <a href="https://sia.codes/posts/debugging-shopify-lcp/">Debugging common causes for slow loading in Shopify Liquid storefronts</a>. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
     <div class="chart-grid">
       <div>
         <h3 class="pos-rel">
@@ -171,6 +173,7 @@ eleventyComputed:
       </div>
     </div>
     <h2>Other Web Vitals Metrics</h2>
+    <p class="max-ch">CLS and INP are user frustration metrics. Both can result in page abandonment. To learn how to identify and fix CLS, read <a href="https://sia.codes/posts/optimize-cls-on-shopify/">How to optimize Cumulative Layout Shift (CLS) on Shopify sites</a>. INP is a much more complex metric to debug and improve, but you can improve your chances by minimizing the number of apps and GTM tags on your site. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
     <div class="chart-grid">
       <div>
         <h3 class="pos-rel">

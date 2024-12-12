@@ -119,7 +119,6 @@ small {font-size: var(--size-300);}
 .max-ch {max-width: 77ch;}
 .content-center {margin: 0 auto;}
 .pos-rel{position: relative;}
-.hidden {display: none;}
 
 a.button {
   background-color: var(--blue);

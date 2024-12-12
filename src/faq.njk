@@ -26,11 +26,24 @@ description: Frequently asked questions about the Theme Vitals project.
       </div>
     </details>
     <details>
+      <summary>Where does this data come from?</summary>
+      <div>
+        <p>All of the data reported here is publicly available through <a href="https://httparchive.org/">HTTPArchive</a> and the <a href="https://developer.chrome.com/docs/crux">Chrome User Experience Report</a> (CrUX) via <a href="https://cloud.google.com/bigquery">BigQuery</a>. Information about whether a website is on Shopify and which theme it uses comes from HTTPArchive. That data is then joined with CrUX to obtain real-user performance metrics from sessions in Chrome browsers. You can find and review the query in this site's <a href="https://github.com/siakaramalegos/shopify-themes-performance/blob/main/query.sql">source code</a>.</p>
+      </div>
+    </details>
+    <details>
       <summary>How were themes selected to be included?</summary>
       <div>
         <p>For total origins (domains) counts, I counted all root (home) pages in HTTPArchive. For each theme highlighted here, I only counted themes with a <code>theme_store_id</code>. In addition, I currently filter out any theme with less than {{ metaData.minOrigins }} origins for the latest month. So new, growing themes can be included, but older diminishing ones will be dropped even if they have data in earlier months.</p>
         <p>Note that not all websites are included in the Chrome User Experience report so the number of origins is not equal to the number of installs. Learn more about the <a href="https://developer.chrome.com/docs/crux/methodology#origin-eligibility">eligibility for inclusion</a>. Another thing to keep in mind that most ecommerce traffic is on mobile devices. Most themes have fewer origins in the desktop data which is also subject to the minimum of {{ metaData.minOrigins }} origins.</p>
         <p>Do you think your theme is missing? The data is quite messy so I'm cross-checking it against a list of "confirmed themes". I might have missed yours. Check <a href="https://github.com/siakaramalegos/shopify-themes-performance/blob/main/currentThemes.json">this JSON file</a>. If your theme is not on there and you think it has enough popular installs, create an issue or submit a PR on <a href="https://github.com/siakaramalegos/shopify-themes-performance/issues">Github</a> or <a href="https://sia.codes/contact/">contact me</a>.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Which pages were included? Can I see data split out by page type or template (e.g., home, product, collection)?</summary>
+      <div>
+        <p>The <a href="https://developer.chrome.com/docs/crux">Chrome User Experience Report</a> (CrUX) data set only reports cumulative data for an entire origin, or website. Thus, the data includes all pages.</p>
+        <p>It is not possible to split the data by page type. However, you can use the CrUX API to try to find page-level CrUX data for your own website. The easiest way to do this is to run <a href="https://pagespeed.web.dev/">Page Speed Insights</a> on your home page, your most popular collection page, and your most popular product page. If that individual page has enough data, you will be able to toggle the "This URL/Origin" selector at the top right of the Core Web Vitals assessment. "Origin" shows data for the entire site, and "This URL" shows only the data for that page's URL.</p>
       </div>
     </details>
 
