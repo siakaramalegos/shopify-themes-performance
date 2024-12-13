@@ -44,18 +44,25 @@
 </head>
 <body>
   <header aria-label="Main" class="content">
+    <div class="logo" data-isOpen="false">
+      <a href="/">
+        <img src="/img/theme-vitals-logo.png" alt="" height="38" width="40">
+        Theme Vitals
+      </a>
+    </div>
     <nav>
       <button type="button" aria-expanded="false" aria-label="Menu" aria-controls="main-nav-list" id="mobile-menu-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true" width="24" id="burger-icon"><path fill="currentColor" d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="24" id="close-icon"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
       </button>
+
       <ul id="main-nav-list">
         <li><a aria-current="{% if page.url == '/' %}page{% else %}false{% endif %}" href="/">Home</a></li>
         <li><a aria-current="{% if page.url == '/themes/' %}page{% else %}false{% endif %}" href="/themes/">Themes</a></li>
         <li><a aria-current="{% if page.url == '/aggregations/' %}page{% else %}false{% endif %}" href="/aggregations/">Aggregations</a></li>
         <li><a aria-current="{% if page.url == '/about/' %}page{% else %}false{% endif %}" href="/about/">About</a></li>
         <li><a aria-current="{% if page.url == '/faq/' %}page{% else %}false{% endif %}" href="/faq/">FAQ</a></li>
-        <li><a aria-current="{% if page.url == '/support/' %}page{% else %}false{% endif %}" href="/support/">Support</a></li>
+        <li><a aria-current="{% if page.url == '/support/' %}page{% else %}false{% endif %}" href="/support/">Sponsor</a></li>
       </ul>
     </nav>
   </header>
@@ -63,29 +70,43 @@
     {{ content | safe }}
   </main>
   <footer class="banner">
-    <div class="content flow">
-      <p>Support this project by subscribing to monthly updates, trend reports, and web performance tips on Substack.</p>
-      <p><a href="https://siacodes.substack.com/subscribe" class="button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M96 96c0-35.3 28.7-64 64-64l288 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L80 480c-44.2 0-80-35.8-80-80L0 128c0-17.7 14.3-32 32-32s32 14.3 32 32l0 272c0 8.8 7.2 16 16 16s16-7.2 16-16L96 96zm64 24l0 80c0 13.3 10.7 24 24 24l112 0c13.3 0 24-10.7 24-24l0-80c0-13.3-10.7-24-24-24L184 96c-13.3 0-24 10.7-24 24zm208-8c0 8.8 7.2 16 16 16l48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16l48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0c-8.8 0-16 7.2-16 16zM160 304c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-256 0c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-256 0c-8.8 0-16 7.2-16 16z"/></svg>
-        Subscribe now
-      </a></p>
-      <p class="footer-copy"><small>&copy; {% copyright %} Sia Karamalegos. Except as otherwise noted, the content of this page is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 License</a>. Not affiliated with Shopify.</small></p>
+    <div class="content">
+      <div class="flow max-ch">
+        <p>Subscribe to our newsletter to receive to monthly updates, trend reports, and web performance tips. <a href="https://buttondown.com/theme-vitals/archive/">View the archives</a>.</p>
+        <form
+          action="https://buttondown.com/api/emails/embed-subscribe/theme-vitals"
+          method="post"
+          target="popupwindow"
+          onsubmit="window.open('https://buttondown.com/theme-vitals', 'popupwindow')"
+        >
+          <label for="bd-email">Your email address</label>
+          <input type="email" name="email" id="bd-email" placeholder="you@example.com" />
+          <input type="submit" value="Subscribe" />
+          <small>
+            <a href="https://buttondown.com/refer/theme-vitals" target="_blank">Powered by Buttondown.</a>
+          </small>
+        </form>
+        <p class="footer-copy"><small>&copy; {% copyright %} Sia Karamalegos. Except as otherwise noted, the content of this page is licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 License</a>. Not affiliated with Shopify.</small></p>
+      </div>
     </div>
   </footer>
   <script>
     const nav = document.querySelector('nav')
     const list = nav.querySelector('ul')
     const menuButton = document.querySelector('#mobile-menu-button')
+    const logo = document.querySelector('header .logo')
 
     menuButton.addEventListener('click', e => {
       const isOpen = menuButton.getAttribute('aria-expanded') === "true"
       menuButton.setAttribute('aria-expanded', !isOpen)
+      logo.setAttribute('data-isOpen', !isOpen)
     })
 
     // Hide list on escape
     nav.addEventListener("keyup", e => {
       if (e.code === "Escape") {
         menuButton.setAttribute('aria-expanded', false)
+        logo.setAttribute('data-isOpen', false)
         menuButton.focus()
       }
     })

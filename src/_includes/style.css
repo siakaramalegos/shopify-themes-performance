@@ -231,14 +231,39 @@ main > section:first-of-type {
 /* NAV */
 header {
   background: hsl(0, 0%, 100%);
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
   min-height: 56px;
   z-index: 5;
 }
-nav {
-  position: var(--nav-position, static);
+header .logo {
+  position: var(--nav-logo-position, absolute);
   inset-block-start: 1rem;
   inset-inline-start: 1rem;
+  z-index: 10;
 }
+header img {
+  display: inline-block;
+  width: 32px;
+}
+header .logo a {
+  border: none;
+  display: flex;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: var(--size-500);
+  font-weight: 700;
+  z-index: 10;
+}
+nav {
+  position: var(--nav-position, absolute);
+  inset-block-start: 1rem;
+  inset-inline-end: 1rem;
+  display: flex;
+  gap: 8px;
+}
+
 nav ul {
   background: hsl(0, 0%, 100%);
   display: flex;
@@ -267,10 +292,16 @@ nav a[aria-current="page"] {
 [aria-expanded="true"] + ul {
   --nav-list-visibility: visible;
 }
+.logo[data-isOpen="true"] {
+  --nav-logo-position: fixed;
+}
 nav:has([aria-expanded="true"] + ul) {
   --nav-position: fixed;
 }
 @media (min-width: 48em) {
+  header {
+    --nav-logo-position: static;
+  }
   nav {
     --nav-position: static;
     --nav-button-display: none;
@@ -607,4 +638,36 @@ span.sorting {
   td div svg {
     display: none;
   }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+}
+footer form {
+  margin-bottom: var(--size-700);
+}
+input {
+  border: 1px solid var(--blue);
+  padding: 4px;
+}
+input[type="submit"] {
+  background-color: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,.15),0 2px 4px rgba(0,0,0,.12);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 700;
+  padding: 4px 8px;
+}
+label {
+  font-weight: 700;
+}
+footer input[type="submit"] {
+  background-color: var(--light-blue);
+  color: var(--charcoal);
 }
