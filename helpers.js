@@ -271,11 +271,12 @@ function getTrend(arr) {
 }
 
 function getAggregations(array) {
-  const sortedArray = array.sort((a, b) => a - b)
-  const middleIndex = sortedArray.length / 2
-
+  const sortedArray = array.toSorted((a, b) => a - b)
+  const middleIndexDecimal = sortedArray.length / 2
+  const middleIndex = Math.floor(middleIndexDecimal)
   let median
-  if (middleIndex % 1 === 0) {
+
+  if (middleIndexDecimal % 1 === 0) {
     // Even array, return average of 2 middle values
     median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2
   } else {
@@ -285,7 +286,7 @@ function getAggregations(array) {
 
   return {
     min: sortedArray[0].toFixed(1),
-    median: median.toFixed(1),
+    median: median ? median.toFixed(1) : null,
     max: sortedArray[sortedArray.length - 1].toFixed(1),
   }
 }

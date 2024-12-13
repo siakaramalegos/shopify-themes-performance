@@ -1234,6 +1234,11 @@
     "sunset": false,
     "slug": "space"
   },
+  "2684": {
+    "name": "Wonder",
+    "sunset": false,
+    "slug": "wonder"
+  },
   "2698": {
     "name": "Release",
     "sunset": false,
@@ -1314,9 +1319,34 @@
     "sunset": false,
     "slug": "machina"
   },
+  "2926": {
+    "name": "Noire",
+    "sunset": false,
+    "slug": "noire"
+  },
+  "2931": {
+    "name": "Divine",
+    "sunset": false,
+    "slug": "divine"
+  },
   "2948": {
     "name": "King",
     "sunset": false,
     "slug": "king"
+  },
+  "2967": {
+    "name": "Ultra",
+    "sunset": false,
+    "slug": "ultra"
+  },
+  "3001": {
+    "name": "Koto",
+    "sunset": false,
+    "slug": "koto"
+  },
+  "3027": {
+    "name": "Ignite",
+    "sunset": false,
+    "slug": "ignite"
   }
 }

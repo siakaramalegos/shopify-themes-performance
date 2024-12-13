@@ -18,7 +18,7 @@ WITH archive_pages AS (
       page AS url,
       TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.schema_name) AS theme_schema_name, --when querying prior to Nov 2024, use theme.name instead
       TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.theme_store_id) AS theme_store_id,
-    FROM `httparchive.crawl.pages` TABLESAMPLE SYSTEM (0.05 PERCENT) --remove sample for full query (it's expensive)
+    FROM `httparchive.crawl.pages`
     WHERE
       date = '2024-11-01'AND
       is_root_page AND
