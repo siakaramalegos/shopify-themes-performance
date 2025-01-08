@@ -671,3 +671,14 @@ footer input[type="submit"] {
   background-color: var(--light-blue);
   color: var(--charcoal);
 }
+
+.sponsor-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.sponsor-buttons a {
+  margin-bottom: 0;
+  min-width: 192px;
+}
