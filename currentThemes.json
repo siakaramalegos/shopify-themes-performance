@@ -1289,6 +1289,11 @@
     "sunset": false,
     "slug": "piano"
   },
+  "2913": {
+    "name": "Vincent",
+    "sunset": false,
+    "slug": "vincent"
+  },
   "2821": {
     "name": "Sleek",
     "sunset": false,
@@ -1329,6 +1334,11 @@
     "sunset": false,
     "slug": "divine"
   },
+  "2943": {
+    "name": "Keystone",
+    "sunset": false,
+    "slug": "keystone"
+  },
   "2948": {
     "name": "King",
     "sunset": false,
@@ -1339,6 +1349,11 @@
     "sunset": false,
     "slug": "ultra"
   },
+  "2989": {
+    "name": "Ascent",
+    "sunset": false,
+    "slug": "ascent"
+  },
   "3001": {
     "name": "Koto",
     "sunset": false,
@@ -1348,5 +1363,20 @@
     "name": "Ignite",
     "sunset": false,
     "slug": "ignite"
+  },
+  "3051": {
+    "name": "Boutique",
+    "sunset": false,
+    "slug": "boutique"
+  },
+  "3070": {
+    "name": "Eclipse",
+    "sunset": false,
+    "slug": "eclipse"
+  },
+  "3094": {
+    "name": "Nimbus",
+    "sunset": false,
+    "slug": "nimbus"
   }
 }
