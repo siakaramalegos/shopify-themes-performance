@@ -152,6 +152,10 @@ a {
   white-space: nowrap;
   width: 1px;
 }
+.m40 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
 .pill {
   background: var(--light-sea-green);
   color: var(--charcoal);
@@ -341,15 +345,9 @@ nav button {
 footer {
   margin-top: 32px;
 }
-.columnlar {
-  column-width: 200px;
-}
-.columnlar > * {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.columnlar li {
-  padding: 8px 0;
+footer img {
+  margin: 16px 0;
+  width: 200px;
 }
 .faq-container {
   max-width: 85ch;
@@ -375,6 +373,12 @@ details div > * + * { margin-top: var(--flow-space, 1em);}
 .flex-container {
   display: flex;
   flex-direction: column;
+}
+
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
 }
 
 .how-grid {
