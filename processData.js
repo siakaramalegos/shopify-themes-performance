@@ -5,12 +5,11 @@ const MIN_ORIGINS = 50
 const CLIENTS = ['mobile', 'desktop']
 const CREATE_CHARTS = true // set to false when testing other parts
 
-const today = new Date()
-const lastMonth = new Date(today.setMonth(today.getMonth() - 1))
+const lastMonth = new Date(new Date().setMonth(new Date().getMonth() - 1));
 
 // File names are YYYY_MM (e.g., 2024_07)
 const currentMonths = Array(6).fill(0).map((_, i) => {
-  const newDate = lastMonth.setMonth(today.getMonth() - i)
+  const newDate = new Date(new Date().setMonth(new Date().getMonth() - i - 1))
   return getDateFileString(new Date(newDate))
 }).sort();
 const currentMonthsReadable = currentMonths.map(dateStr => {
@@ -59,9 +58,6 @@ currentMonths.forEach(date => {
       // check if confirmed theme, if so add it
       if (confirmedThemes[theme_store_id]) {
         const confirmedName = confirmedThemes[theme_store_id].name
-        if (confirmedName !== top_theme_name){
-          console.warn(`THEME NAME MISMATCH FOR ${theme_store_id}: Top theme name is ${top_theme_name} but confirmed theme name is ${confirmedName}. Using confirmed name.`);
-        }
         themesObj[theme_store_id] = {
           id: theme_store_id,
           name: confirmedName,

@@ -1039,6 +1039,11 @@
     "sunset": false,
     "slug": "kidu"
   },
+  "2273": {
+    "name": "Divide",
+    "sunset": true,
+    "slug": "divide"
+  },
   "2275": {
     "name": "Pesto",
     "sunset": true,
@@ -1294,6 +1299,11 @@
     "sunset": false,
     "slug": "vincent"
   },
+  "2820": {
+    "name": "Nexa",
+    "sunset": false,
+    "slug": "nexa"
+  },
   "2821": {
     "name": "Sleek",
     "sunset": false,
@@ -1303,6 +1313,11 @@
     "name": "Soul",
     "sunset": false,
     "slug": "soul"
+  },
+  "2845": {
+    "name": "Meka",
+    "sunset": false,
+    "slug": "meka"
   },
   "2847": {
     "name": "Flawless",
@@ -1323,6 +1338,11 @@
     "name": "Machina",
     "sunset": false,
     "slug": "machina"
+  },
+  "2896": {
+    "name": "Outsiders",
+    "sunset": false,
+    "slug": "outsiders"
   },
   "2926": {
     "name": "Noire",

@@ -20,7 +20,7 @@ WITH archive_pages AS (
       TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.theme_store_id) AS theme_store_id,
     FROM `httparchive.crawl.pages`
     WHERE
-      date = '2024-11-01'AND
+      date = '2025-01-01'AND
       is_root_page AND
       custom_metrics.ecommerce.Shopify.theme.name IS NOT NULL --This is just a check for it being a theme. Maybe we should check that Shopify is not null instead? Or Shopify.theme. (first grab all shops for market share)
 )
@@ -156,7 +156,7 @@ JOIN (
 -- Include null theme store ids so that we can get full market share within CrUX
 ON IFNULL(theme_names.theme_store_id, 'N/A') = IFNULL(archive_pages.theme_store_id, 'N/A')
 WHERE
-  date = '2024-11-01' AND
+  date = '2025-01-01' AND
   theme_names.rank = 1
 GROUP BY
   client,

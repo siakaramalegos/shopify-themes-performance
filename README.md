@@ -2,6 +2,8 @@
 
 Website built with 11ty and query ran on BigQuery.
 
+How I built this site (architecture overview diagram): https://www.figma.com/board/AZAQlZcC3mvppHalTxnyAr/Theme-Vitals-architecture?node-id=0-1&t=Esm2i8h0uHUra2eA-1
+
 Monthly process:
 
 1. Run the query from `query.sql` in BigQuery. Don't forget to change the dates (lines 23 and 159).
