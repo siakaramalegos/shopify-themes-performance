@@ -1,0 +1,83 @@
+---
+layout: base.njk
+title: Contact | Theme Vitals
+description: Ready to make your theme faster? Contact me today to book your web Core Web Vitals optimization consulting project.
+---
+
+<section class="banner">
+  <div class="content flow">
+    <h1>Contact</h1>
+    <p class="lead">Struggling with Core Web Vitals performance? I'm here to help.</p>
+  </div>
+</section>
+
+<section class="content flow">
+  <div class="max-ch">
+    <h2>Services</h2>
+    <p>I'm available for hire as a consultant for all your web performance needs. See <a href="https://sia.codes/services/">more details on my services</a>.</p>
+    <ul>
+      <li>Core Web Vitals audits</li>
+      <li>Jump-start quick implementation</li>
+      <li>Jump-start code pairing</li>
+      <li>Active monitoring subscription</li>
+      <li>Periodic health checks subscription</li>
+      <li>Virtual or in-person web workshops</li>
+    </ul>
+  </div>
+</section>
+
+<section class="content flow">
+  <h2>Ready to start your next project?</h2>
+  <p>Fill out the form below, and I'll be in touch!</p>
+  <form netlify class="form" name="contact" netlify-honeypot="contact-name">
+
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" required>
+
+    <label class="sweet" for="contact-name">Contact Name</label>
+    <input class="sweet" type="text" id="contact-name" name="contact-name">
+
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" name="subject">
+
+    <label for="message">Message *</label>
+    <textarea rows="4" id="message" name="message" required></textarea>
+
+    <button class="button button-default" type="submit">Send message</button>
+  </form>
+
+  <script>
+    const params = new URLSearchParams(window.location.search.substring(1))
+    const subject = params.get('subject')
+    document.querySelector('#subject').value = subject
+
+    // GA conversions
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Creates a timeout to call submitForm after one second in case gtag doesn't load.
+      setTimeout(submitForm, 1000);
+
+      // Monitors whether or not the form has been submitted.
+      // This prevents the form from being submitted twice in cases
+      // where the event callback function fires normally.
+      let formSubmitted = false;
+
+      function submitForm() {
+        if (!formSubmitted) {
+          formSubmitted = true;
+          form.submit();
+        }
+      }
+
+      // Send to GA and resubmit the form once the hit is done.
+      gtag('event', 'contact_form_submitted', {
+        'event_callback': submitForm
+      });
+    });
+  </script>
+</section>

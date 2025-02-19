@@ -120,7 +120,7 @@ small {font-size: var(--size-300);}
 .content-center {margin: 0 auto;}
 .pos-rel{position: relative;}
 
-a.button {
+a.button, input[type=submit], button {
   background-color: var(--blue);
   border: none;
   box-shadow: 0 3px 6px rgba(0,0,0,.15),0 2px 4px rgba(0,0,0,.12);
@@ -686,3 +686,12 @@ footer input[type="submit"] {
   margin-bottom: 0;
   min-width: 192px;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px
+}
+/* honeypot */
+form .sweet {display: none;}
