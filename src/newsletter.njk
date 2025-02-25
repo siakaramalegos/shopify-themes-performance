@@ -1,0 +1,60 @@
+---
+layout: base.njk
+title: Newsletter | Theme Vitals
+description: Get monthly updates and support the Theme Vitals project by signing up for our newsletter.
+---
+
+<section class="banner">
+  <div class="content flow">
+    <div class="max-ch">
+      <h1>Newsletter</h1>
+      <p class="lead">Get monthly updates and support the Theme Vitals project by signing up for our newsletter.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="flow max-ch">
+    <p>Every month, we send an email newsletter containing:</p>
+    <ul>
+      <li>A notification of when the new Chrome User Experience Report (CrUX) data is live on Theme Vitals</li>
+      <li>Aggregated metrics and analysis of the new data and month-over-month improvements in performance</li>
+      <li>Web performance tips specific to Shopify theme and app development</li>
+      <li>A round up of the latest web performance and Core Web Vitals news and content</li>
+    </ul>
+    <p>Your email address will never be sold or shared with other companies.</p>
+    <p>Get a preview by viewing <a href="https://buttondown.com/theme-vitals/archive/">the archives</a>.</p>
+
+    <h2>Support us with a paid subscription:</h2>
+    <p>Get monthly updates while also supporting the long-term work of this project by funding the monthly maintenance and new feature development. To learn more about other ways to support this project, check out <a href="/sponsor/">sponsorship</a>.</p>
+    <div class="sponsor-buttons">
+      <a href="https://buy.stripe.com/aEU00N9hg5BoeLSaEE" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M96 96c0-35.3 28.7-64 64-64l288 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L80 480c-44.2 0-80-35.8-80-80L0 128c0-17.7 14.3-32 32-32s32 14.3 32 32l0 272c0 8.8 7.2 16 16 16s16-7.2 16-16L96 96zm64 24l0 80c0 13.3 10.7 24 24 24l112 0c13.3 0 24-10.7 24-24l0-80c0-13.3-10.7-24-24-24L184 96c-13.3 0-24 10.7-24 24zm208-8c0 8.8 7.2 16 16 16l48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16l48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0c-8.8 0-16 7.2-16 16zM160 304c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-256 0c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-256 0c-8.8 0-16 7.2-16 16z"/></svg>
+        Subscribe $5/month
+      </a>
+      <a href="https://buy.stripe.com/6oE6pb1OOgg20V29AB" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M96 96c0-35.3 28.7-64 64-64l288 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L80 480c-44.2 0-80-35.8-80-80L0 128c0-17.7 14.3-32 32-32s32 14.3 32 32l0 272c0 8.8 7.2 16 16 16s16-7.2 16-16L96 96zm64 24l0 80c0 13.3 10.7 24 24 24l112 0c13.3 0 24-10.7 24-24l0-80c0-13.3-10.7-24-24-24L184 96c-13.3 0-24 10.7-24 24zm208-8c0 8.8 7.2 16 16 16l48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16l48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0c-8.8 0-16 7.2-16 16zM160 304c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-256 0c-8.8 0-16 7.2-16 16zm0 96c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-256 0c-8.8 0-16 7.2-16 16z"/></svg>
+        Subscribe $50/year
+      </a>
+    </div>
+
+    <h2>Or sign up for the free subscription:</h2>
+    <p>Signing up at the free level can still support us by attracting more corporate sponsors. Submit your email in the form below to get started.</p>
+    <form
+      action="https://buttondown.com/api/emails/embed-subscribe/theme-vitals"
+      method="post"
+      target="popupwindow"
+      onsubmit="window.open('https://buttondown.com/theme-vitals', 'popupwindow')"
+      class="banner-inset banner-light"
+    >
+      <label for="bd-email">Your email address</label>
+      <input type="email" name="email" id="bd-email" placeholder="you@example.com" />
+      <input type="submit" value="Subscribe" />
+      <small>
+        <a href="https://buttondown.com/refer/theme-vitals" target="_blank" rel="nofollow">Powered by Buttondown.</a>
+      </small>
+    </form>
+  </div>
+</section>
+
+{% include 'cta.njk' %}
