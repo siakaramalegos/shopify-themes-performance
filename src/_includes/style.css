@@ -15,6 +15,7 @@
   --charcoal-rgb-text: 25, 66, 56;
   --med-grey: #5d6f6b;
   --light-grey: #e8eced;
+  --xlight-grey: #f7f8f8;
   --white: #fff;
   --blue: #076881;
   --light-blue: #e9f7fb;
@@ -404,7 +405,7 @@ thead:first-of-type tr {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: #fff;
+  background-color: var(--light-grey);
 }
 td, th {
   padding: 1em;
@@ -430,6 +431,9 @@ th button.client-switch {
 }
 th small {
   font-weight: 400;
+}
+tr:nth-child(even) {
+  background-color: var(--xlight-grey);
 }
 .down {
   background-color: var(--light-red-munsell);
