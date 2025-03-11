@@ -779,6 +779,11 @@
     "sunset": false,
     "slug": "erickson"
   },
+  "1795": {
+    "name": "Modules",
+    "sunset": false,
+    "slug": "modules"
+  },
   "1791": {
     "name": "Handmade",
     "sunset": false,
@@ -1264,6 +1269,11 @@
     "sunset": false,
     "slug": "energy"
   },
+  "2732": {
+    "name": "Bespoke",
+    "sunset": false,
+    "slug": "bespoke"
+  },
   "2737": {
     "name": "Swipe",
     "sunset": false,
@@ -1379,10 +1389,25 @@
     "sunset": false,
     "slug": "koto"
   },
+  "3007": {
+    "name": "Redefine",
+    "sunset": false,
+    "slug": "redefine"
+  },
   "3027": {
     "name": "Ignite",
     "sunset": false,
     "slug": "ignite"
+  },
+  "3038": {
+    "name": "Swiss",
+    "sunset": false,
+    "slug": "swiss"
+  },
+  "3039": {
+    "name": "Motto",
+    "sunset": false,
+    "slug": "motto"
   },
   "3051": {
     "name": "Boutique",
@@ -1398,5 +1423,30 @@
     "name": "Nimbus",
     "sunset": false,
     "slug": "nimbus"
+  },
+  "3107": {
+    "name": "Azzel",
+    "sunset": false,
+    "slug": "azzel"
+  },
+  "3121": {
+    "name": "Flux",
+    "sunset": false,
+    "slug": "flux"
+  },
+  "3177": {
+    "name": "Master",
+    "sunset": false,
+    "slug": "master"
+  },
+  "3205": {
+    "name": "Lumin",
+    "sunset": false,
+    "slug": "lumin"
+  },
+  "3210": {
+    "name": "San Francisco",
+    "sunset": false,
+    "slug": "san-francisco"
   }
 }
