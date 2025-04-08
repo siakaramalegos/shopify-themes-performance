@@ -1,3 +1,4 @@
+-- Run this second, changing the temp table reference on line 18 and the date on line 152
 -- Core web vitals by Shopify theme
 CREATE TEMP FUNCTION IS_GOOD (good FLOAT64, needs_improvement FLOAT64, poor FLOAT64) RETURNS BOOL AS (
   good / (good + needs_improvement + poor) >= 0.75
@@ -11,18 +12,10 @@ CREATE TEMP FUNCTION IS_NON_ZERO (good FLOAT64, needs_improvement FLOAT64, poor 
   good + needs_improvement + poor > 0
 );
 
--- All Shopify shops in HTTPArchive
+-- All Shopify shops in HTTPArchive - use temporary table from archive_pages.sql
 WITH archive_pages AS (
-    SELECT
-      client,
-      page AS url,
-      TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.schema_name) AS theme_schema_name, --when querying prior to Nov 2024, use theme.name instead
-      TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.theme_store_id) AS theme_store_id,
-    FROM `httparchive.crawl.pages`
-    WHERE
-      date = '2025-01-01'AND
-      is_root_page AND
-      custom_metrics.ecommerce.Shopify.theme.name IS NOT NULL --This is just a check for it being a theme. Maybe we should check that Shopify is not null instead? Or Shopify.theme. (first grab all shops for market share)
+    SELECT *
+    FROM `httparchive-bigquery-316519._d6e68ddfa7b6887fe2c9264d97e893d71ae496c7.anon561f1875a18cc77b03df56b6bb7dc218d0befdf3b69f7454d28e26a95ffdf9d7`
 )
 
 SELECT
@@ -156,7 +149,7 @@ JOIN (
 -- Include null theme store ids so that we can get full market share within CrUX
 ON IFNULL(theme_names.theme_store_id, 'N/A') = IFNULL(archive_pages.theme_store_id, 'N/A')
 WHERE
-  date = '2025-01-01' AND
+  date = '2025-03-01' AND
   theme_names.rank = 1
 GROUP BY
   client,
