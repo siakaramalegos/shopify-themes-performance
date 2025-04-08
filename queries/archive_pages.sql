@@ -2,9 +2,9 @@
 SELECT
   client,
   page AS url,
-  TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.schema_name) AS theme_schema_name, --when querying prior to Nov 2024, use theme.name instead
-  TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.theme_store_id) AS theme_store_id,
-  TO_JSON_STRING(custom_metrics.ecommerce.Shopify.theme.schema_version) AS schema_version,
+  SAFE.STRING(custom_metrics.ecommerce.Shopify.theme.schema_name) AS theme_schema_name, --when querying prior to Nov 2024, use theme.name instead
+  SAFE.INT64(custom_metrics.ecommerce.Shopify.theme.theme_store_id) AS theme_store_id,
+  SAFE.STRING(custom_metrics.ecommerce.Shopify.theme.schema_version) AS schema_version
 FROM `httparchive.crawl.pages`
 WHERE
   date = '2025-03-01'AND

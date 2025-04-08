@@ -1,4 +1,5 @@
--- Run this second, changing the temp table reference on line 18 and the date on line 152
+-- Run this second, changing the temp table reference on line 19 and the date on line 153
+
 -- Core web vitals by Shopify theme
 CREATE TEMP FUNCTION IS_GOOD (good FLOAT64, needs_improvement FLOAT64, poor FLOAT64) RETURNS BOOL AS (
   good / (good + needs_improvement + poor) >= 0.75
@@ -15,7 +16,7 @@ CREATE TEMP FUNCTION IS_NON_ZERO (good FLOAT64, needs_improvement FLOAT64, poor 
 -- All Shopify shops in HTTPArchive - use temporary table from archive_pages.sql
 WITH archive_pages AS (
     SELECT *
-    FROM `httparchive-bigquery-316519._d6e68ddfa7b6887fe2c9264d97e893d71ae496c7.anon561f1875a18cc77b03df56b6bb7dc218d0befdf3b69f7454d28e26a95ffdf9d7`
+    FROM `httparchive-bigquery-316519._d6e68ddfa7b6887fe2c9264d97e893d71ae496c7.anonc8f0f89d35c4017b01bef661d51846f345fb843f8e9f02e0602e78e357a92535`
 )
 
 SELECT
@@ -147,7 +148,7 @@ JOIN (
   ORDER BY COUNT(DISTINCT url) DESC
 ) theme_names
 -- Include null theme store ids so that we can get full market share within CrUX
-ON IFNULL(theme_names.theme_store_id, 'N/A') = IFNULL(archive_pages.theme_store_id, 'N/A')
+ON IFNULL(theme_names.theme_store_id, -1) = IFNULL(archive_pages.theme_store_id, -1)
 WHERE
   date = '2025-03-01' AND
   theme_names.rank = 1
