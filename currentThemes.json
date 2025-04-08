@@ -14,11 +14,6 @@
     "sunset": false,
     "slug": "sunrise"
   },
-  "115": {
-    "name": "Fresh",
-    "sunset": false,
-    "slug": "fresh"
-  },
   "141": {
     "name": "Fashionopolism",
     "sunset": false,
@@ -354,11 +349,6 @@
     "sunset": true,
     "slug": "trademark"
   },
-  "823": {
-    "name": "Debut",
-    "sunset": true,
-    "slug": "debut"
-  },
   "826": {
     "name": "Handy",
     "sunset": true,
@@ -393,11 +383,6 @@
     "name": "Split",
     "sunset": false,
     "slug": "split"
-  },
-  "844": {
-    "name": "Venture",
-    "sunset": true,
-    "slug": "venture"
   },
   "846": {
     "name": "Loft",
@@ -528,11 +513,6 @@
     "name": "Beyond",
     "sunset": false,
     "slug": "beyond"
-  },
-  "1049": {
-    "name": "debut",
-    "sunset": true,
-    "slug": "debut"
   },
   "1114": {
     "name": "Bullet",
@@ -758,6 +738,11 @@
     "name": "Reformation",
     "sunset": false,
     "slug": "reformation"
+  },
+  "1765": {
+    "name": "Stretch",
+    "sunset": false,
+    "slug": "stretch"
   },
   "1770": {
     "name": "Aurora",
@@ -1344,6 +1329,11 @@
     "sunset": false,
     "slug": "madrid"
   },
+  "2881": {
+    "name": "Satoshi",
+    "sunset": false,
+    "slug": "satoshi"
+  },
   "2883": {
     "name": "Machina",
     "sunset": false,
@@ -1448,5 +1438,20 @@
     "name": "San Francisco",
     "sunset": false,
     "slug": "san-francisco"
+  },
+  "3223": {
+    "name": "Ascension",
+    "sunset": false,
+    "slug": "ascension"
+  },
+  "3247": {
+    "name": "Hyper",
+    "sunset": false,
+    "slug": "hyper"
+  },
+  "3269": {
+    "name": "Normcore",
+    "sunset": false,
+    "slug": "normcore"
   }
 }

@@ -82,9 +82,12 @@ currentMonths.forEach(date => {
 
 })
 
-// Filter out low origins count for last month
+// Filter out no data for last month
 const themes = Object.keys(themesObj).map(themeId => themesObj[themeId]).filter(theme => {
-  const ignore = theme.monthlyData[theme.monthlyData.length - 1].origins < MIN_ORIGINS
+  // Remove if not in CrUX anymore for mobile or desktop
+  const currentMonth = currentMonths[currentMonths.length - 1]
+  const currentData = theme.monthlyData.filter(monthData => monthData.date === currentMonth)
+  const ignore = currentData.length < 2
   if (ignore) {
     ignoredThemes++
 
@@ -101,7 +104,7 @@ if (Object.keys(unconfirmedThemes).length > 1) {
   console.log("*** ", {unconfirmedThemes});
 }
 if (ignoredThemes > 0) {
-  console.log(`*** Ignored ${ignoredThemes} themes with less than ${MIN_ORIGINS} origins`);
+  console.log(`*** Ignored ${ignoredThemes} themes with no data last month`);
 }
 console.log(`*** All other origins count is:`);
 console.log({allOtherOriginsCounts});
@@ -152,22 +155,41 @@ const themesWithCharts = themes.map(theme => {
     Object.keys(data).forEach(client => {
       const {origins, passingCWV, passingLCP, needsImproveLCP, poorLCP, passingCLS, needsImproveCLS, poorCLS, passingINP, needsImproveINP, poorINP, passingTTFB, needsImproveTTFB, poorTTFB, passingFCP, needsImproveFCP, poorFCP} = data[client]
 
-      charts[client] = {
-        originsSvg: getLineSvg(origins, currentMonthsReadable),
-        originsAria: `Origins by month line chart. The data is: ${origins.join(', ')} origins for the months ${currentMonthsReadable.join(', ')}.`,
-        passingCwvSvg: getPassingCwvSvg(passingCWV, currentMonthsReadable),
-        passingCwvAria: `Origins Passing All Core Web Vitals bar chart. The data is: ${passingCWV.join(', ')}% passing for the months ${currentMonthsReadable.join(', ')}.`,
-        lcp: getStackedBarSvg(passingLCP, needsImproveLCP, poorLCP, currentMonthsReadable),
-        lcpAria: `LCP bar chart. The data is: ${passingLCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-        cls: getStackedBarSvg(passingCLS, needsImproveCLS, poorCLS, currentMonthsReadable),
-        clsAria: `CLS bar chart. The data is: ${passingCLS.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-        inp: getStackedBarSvg(passingINP, needsImproveINP, poorINP, currentMonthsReadable),
-        inpAria: `INP bar chart. The data is: ${passingINP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-        ttfb: getStackedBarSvg(passingTTFB, needsImproveTTFB, poorTTFB, currentMonthsReadable),
-        ttfbAria: `TTFB bar chart. The data is: ${passingTTFB.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
-        fcp: getStackedBarSvg(passingFCP, needsImproveFCP, poorFCP, currentMonthsReadable),
-        fcpAria: `FCP bar chart. The data is: ${passingFCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+
+      const originsSvg = getLineSvg(origins, currentMonthsReadable)
+      const originsAria = `Origins by month line chart. The data is: ${origins.join(', ')} origins for the months ${currentMonthsReadable.join(', ')}.`
+
+      let hasMinOriginsAtLeastOneMonth = false
+      origins.forEach(origin => {
+        if (origin >= MIN_ORIGINS) {
+          hasMinOriginsAtLeastOneMonth = true
+        }
+      })
+
+      if (hasMinOriginsAtLeastOneMonth) {
+        charts[client] = {
+          originsSvg,
+          originsAria,
+          passingCwvSvg: getPassingCwvSvg(passingCWV, currentMonthsReadable),
+          passingCwvAria: `Origins Passing All Core Web Vitals bar chart. The data is: ${passingCWV.join(', ')}% passing for the months ${currentMonthsReadable.join(', ')}.`,
+          lcp: getStackedBarSvg(passingLCP, needsImproveLCP, poorLCP, currentMonthsReadable),
+          lcpAria: `LCP bar chart. The data is: ${passingLCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+          cls: getStackedBarSvg(passingCLS, needsImproveCLS, poorCLS, currentMonthsReadable),
+          clsAria: `CLS bar chart. The data is: ${passingCLS.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+          inp: getStackedBarSvg(passingINP, needsImproveINP, poorINP, currentMonthsReadable),
+          inpAria: `INP bar chart. The data is: ${passingINP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+          ttfb: getStackedBarSvg(passingTTFB, needsImproveTTFB, poorTTFB, currentMonthsReadable),
+          ttfbAria: `TTFB bar chart. The data is: ${passingTTFB.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+          fcp: getStackedBarSvg(passingFCP, needsImproveFCP, poorFCP, currentMonthsReadable),
+          fcpAria: `FCP bar chart. The data is: ${passingFCP.join(', ')}% of origins passing for the months ${currentMonthsReadable.join(', ')}.`,
+        }
+      } else {
+        charts[client] = {
+          originsSvg,
+          originsAria,
+        }
       }
+
     })
   }
 
@@ -190,6 +212,10 @@ const latestTotalOrigins = {
 }
 
 const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
+  if (i===0) {
+    console.log({theme});
+
+  }
   const {data, ...rest} = theme
   const aggregData = { mobile: {}, desktop: {} }
 
@@ -197,21 +223,29 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
     const {origins, passingCWV, passingLCP, passingCLS, passingINP} = data[client]
     const lastOrigin = origins[origins.length - 1]
     const marketSharePct = Math.round(lastOrigin / latestTotalOrigins[client] * 10000) / 100
-    const passingCWVnum = passingCWV[passingCWV.length - 1] || 0
 
-    aggregData[client] = {
-      origins: lastOrigin,
-      marketSharePct: marketSharePct.toFixed(2),
-      passingCWVnum,
-      passingCWV: passingCWVnum.toFixed(1),
-      passingCWVchart: getSparkColumnSvg(passingCWVnum, lastMonth),
-      passingLCP: (passingLCP[passingLCP.length - 1] || 0).toFixed(1),
-      passingCLS: (passingCLS[passingCLS.length - 1] || 0).toFixed(1),
-      passingINP: (passingINP[passingINP.length - 1] || 0).toFixed(1),
-      cwvTrend: getTrend(passingCWV),
-      lcpTrend: getTrend(passingLCP),
-      clsTrend: getTrend(passingCLS),
-      inpTrend: getTrend(passingINP),
+    if (lastOrigin >= MIN_ORIGINS) {
+      const passingCWVnum = passingCWV[passingCWV.length - 1] || 0
+
+      aggregData[client] = {
+        origins: lastOrigin,
+        marketSharePct: marketSharePct.toFixed(2),
+        passingCWVnum,
+        passingCWV: passingCWVnum.toFixed(1),
+        passingCWVchart: getSparkColumnSvg(passingCWVnum, lastMonth),
+        passingLCP: (passingLCP[passingLCP.length - 1] || 0).toFixed(1),
+        passingCLS: (passingCLS[passingCLS.length - 1] || 0).toFixed(1),
+        passingINP: (passingINP[passingINP.length - 1] || 0).toFixed(1),
+        cwvTrend: getTrend(passingCWV),
+        lcpTrend: getTrend(passingLCP),
+        clsTrend: getTrend(passingCLS),
+        inpTrend: getTrend(passingINP),
+      }
+    } else {
+      aggregData[client] = {
+        origins: lastOrigin,
+        marketSharePct: marketSharePct.toFixed(2),
+      }
     }
   })
 
@@ -256,7 +290,7 @@ CLIENTS.forEach(client => {
     // a must be equal to b
     return 0;
   }).map((theme, index) => {
-    theme.summary[client].cwvRank = index + 1
+    theme.summary[client].cwvRank = theme.summary[client].passingCWV ?  index + 1 : 999
     return theme
   })
 })
@@ -280,7 +314,8 @@ const aggregations = {
 }
 CLIENTS.forEach(client => {
   METRICS.forEach(metric => {
-    const metricValues = themesWithChartsAndAggr.map(theme => parseFloat(theme.summary[client][metric]))
+    const metricValues = themesWithChartsAndAggr.map(theme => parseFloat(theme.summary[client][metric])).filter(val => !Object.is(NaN, val))
+
     aggregations[client].push({
       name: READABLE_METRIC[metric],
       ...getAggregations(metricValues),

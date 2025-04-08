@@ -59,16 +59,28 @@ eleventyComputed:
         </p>
       </div>
       <div>
-        <p class="big-num mobile-data">{{ theme.summary.mobile.cwvRank }}</p>
-        <p class="big-num desktop-data">{{ theme.summary.desktop.cwvRank }}</p>
+        <p class="big-num mobile-data">
+          {% if theme.summary.mobile.cwvRank == 999 %}
+            N/A
+          {% else %}
+            {{ theme.summary.mobile.cwvRank }}
+          {% endif %}
+        </p>
+        <p class="big-num desktop-data">
+          {% if theme.summary.desktop.cwvRank == 999 %}
+            N/A
+          {% else %}
+            {{ theme.summary.desktop.cwvRank }}
+          {% endif %}
+        </p>
         <p class="pos-rel">
           <button type="button" aria-label="more info" data-toggletip-content="The rank of this theme compared to all Shopify themes in terms of percent of websites passing all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Core Web Vitals Rank</button>
           <span role="status"></span>
         </p>
       </div>
       <div>
-        <p class="big-num mobile-data">{{ theme.summary.mobile.passingCWV }}%</p>
-        <p class="big-num desktop-data">{{ theme.summary.desktop.passingCWV }}%</p>
+        <p class="big-num mobile-data">{% if theme.summary.mobile.passingCWV %}{{ theme.summary.mobile.passingCWV }}%{% else %}N/A{% endif %}</p>
+        <p class="big-num desktop-data">{% if theme.summary.desktop.passingCWV %}{{ theme.summary.desktop.passingCWV }}%{% else %}N/A{% endif %}</p>
         <p class="pos-rel">
           <button type="button" aria-label="more info" data-toggletip-content="The percent of websites with this theme which pass all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Websites passing all CWV</button>
           <span role="status"></span>
@@ -93,125 +105,188 @@ eleventyComputed:
             {{ theme.charts.desktop.originsAria }}
           </p>
         </div>
+      </div>
 
-      </div>
-      <div>
-        <h3 class="pos-rel">
-          <button type="button" aria-label="more info" data-toggletip-content="How many real-world websites using this theme pass all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Websites passing all CWV</button>
-          <span role="status"></span>
-        </h3>
+      {% if theme.charts.mobile.passingCwvSvg %}
         <div class="mobile-data">
-          {{ theme.charts.mobile.passingCwvSvg | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.mobile.passingCwvAria }}
-          </p>
+          <h3 class="pos-rel">
+            <button type="button" aria-label="more info" data-toggletip-content="How many real-world websites using this theme pass all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Websites passing all CWV</button>
+            <span role="status"></span>
+          </h3>
+          <div>
+            {{ theme.charts.mobile.passingCwvSvg | safe }}
+            <p class="visually-hidden">
+              {{ theme.charts.mobile.passingCwvAria }}
+            </p>
+          </div>
         </div>
+      {% else %}
+        <p class="mobile-data">This theme has less than {{ metaData.minOrigins }} origins, which is the threshold to show Core Web Vitals data.</p>
+      {% endif %}
+      {% if theme.charts.desktop.passingCwvSvg %}
         <div class="desktop-data">
-          {{ theme.charts.desktop.passingCwvSvg | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.desktop.passingCwvAria }}
-          </p>
+          <h3 class="pos-rel">
+            <button type="button" aria-label="more info" data-toggletip-content="How many real-world websites using this theme pass all Core Web Vitals (CWV). The CWV are LCP, CLS, and INP.">Websites passing all CWV</button>
+            <span role="status"></span>
+          </h3>
+          <div>
+            {{ theme.charts.desktop.passingCwvSvg | safe }}
+            <p class="visually-hidden">
+              {{ theme.charts.desktop.passingCwvAria }}
+            </p>
+          </div>
         </div>
-      </div>
+      {% else %}
+      <p class="desktop-data">This theme has less than {{ metaData.minOrigins }} origins, which is the threshold to show Core Web Vitals data.</p>
+      {% endif %}
     </div>
-    <h2>Loading Speed Metrics</h2>
-    <p class="max-ch">These three metrics break down the major steps in rendering a webpage. TTFB roughly correlates to server issues or complex Liquid code. FCP often correlates with render-blocking resources and using JavaScript to render the page. Slow LCP can be caused by many issues. For guidance on improving loading speed, read <a href="https://sia.codes/posts/debugging-shopify-lcp/">Debugging common causes for slow loading in Shopify Liquid storefronts</a>. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
-    <div class="chart-grid">
-      <div>
-        <h3 class="pos-rel">
-          <button type="button" aria-label="more info" data-toggletip-content="TTFB measures the amount of time between when the request started and when the first byte of data returned from the server.">Time to First Byte (TTFB)</button>
-          <span role="status"></span>
-        </h3>
-        <div class="mobile-data">
-          {{ theme.charts.mobile.ttfb | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.mobile.ttfbAria }}
-          </p>
+    <!-- Hide all if no passing CWV chart (because would have no other charts) -->
+    {% if theme.charts.mobile.passingCwvSvg %}
+      <div class="mobile-data">
+        <h2>Loading Speed Metrics</h2>
+        <p class="max-ch">These three metrics break down the major steps in rendering a webpage. TTFB roughly correlates to server issues or complex Liquid code. FCP often correlates with render-blocking resources and using JavaScript to render the page. Slow LCP can be caused by many issues. For guidance on improving loading speed, read <a href="https://sia.codes/posts/debugging-shopify-lcp/">Debugging common causes for slow loading in Shopify Liquid storefronts</a>. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
+        <div class="chart-grid">
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="TTFB measures the amount of time between when the request started and when the first byte of data returned from the server.">Time to First Byte (TTFB)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.mobile.ttfb | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.mobile.ttfbAria }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="FCP measures the amount of time between when the request started and when the first content is rendered.">First Contentful Paint (FCP)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.mobile.fcp | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.mobile.fcpAria }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="LCP measures the amount of time between when the request started and when the largest element in the viewport is rendered.">Largest Contentful Paint (LCP)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.mobile.lcp | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.mobile.lcpAria }}
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="desktop-data">
-          {{ theme.charts.desktop.ttfb | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.desktop.ttfbAria }}
-          </p>
-        </div>
-      </div>
-      <div>
-        <h3 class="pos-rel">
-          <button type="button" aria-label="more info" data-toggletip-content="FCP measures the amount of time between when the request started and when the first content is rendered.">First Contentful Paint (FCP)</button>
-          <span role="status"></span>
-        </h3>
-        <div class="mobile-data">
-          {{ theme.charts.mobile.fcp | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.mobile.fcpAria }}
-          </p>
-        </div>
-        <div class="desktop-data">
-          {{ theme.charts.desktop.fcp | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.desktop.fcpAria }}
-          </p>
-        </div>
-      </div>
-      <div>
-        <h3 class="pos-rel">
-          <button type="button" aria-label="more info" data-toggletip-content="LCP measures the amount of time between when the request started and when the largest element in the viewport is rendered.">Largest Contentful Paint (LCP)</button>
-          <span role="status"></span>
-        </h3>
-        <div class="mobile-data">
-          {{ theme.charts.mobile.lcp | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.mobile.lcpAria }}
-          </p>
-        </div>
-        <div class="desktop-data">
-          {{ theme.charts.desktop.lcp | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.desktop.lcpAria }}
-          </p>
-        </div>
-      </div>
-    </div>
-    <h2>Other Web Vitals Metrics</h2>
-    <p class="max-ch">CLS and INP are user frustration metrics. Both can result in page abandonment. To learn how to identify and fix CLS, read <a href="https://sia.codes/posts/optimize-cls-on-shopify/">How to optimize Cumulative Layout Shift (CLS) on Shopify sites</a>. INP is a much more complex metric to debug and improve, but you can improve your chances by minimizing the number of apps and GTM tags on your site. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
-    <div class="chart-grid">
-      <div>
-        <h3 class="pos-rel">
-          <button type="button" aria-label="more info" data-toggletip-content="Cumulative Layout Shift (CLS) measures the total of how much the page or layout moved unexpectedly during a session.">Cumulative Layout Shift (CLS)</button>
-          <span role="status"></span>
-        </h3>
-        <div class="mobile-data">
-          {{ theme.charts.mobile.cls | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.mobile.clsAria }}
-          </p>
-        </div>
-        <div class="desktop-data">
-          {{ theme.charts.desktop.cls | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.desktop.clsAria }}
-          </p>
+        <h2>Other Web Vitals Metrics</h2>
+        <p class="max-ch">CLS and INP are user frustration metrics. Both can result in page abandonment. To learn how to identify and fix CLS, read <a href="https://sia.codes/posts/optimize-cls-on-shopify/">How to optimize Cumulative Layout Shift (CLS) on Shopify sites</a>. INP is a much more complex metric to debug and improve, but you can improve your chances by minimizing the number of apps and GTM tags on your site. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
+        <div class="chart-grid">
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="Cumulative Layout Shift (CLS) measures the total of how much the page or layout moved unexpectedly during a session.">Cumulative Layout Shift (CLS)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.mobile.cls | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.mobile.clsAria }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="Interaction to Next Paint (INP) measures how quickly the page responds to user input and reports the worst interactions in a session.">Interaction to Next Paint (INP)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.mobile.inp | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.mobile.inpAria }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <h3 class="pos-rel">
-          <button type="button" aria-label="more info" data-toggletip-content="Interaction to Next Paint (INP) measures how quickly the page responds to user input and reports the worst interactions in a session.">Interaction to Next Paint (INP)</button>
-          <span role="status"></span>
-        </h3>
-        <div class="mobile-data">
-          {{ theme.charts.mobile.inp | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.mobile.inpAria }}
-          </p>
+    {% endif %}
+
+    <!-- Hide all if no passing CWV chart (because would have no other charts) -->
+    {% if theme.charts.desktop.passingCwvSvg %}
+      <div class="desktop-data">
+        <h2>Loading Speed Metrics</h2>
+        <p class="max-ch">These three metrics break down the major steps in rendering a webpage. TTFB roughly correlates to server issues or complex Liquid code. FCP often correlates with render-blocking resources and using JavaScript to render the page. Slow LCP can be caused by many issues. For guidance on improving loading speed, read <a href="https://sia.codes/posts/debugging-shopify-lcp/">Debugging common causes for slow loading in Shopify Liquid storefronts</a>. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
+        <div class="chart-grid">
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="TTFB measures the amount of time between when the request started and when the first byte of data returned from the server.">Time to First Byte (TTFB)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.desktop.ttfb | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.desktop.ttfbAria }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="FCP measures the amount of time between when the request started and when the first content is rendered.">First Contentful Paint (FCP)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.desktop.fcp | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.desktop.fcpAria }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="LCP measures the amount of time between when the request started and when the largest element in the viewport is rendered.">Largest Contentful Paint (LCP)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.desktop.lcp | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.desktop.lcpAria }}
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="desktop-data">
-          {{ theme.charts.desktop.inp | safe }}
-          <p class="visually-hidden">
-            {{ theme.charts.desktop.inpAria }}
-          </p>
+        <h2>Other Web Vitals Metrics</h2>
+        <p class="max-ch">CLS and INP are user frustration metrics. Both can result in page abandonment. To learn how to identify and fix CLS, read <a href="https://sia.codes/posts/optimize-cls-on-shopify/">How to optimize Cumulative Layout Shift (CLS) on Shopify sites</a>. INP is a much more complex metric to debug and improve, but you can improve your chances by minimizing the number of apps and GTM tags on your site. If you need assistance, check out my <a href="https://sia.codes/services/">consulting services</a>.</p>
+        <div class="chart-grid">
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="Cumulative Layout Shift (CLS) measures the total of how much the page or layout moved unexpectedly during a session.">Cumulative Layout Shift (CLS)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.desktop.cls | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.desktop.clsAria }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="pos-rel">
+              <button type="button" aria-label="more info" data-toggletip-content="Interaction to Next Paint (INP) measures how quickly the page responds to user input and reports the worst interactions in a session.">Interaction to Next Paint (INP)</button>
+              <span role="status"></span>
+            </h3>
+            <div>
+              {{ theme.charts.desktop.inp | safe }}
+              <p class="visually-hidden">
+                {{ theme.charts.desktop.inpAria }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    {% endif %}
   </section>
 </div>
 
