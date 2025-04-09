@@ -572,8 +572,8 @@ span.sorting {
   height: auto;
 }
 .popularity {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
   margin-bottom: 48px;
 }
 .popularity > div {

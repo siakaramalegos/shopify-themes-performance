@@ -120,9 +120,8 @@ eleventyComputed:
             </p>
           </div>
         </div>
-      {% else %}
-        <p class="mobile-data">This theme has less than {{ metaData.minOrigins }} origins, which is the threshold to show Core Web Vitals data.</p>
       {% endif %}
+
       {% if theme.charts.desktop.passingCwvSvg %}
         <div class="desktop-data">
           <h3 class="pos-rel">
@@ -136,9 +135,26 @@ eleventyComputed:
             </p>
           </div>
         </div>
-      {% else %}
-      <p class="desktop-data">This theme has less than {{ metaData.minOrigins }} origins, which is the threshold to show Core Web Vitals data.</p>
       {% endif %}
+
+      <div>
+        <h3 class="pos-rel">
+          <button type="button" aria-label="more info" data-toggletip-content="The number of real-world websites included in this data, split by theme version for this theme.">Websites by Theme Version</button>
+          <span role="status"></span>
+        </h3>
+        <div class="mobile-data">
+          {{ theme.summary.mobile.versionsChart | safe }}
+          <p class="visually-hidden">
+            {{ theme.summary.mobile.versionsAria }}
+          </p>
+        </div>
+        <div class="desktop-data">
+          {{ theme.summary.desktop.versionsChart | safe }}
+          <p class="visually-hidden">
+            {{ theme.summary.desktop.versionsAria }}
+          </p>
+        </div>
+      </div>
     </div>
     <!-- Hide all if no passing CWV chart (because would have no other charts) -->
     {% if theme.charts.mobile.passingCwvSvg %}
@@ -212,6 +228,8 @@ eleventyComputed:
           </div>
         </div>
       </div>
+    {% else %}
+      <p class="mobile-data">This theme has less than {{ metaData.minOrigins }} origins, which is the threshold to show Core Web Vitals data.</p>
     {% endif %}
 
     <!-- Hide all if no passing CWV chart (because would have no other charts) -->
@@ -286,6 +304,8 @@ eleventyComputed:
           </div>
         </div>
       </div>
+    {% else %}
+      <p class="desktop-data">This theme has less than {{ metaData.minOrigins }} origins, which is the threshold to show Core Web Vitals data.</p>
     {% endif %}
   </section>
 </div>

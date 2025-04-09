@@ -1,4 +1,6 @@
-const { readDataFile, getDateFileString, mungeData, writeDataFile, getLineSvg, getPassingCwvSvg, getStackedBarSvg, getTrend, getSparkColumnSvg, getAggregations } = require('./helpers');
+const { readDataFile, getDateFileString, mungeData, writeDataFile, getTrend, getAggregations } = require('./helpers/helpers');
+const { getLineSvg, getPassingCwvSvg, getStackedBarSvg, getSparkColumnSvg, getBarSvg } = require('./helpers/charts');
+const { getThemeVersions } = require('./helpers/theme_versions');
 const RAW_FOLDER = '_raw_data/';
 const CACHE_DIR = '_processed_data'
 const MIN_ORIGINS = 50
@@ -12,6 +14,7 @@ const currentMonths = Array(6).fill(0).map((_, i) => {
   const newDate = new Date(new Date().setMonth(new Date().getMonth() - i - 1))
   return getDateFileString(new Date(newDate))
 }).sort();
+const currentMonth = currentMonths[currentMonths.length - 1]
 const currentMonthsReadable = currentMonths.map(dateStr => {
   const parts = dateStr.split('_')
   return `${parts[1]}/${parts[0].slice(2)}`
@@ -85,7 +88,6 @@ currentMonths.forEach(date => {
 // Filter out no data for last month
 const themes = Object.keys(themesObj).map(themeId => themesObj[themeId]).filter(theme => {
   // Remove if not in CrUX anymore for mobile or desktop
-  const currentMonth = currentMonths[currentMonths.length - 1]
   const currentData = theme.monthlyData.filter(monthData => monthData.date === currentMonth)
   const ignore = currentData.length < 2
   if (ignore) {
@@ -211,11 +213,12 @@ const latestTotalOrigins = {
   desktop: totalOriginsCounts.desktop[Object.keys(totalOriginsCounts.desktop).sort().reverse()[0]]
 }
 
-const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
-  if (i===0) {
-    console.log({theme});
+// Read in theme version data
+const themeVersions = getThemeVersions(currentMonth, confirmedThemes)
 
-  }
+// Add summary data and charts
+const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
+  const themeVersionData = themeVersions.find(t => t.id === theme.id)
   const {data, ...rest} = theme
   const aggregData = { mobile: {}, desktop: {} }
 
@@ -223,6 +226,9 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
     const {origins, passingCWV, passingLCP, passingCLS, passingINP} = data[client]
     const lastOrigin = origins[origins.length - 1]
     const marketSharePct = Math.round(lastOrigin / latestTotalOrigins[client] * 10000) / 100
+    const versionsChart = getBarSvg(themeVersionData[client]['x'], themeVersionData[client]['y'])
+    const versionsAria = `Origins by theme version chart. The data is: ${themeVersionData[client]['y'].join(', ')} origins for the versions ${themeVersionData[client]['x'].join(', ')}.`
+
 
     if (lastOrigin >= MIN_ORIGINS) {
       const passingCWVnum = passingCWV[passingCWV.length - 1] || 0
@@ -230,6 +236,8 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
       aggregData[client] = {
         origins: lastOrigin,
         marketSharePct: marketSharePct.toFixed(2),
+        versionsChart,
+        versionsAria,
         passingCWVnum,
         passingCWV: passingCWVnum.toFixed(1),
         passingCWVchart: getSparkColumnSvg(passingCWVnum, lastMonth),
@@ -245,6 +253,8 @@ const themesWithChartsAndAggr = themesWithCharts.map((theme, i) => {
       aggregData[client] = {
         origins: lastOrigin,
         marketSharePct: marketSharePct.toFixed(2),
+        versionsChart,
+        versionsAria,
       }
     }
   })
