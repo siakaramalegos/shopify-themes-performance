@@ -36,6 +36,9 @@ description: How Shopify themes performed as a group on Core Web Vitals last mon
         <span class="min" style="width: {{ metric.min }}%;"></span>
         <span class="max" style="width: {{ metric.max }}%;"></span>
       </div>
+      <p class="visually-hidden">
+        Median: {{ metric.median }}%, Minimum: {{ metric.min }}%, Maximum: {{ metric.max }}%
+      </p>
     </div>
     {% endfor %}
   </div>
