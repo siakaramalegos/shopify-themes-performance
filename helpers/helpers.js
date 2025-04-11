@@ -62,24 +62,34 @@ function getTrend(arr) {
   }
 }
 
-function getAggregations(array) {
-  const sortedArray = array.toSorted((a, b) => a - b)
-  const middleIndexDecimal = sortedArray.length / 2
-  const middleIndex = Math.floor(middleIndexDecimal)
-  let median
+function getAtIndex(sortedArray, divisor = 2) {
+  const indexDecimal = sortedArray.length / divisor
+  const index = Math.floor(indexDecimal)
+  let val
 
-  if (middleIndexDecimal % 1 === 0) {
-    // Even array, return average of 2 middle values
-    median = (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2
+  if (indexDecimal % 1 === 0) {
+    // Even array, return average of 2 neighbor values
+    val = (sortedArray[index - 1] + sortedArray[index]) / 2
   } else {
-    // Odd array, return middle
-    median = sortedArray[middleIndex]
+    // Odd array, return item
+    val = sortedArray[index]
   }
 
+  return val
+}
+
+function getAggregations(array) {
+  const sortedArray = array.toSorted((a, b) => a - b)
+  const median = getAtIndex(sortedArray, divisor = 2)
+  const p25 = getAtIndex(sortedArray, divisor = 4)
+  const p75 = getAtIndex(sortedArray, divisor = 4 / 3)
+
   return {
-    min: sortedArray[0].toFixed(1),
-    median: median ? median.toFixed(1) : null,
-    max: sortedArray[sortedArray.length - 1].toFixed(1),
+    min: sortedArray[0],
+    p25: p25 ? p25 : null,
+    median: median ? median : null,
+    p75: p75 ? p75 : null,
+    max: sortedArray[sortedArray.length - 1],
   }
 }
 

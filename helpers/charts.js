@@ -145,6 +145,71 @@ function getLineSvg(monthlyData, currentMonthsReadable, animation = false) {
   return svgStr
 }
 
+// Line chart (for origins by month)
+function getMultiLineSvg(data, months, monthsReadable, animation = false) {
+  // In SSR mode the first container parameter is not required
+  let chart = echarts.init(null, null, {
+    renderer: 'svg', // must use SVG rendering mode
+    ssr: true, // enable SSR
+    width: 650, // need to specify height and width
+    height: 350
+  });
+
+  const clients = [
+    {
+      name: 'mobile',
+      color: '#076881',
+      icon: 'emptyCircle',
+    },
+    {
+      name: 'desktop',
+      color: '#00916eff',
+      icon: 'emptyTriangle',
+    },
+  ]
+  const series = clients.map((client, index) => {
+    return {
+      name: client.name,
+      data: months.map(month => data[client.name][month]),
+      type: 'line',
+      itemStyle: {
+        color: client.color,
+      },
+      symbol: client.icon,
+      symbolSize: 6,
+    }
+  })
+
+  chart.setOption({
+    animation,
+    xAxis: {
+      type: 'category',
+      data: monthsReadable,
+      name: 'Month/Year',
+      nameLocation: 'center',
+      nameTextStyle: { padding: [8, 0, 0, 0] },
+    },
+    yAxis: {
+      type: 'value'
+    },
+    legend: {
+      data: ['mobile', 'desktop'],
+    },
+    series,
+  });
+
+  const svgStr = chart.renderToSVGString();
+
+  // Disposing chart to release memory.
+  chart.dispose();
+  chart = null;
+
+  return {
+    chart: svgStr,
+    aria: `Origins by month line chart for the months ${monthsReadable.join(', ')}. The mobile data is: ${series[0].data.join(', ')} origins. On desktop, the data is: ${series[1].data.join(', ')} origins.`
+  }
+}
+
 // Red-yellow-green stacked bar chart
 function getStackedBarSvg(passingMonthly, needsImproveMonthly, poorMonthly, currentMonthsReadable, animation = false) {
   let chart = echarts.init(null, null, {
@@ -260,6 +325,7 @@ function getBarSvg(x, y, animation = false) {
 
 module.exports = {
   getLineSvg,
+  getMultiLineSvg,
   getPassingCwvSvg,
   getSparkColumnSvg,
   getStackedBarSvg,

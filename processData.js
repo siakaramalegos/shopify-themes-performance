@@ -1,5 +1,5 @@
 const { readDataFile, getDateFileString, mungeData, writeDataFile, getTrend, getAggregations } = require('./helpers/helpers');
-const { getLineSvg, getPassingCwvSvg, getStackedBarSvg, getSparkColumnSvg, getBarSvg } = require('./helpers/charts');
+const { getLineSvg, getPassingCwvSvg, getStackedBarSvg, getSparkColumnSvg, getBarSvg, getMultiLineSvg, getBoxPlotSvg } = require('./helpers/charts');
 const { getThemeVersions } = require('./helpers/theme_versions');
 const RAW_FOLDER = '_raw_data/';
 const CACHE_DIR = '_processed_data'
@@ -312,11 +312,23 @@ const METRICS = [
   'passingCLS',
   'passingINP',
 ]
-const READABLE_METRIC = {
-  passingCWV: 'All Core Web Vitals (CWV)',
-  passingLCP: 'Largest Contentful Paint (LCP)',
-  passingCLS: 'Cumulative Layout Shift (CLS)',
-  passingINP: 'Interaction to Next Paint (INP)',
+const METRIC_LABELS = {
+  passingCWV: {
+    name: 'All Core Web Vitals',
+    abbreviation: 'All good'
+  },
+  passingLCP: {
+    name: 'Largest Contentful Paint',
+    abbreviation: 'Good LCP'
+  },
+  passingCLS: {
+    name: 'Cumulative Layout Shift',
+    abbreviation: 'Good CLS'
+  },
+  passingINP: {
+    name: 'Interaction to Next Paint',
+    abbreviation: 'Good INP'
+  },
 }
 const aggregations = {
   mobile: [],
@@ -327,7 +339,8 @@ CLIENTS.forEach(client => {
     const metricValues = themesWithChartsAndAggr.map(theme => parseFloat(theme.summary[client][metric])).filter(val => !Object.is(NaN, val))
 
     aggregations[client].push({
-      name: READABLE_METRIC[metric],
+      name: METRIC_LABELS[metric].name,
+      abbreviation: METRIC_LABELS[metric].abbreviation,
       ...getAggregations(metricValues),
     })
   })
@@ -342,7 +355,10 @@ const output = {
   themes: themesWithChartsAndAggr,
   date: currentMonthsReadable[currentMonthsReadable.length - 1],
   minOrigins: MIN_ORIGINS,
-  aggregations,
+  aggregations: {
+    originsChart: getMultiLineSvg(totalOriginsCounts, currentMonths, currentMonthsReadable),
+    cwvAggregations: aggregations,
+  },
 }
 
 const outputFileName = getDateFileString(new Date())

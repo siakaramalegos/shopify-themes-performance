@@ -7,13 +7,13 @@ description: Learn about the mission of Theme Vitals, the data that powers it, a
 <section class="banner">
   <div class="content flow">
     <h1>Aggregations</h1>
-    <p class="lead">How all Shopify themes perform as a group</p>
+    <p class="lead">How did Shopify themes perform as a group? How many websites were analyzed?</p>
   </div>
 </section>
 
 <section class="content flow max-ch">
-  <h2>Median and ranges for Core Web Vitals scores</h2>
-  <p>The highest, lowest, and median (middle) percent of websites passing for a theme from the latest data set on {{ metaData.date }}. <a href="/themes/">Explore the data for each theme</a>.</p>
+  <h2>Core Web Vitals for Themes, {{ metaData.date }}</h2>
+  <p>The median performance for each Core Web Vital metric for all themes in the latest data set. The small tic marks indicate the minimums (pink) and maximums (green). <a href="/themes/">Explore the data for each theme</a>.</p>
 
   <p>
     <button id="mobile-switch" class="client-switch" role="switch" aria-checked="true">
@@ -25,37 +25,44 @@ description: Learn about the mission of Theme Vitals, the data that powers it, a
       Desktop
     </button>
   </p>
-  <table class="td-nums" id="aggregations">
-    <caption>Percent of websites passing each metric for each theme</caption>
-    <thead>
-      <tr>
-        <th>Metric</th>
-        <th>Minimum</th>
-        <th>Median</th>
-        <th>Maximum</th>
-      </tr>
-    </thead>
-    <tbody id="data-mobile">
-      {% for metric in metaData.aggregations.mobile %}
-        <tr>
-          <td>{{ metric.name }}</td>
-          <td>{{ metric.min }}%</td>
-          <td>{{ metric.median }}%</td>
-          <td>{{ metric.max }}%</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-    <tbody id="data-desktop" hidden>
-      {% for metric in metaData.aggregations.desktop %}
-        <tr>
-          <td>{{ metric.name }}</td>
-          <td>{{ metric.min }}%</td>
-          <td>{{ metric.median }}%</td>
-          <td>{{ metric.max }}%</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+
+  <div id="data-mobile">
+    {% for metric in metaData.aggregations.mobile %}
+    <div class="metric-card">
+      <h3><span>{{ metric.abbreviation }}</span> <span>{{ metric.median }}%</span></h3>
+      <p>{{ metric.name }}</p>
+      <div class="value-container">
+        <div class="value" style="width: {{ metric.median }}%;"></div>
+        <span class="min" style="width: {{ metric.min }}%;"></span>
+        <span class="max" style="width: {{ metric.max }}%;"></span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div id="data-desktop" hidden>
+    {% for metric in metaData.aggregations.desktop %}
+    <div class="metric-card">
+      <h3><span>{{ metric.abbreviation }}</span> <span>{{ metric.median }}%</span></h3>
+      <p>{{ metric.name }}</p>
+      <div class="value-container">
+        <div class="value" style="width: {{ metric.median }}%;"></div>
+        <span class="min" style="width: {{ metric.min }}%;"></span>
+        <span class="max" style="width: {{ metric.max }}%;"></span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="content flow max-ch">
+  <h2>Number of Shopify websites</h2>
+  <p>How many websites (origins) were included in this analysis for each month. This is the total number of Shopify websites with or without a theme store theme.</p>
+  <div class="chart-flex">
+    {{ metaData.totalOriginsChart.chart | safe }}
+    <p class="visually-hidden">
+      {{ metaData.totalOriginsChart.aria }}
+    </p>
+  </div>
 </section>
 
 {% include 'cta.njk' %}

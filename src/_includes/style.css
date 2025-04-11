@@ -1,6 +1,7 @@
 :root {
   /* CSS HEX */
   --sea-green: #00916eff;
+  --med-dk-sea-green: #0fae89;
   --med-sea-green: #9ee3d3;
   --light-sea-green: #dfece9;
   --linen: #feefe5ff;
@@ -10,6 +11,7 @@
   --dark-chart-yellow: #a37a00;
   --persimmon: #ee6123ff;
   --red-munsell: #e01a4c;
+  --med-red-munsell: #e3849c;
   --light-red-munsell: #f7dbe2;
   --charcoal: #194238;
   --charcoal-rgb-text: 25, 66, 56;
@@ -397,10 +399,6 @@ table {
   box-shadow: 0 0 0 .1rem rgba(var(--charcoal-rgb-text), .2);
   margin-top: 32px;
 }
-table caption {
-  padding: 12px 0;
-  font-weight: 700;
-}
 thead:first-of-type tr {
   position: sticky;
   top: 0;
@@ -647,6 +645,45 @@ span.sorting {
     display: none;
   }
 }
+
+/* Aggregations page */
+.metric-card {
+  background-color: rgba(25,66,56,0.05);
+  border: 1px solid rgba(25,66,56,0.2);
+  border-radius: 8px;
+  margin: var(--size-400) 0;
+  padding: var(--size-200);
+  min-width: 250px;
+  width: 100%;
+}
+.metric-card h3 {
+  display: flex;
+  justify-content: space-between;
+}
+.value-container {
+  position: relative;
+  background-color: rgba(25,66,56,0.2);
+  border-radius: 6px;
+  margin-top: var(--size-100);
+  height: 12px;
+  width: 100%;
+}
+.value {
+  position: absolute;
+  top: 0;
+  background-color: var(--blue);
+  height: 12px;
+  border-radius: 6px;
+}
+.min, .max {
+  position: absolute;
+  top: -2px;
+  display: inline-block;
+  height: 16px;
+}
+.min { border-right: 2px solid var(--med-red-munsell); }
+.max { border-right: 2px solid var(--med-dk-sea-green); }
+
 
 form {
   display: flex;

@@ -8,5 +8,7 @@ const { date, minOrigins, aggregations } = readDataFile(`${INPUT_FOLDER}/${lates
 module.exports = {
   date,
   minOrigins,
-  aggregations,
+  aggregations: aggregations.cwvAggregations,
+  cwvChart: aggregations.cwvChart,
+  totalOriginsChart: aggregations.originsChart,
 }
