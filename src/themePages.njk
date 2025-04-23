@@ -16,11 +16,12 @@ eleventyComputed:
     <p class="lead max-ch">Core Web Vitals and other performance metrics for real-world websites using the {{ theme.name }} theme. The data includes all pages and is split between mobile and desktop experiences.</p>
     <p>
       {% if theme.sunset %}
-        <span class="pill">vintage</span>
+        <span class="pill" style="margin-right:6px">vintage</span> <em><a href="https://shopinfo.app/themes/{{ theme.slug }}">shopinfo.app</a></em>
       {% else %}
-        <em><a href="https://themes.shopify.com/themes/{{ theme.slug }}">View in theme store</a></em>
+        <em><a href="https://themes.shopify.com/themes/{{ theme.slug }}">theme store</a> | <a href="https://shopinfo.app/themes/{{ theme.slug }}">shopinfo.app</a></em>
       {% endif %}
     </p>
+    <p><em></em></p>
   </div>
 </section>
 
