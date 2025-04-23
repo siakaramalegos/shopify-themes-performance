@@ -1036,7 +1036,7 @@
   },
   "2275": {
     "name": "Pesto",
-    "sunset": true,
+    "sunset": false,
     "slug": "pesto"
   },
   "2277": {

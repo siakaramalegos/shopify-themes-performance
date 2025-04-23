@@ -1,5 +1,4 @@
-const { readDataFile } = require('./helpers');
-
+const { readDataFile } = require('./helpers/helpers');
 const fs = require('fs')
 
 const INPUT_FOLDER = '_processed_data'
