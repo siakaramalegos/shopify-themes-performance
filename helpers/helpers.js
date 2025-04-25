@@ -42,7 +42,7 @@ function writeDataFile(data, cacheDir, writeFilePath, descriptor) {
     fs.mkdirSync(cacheDir)
   }
   // write data to cache json file
-  fs.writeFile(`${cacheDir}/${writeFilePath}`, fileContent, err => {
+  fs.writeFileSync(`${cacheDir}/${writeFilePath}`, fileContent, err => {
     if (err) throw err
     console.log(`>>> ${descriptor} cached to ${cacheDir}/${writeFilePath}`)
   })
@@ -93,6 +93,17 @@ function getAggregations(array) {
   }
 }
 
+function aggrPerfDataByMonth(aggregationsObj) {
+  let data
+  if (aggregationsObj.cwvAggregations) {
+    data = aggregationsObj.cwvAggregations
+  } else {
+    data = aggregationsObj
+  }
+
+  return data
+}
+
 function sortFloats(a, b) {
   const aNum = parseFloat(a)
   const bNum = parseFloat(b)
@@ -108,6 +119,10 @@ function sortFloats(a, b) {
   return 0;
 }
 
+function getKeyByContainsValue(object, value) {
+  return Object.keys(object).find(key => value.includes(object[key].name));
+}
+
 module.exports = {
   readDataFile,
   getDateFileString,
@@ -116,4 +131,6 @@ module.exports = {
   getTrend,
   getAggregations,
   sortFloats,
+  aggrPerfDataByMonth,
+  getKeyByContainsValue,
 }

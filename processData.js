@@ -1,4 +1,4 @@
-const { readDataFile, getDateFileString, mungeData, writeDataFile, getTrend, getAggregations } = require('./helpers/helpers');
+const { readDataFile, getDateFileString, mungeData, writeDataFile, getTrend, getAggregations, aggrPerfDataByMonth, getKeyByContainsValue } = require('./helpers/helpers');
 const { getLineSvg, getPassingCwvSvg, getStackedBarSvg, getSparkColumnSvg, getBarSvg, getMultiLineSvg, getBoxPlotSvg } = require('./helpers/charts');
 const { getThemeVersions } = require('./helpers/theme_versions');
 const RAW_FOLDER = '_raw_data/';
@@ -363,3 +363,58 @@ const output = {
 
 const outputFileName = getDateFileString(new Date())
 writeDataFile(output, CACHE_DIR, `${outputFileName}.json`, 'Theme data')
+
+// Get aggregated perf metrics over time by reading already processed data
+console.log("**************************************************");
+console.log("*** Reading processed files to get aggregated perf over time...");
+const currentReportedMonths = Array(6).fill(0).map((_, i) => {
+  const newDate = new Date(new Date().setMonth(new Date().getMonth() - i))
+  return getDateFileString(new Date(newDate))
+}).sort();
+
+const monthlyAggrData = currentReportedMonths.map(date => {
+  const file = `${CACHE_DIR}/${date}.json`
+  const fileData = readDataFile(file)
+
+  // Early exit if no file data (file doesn't exist)
+  if (!fileData) {
+    console.log(`*** Skipping ${date} file with no data!`);
+    return
+  }
+
+  return {
+    month: currentMonths[currentReportedMonths.indexOf(date)],
+    data: aggrPerfDataByMonth(fileData.aggregations),
+  }
+})
+
+console.log('*** Munging aggregated data...');
+const aggrData = Object.fromEntries(
+  METRICS.map(metric => [metric, {
+      mobile: {},
+      desktop: {},
+    }]
+  )
+)
+
+monthlyAggrData.forEach(({month, data}) => {
+  CLIENTS.forEach(client => {
+    data[client].forEach(({name, median}) => {
+      const metric = getKeyByContainsValue(METRIC_LABELS, name)
+      aggrData[metric][client][month] = parseFloat(median)
+    })
+  })
+})
+
+console.log('*** Creating charts for aggregated data...');
+const aggrCharts = {}
+
+for (const metric in aggrData) {
+  const data = aggrData[metric]
+  aggrCharts[metric] = getMultiLineSvg(data, currentMonths, currentMonthsReadable, METRIC_LABELS[metric].name)
+}
+
+console.log('*** Writing aggregated charts file...');
+writeDataFile(aggrCharts, CACHE_DIR, `0_aggrCharts.json`, 'Final aggregation charts')
+console.log('*** Done.');
+console.log("**************************************************");

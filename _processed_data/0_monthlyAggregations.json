@@ -1,0 +1,368 @@
+[
+  {
+    "month": "2024_11",
+    "data": {
+      "mobile": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "36.1",
+          "median": "81.3",
+          "max": "97.8"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "66.3",
+          "median": "91.8",
+          "max": "98.7"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "44.6",
+          "median": "94.6",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "55.8",
+          "median": "93.5",
+          "max": "100.0"
+        }
+      ],
+      "desktop": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "15.9",
+          "median": "81.2",
+          "max": "100.0"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "71.8",
+          "median": "97.3",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "16.9",
+          "median": "86.5",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "96.5",
+          "median": "99.8",
+          "max": "100.0"
+        }
+      ]
+    }
+  },
+  {
+    "month": "2024_12",
+    "data": {
+      "mobile": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "34.5",
+          "median": "83.6",
+          "max": "97.0"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "69.7",
+          "median": "93.0",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "40.5",
+          "median": "94.7",
+          "max": "99.1"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "54.1",
+          "median": "95.1",
+          "max": "100.0"
+        }
+      ],
+      "desktop": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "16.9",
+          "median": "84.0",
+          "max": "100.0"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "77.0",
+          "median": "98.1",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "17.5",
+          "median": "88.9",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "95.3",
+          "median": "99.8",
+          "max": "100.0"
+        }
+      ]
+    }
+  },
+  {
+    "month": "2025_01",
+    "data": {
+      "mobile": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "42.5",
+          "median": "84.3",
+          "max": "97.2"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "72.2",
+          "median": "93.0",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "49.4",
+          "median": "94.7",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "53.1",
+          "median": "95.3",
+          "max": "100.0"
+        }
+      ],
+      "desktop": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "16.6",
+          "median": "83.5",
+          "max": "98.3"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "79.5",
+          "median": "97.7",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "17.7",
+          "median": "87.3",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "95.9",
+          "median": "99.8",
+          "max": "100.0"
+        }
+      ]
+    }
+  },
+  {
+    "month": "2025_02",
+    "data": {
+      "mobile": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "43.0",
+          "median": "83.2",
+          "max": "97.1"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "72.6",
+          "median": "92.0",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "48.4",
+          "median": "94.9",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "49.2",
+          "median": "95.2",
+          "max": "100.0"
+        }
+      ],
+      "desktop": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "14.8",
+          "median": "82.7",
+          "max": "98.1"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "77.3",
+          "median": "97.3",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "15.3",
+          "median": "87.4",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "96.9",
+          "median": "99.8",
+          "max": "100.0"
+        }
+      ]
+    }
+  },
+  {
+    "month": "2025_03",
+    "data": {
+      "mobile": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "46.5",
+          "median": "84.3",
+          "max": "100.0"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "70.9",
+          "median": "92.2",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "52.1",
+          "median": "95.0",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "50.4",
+          "median": "95.2",
+          "max": "100.0"
+        }
+      ],
+      "desktop": [
+        {
+          "name": "All Core Web Vitals (CWV)",
+          "min": "14.9",
+          "median": "83.0",
+          "max": "98.4"
+        },
+        {
+          "name": "Largest Contentful Paint (LCP)",
+          "min": "72.8",
+          "median": "97.0",
+          "max": "100.0"
+        },
+        {
+          "name": "Cumulative Layout Shift (CLS)",
+          "min": "15.9",
+          "median": "87.5",
+          "max": "100.0"
+        },
+        {
+          "name": "Interaction to Next Paint (INP)",
+          "min": "95.6",
+          "median": "99.9",
+          "max": "100.0"
+        }
+      ]
+    }
+  },
+  {
+    "month": "2025_04",
+    "data": {
+      "mobile": [
+        {
+          "name": "All Core Web Vitals",
+          "abbreviation": "All good",
+          "min": 27.5,
+          "p25": 79.5,
+          "median": 84.8,
+          "p75": 89.9,
+          "max": 97.1
+        },
+        {
+          "name": "Largest Contentful Paint",
+          "abbreviation": "Good LCP",
+          "min": 71.2,
+          "p25": 89.5,
+          "median": 93.4,
+          "p75": 96.1,
+          "max": 100
+        },
+        {
+          "name": "Cumulative Layout Shift",
+          "abbreviation": "Good CLS",
+          "min": 43.9,
+          "p25": 91.1,
+          "median": 95.4,
+          "p75": 97.3,
+          "max": 100
+        },
+        {
+          "name": "Interaction to Next Paint",
+          "abbreviation": "Good INP",
+          "min": 41.4,
+          "p25": 92,
+          "median": 94.9,
+          "p75": 97.1,
+          "max": 100
+        }
+      ],
+      "desktop": [
+        {
+          "name": "All Core Web Vitals",
+          "abbreviation": "All good",
+          "min": 15.8,
+          "p25": 71.3,
+          "median": 83.9,
+          "p75": 90.6,
+          "max": 100
+        },
+        {
+          "name": "Largest Contentful Paint",
+          "abbreviation": "Good LCP",
+          "min": 77.4,
+          "p25": 95,
+          "median": 97.8,
+          "p75": 98.9,
+          "max": 100
+        },
+        {
+          "name": "Cumulative Layout Shift",
+          "abbreviation": "Good CLS",
+          "min": 16.3,
+          "p25": 76.2,
+          "median": 88.6,
+          "p75": 93.6,
+          "max": 100
+        },
+        {
+          "name": "Interaction to Next Paint",
+          "abbreviation": "Good INP",
+          "min": 94.4,
+          "p25": 99.4,
+          "median": 99.8,
+          "p75": 100,
+          "max": 100
+        }
+      ]
+    }
+  }
+]
