@@ -411,7 +411,7 @@ const aggrCharts = {}
 
 for (const metric in aggrData) {
   const data = aggrData[metric]
-  aggrCharts[metric] = getMultiLineSvg(data, currentMonths, currentMonthsReadable, METRIC_LABELS[metric].name)
+  aggrCharts[metric] = getMultiLineSvg(data, currentMonths, currentMonthsReadable, METRIC_LABELS[metric].name, {min: 70, max: 100})
 }
 
 console.log('*** Writing aggregated charts file...');

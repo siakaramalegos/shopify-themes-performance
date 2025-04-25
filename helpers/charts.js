@@ -146,7 +146,7 @@ function getLineSvg(monthlyData, currentMonthsReadable, animation = false) {
 }
 
 // Line chart (for origins by month)
-function getMultiLineSvg(data, months, monthsReadable, ariaDescriptor = 'Origins', animation = false) {
+function getMultiLineSvg(data, months, monthsReadable, ariaDescriptor = 'Origins', yMinMax, animation = false) {
   // In SSR mode the first container parameter is not required
   let chart = echarts.init(null, null, {
     renderer: 'svg', // must use SVG rendering mode
@@ -154,6 +154,14 @@ function getMultiLineSvg(data, months, monthsReadable, ariaDescriptor = 'Origins
     width: 650, // need to specify height and width
     height: 350
   });
+
+  const yAxis = {
+    type: 'value'
+  }
+  if (yMinMax) {
+    yAxis.min = yMinMax.min
+    yAxis.max = yMinMax.max
+  }
 
   const clients = [
     {
@@ -189,9 +197,7 @@ function getMultiLineSvg(data, months, monthsReadable, ariaDescriptor = 'Origins
       nameLocation: 'center',
       nameTextStyle: { padding: [8, 0, 0, 0] },
     },
-    yAxis: {
-      type: 'value'
-    },
+    yAxis,
     legend: {
       data: ['mobile', 'desktop'],
     },
@@ -206,7 +212,7 @@ function getMultiLineSvg(data, months, monthsReadable, ariaDescriptor = 'Origins
 
   return {
     chart: svgStr,
-    aria: `${ariaDescriptor} by month line chart for the months ${monthsReadable.join(', ')}. The mobile data is: ${series[0].data.join(', ')} origins. On desktop, the data is: ${series[1].data.join(', ')} origins.`
+    aria: `${ariaDescriptor} by month line chart for the months ${monthsReadable.join(', ')}. The mobile data is: ${series[0].data.join(', ')}. On desktop, the data is: ${series[1].data.join(', ')}.`
   }
 }
 

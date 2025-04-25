@@ -58,7 +58,51 @@ description: How Shopify themes performed as a group on Core Web Vitals last mon
 </section>
 
 <section class="content flow max-ch">
-  <h2>Number of Shopify websites</h2>
+  <h2>Median % passing all CWV over time</h2>
+  <p>For all themes with performance data, the median percent of websites passing all Core Web Vitals (CWV) for each month.</p>
+  <div class="chart-flex">
+    {{ metaData.aggrCharts.passingCWV.chart | safe }}
+    <p class="visually-hidden">
+      {{ metaData.aggrCharts.passingCWV.aria }}
+    </p>
+  </div>
+</section>
+
+<section class="content flow max-ch">
+  <h2>Median % passing LCP over time</h2>
+  <p>For all themes with performance data, the median percent of websites passing Largest Contentful Paint (LCP) for each month.</p>
+  <div class="chart-flex">
+    {{ metaData.aggrCharts.passingLCP.chart | safe }}
+    <p class="visually-hidden">
+      {{ metaData.aggrCharts.passingLCP.aria }}
+    </p>
+  </div>
+</section>
+
+<section class="content flow max-ch">
+  <h2>Median % passing CLS over time</h2>
+  <p>For all themes with performance data, the median percent of websites passing Cumulative Layout Shift (CLS) for each month.</p>
+  <div class="chart-flex">
+    {{ metaData.aggrCharts.passingCLS.chart | safe }}
+    <p class="visually-hidden">
+      {{ metaData.aggrCharts.passingCLS.aria }}
+    </p>
+  </div>
+</section>
+
+<section class="content flow max-ch">
+  <h2>Median % passing INP over time</h2>
+  <p>For all themes with performance data, the median percent of websites passing Interaction to Next Paint (INP) for each month.</p>
+  <div class="chart-flex">
+    {{ metaData.aggrCharts.passingINP.chart | safe }}
+    <p class="visually-hidden">
+      {{ metaData.aggrCharts.passingINP.aria }}
+    </p>
+  </div>
+</section>
+
+<section class="content flow max-ch">
+  <h2>Number of Shopify websites over time</h2>
   <p>How many websites (origins) were included in this analysis for each month. This is the total number of Shopify websites with or without a theme store theme.</p>
   <div class="chart-flex">
     {{ metaData.totalOriginsChart.chart | safe }}
